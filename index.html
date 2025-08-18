@@ -4,36 +4,115 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>اتحاد طب بشري كفر الشيخ — البداية</title>
+
+<!-- ===== Theme v2 (Glass + Gradient) ===== -->
 <style>
-:root{--bg:#0b1220;--card:#0e1626;--txt:#eaf2ff;--mut:#9fb3c8;--bor:#1e2b46}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.7 system-ui,Segoe UI,Arial}
-.topbar{position:sticky;top:0;background:#0b1220cc;backdrop-filter:blur(8px);border-bottom:1px solid var(--bor);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-.brand{font-weight:800}
-.container{max-width:900px;margin:0 auto;padding:14px}
-.card{background:var(--card);border:1px solid var(--bor);border-radius:16px;padding:14px}
-.bottom{position:sticky;bottom:0;display:flex;justify-content:space-around;gap:8px;background:#0b1220ee;border-top:1px solid var(--bor);padding:10px}
-.btn{border:1px solid var(--bor);border-radius:12px;background:#0c1a2e;color:#fff;padding:10px 14px}
-.muted{color:var(--mut);font-size:14px}
+:root{
+  --bg1:#0b1020; --bg2:#101a35;
+  --card:rgba(255,255,255,.06);
+  --blur:10px;
+  --txt:#eaf2ff; --mut:#9fb3c8; --bor:rgba(255,255,255,.12);
+  --accent:#4dd0e1; --accent2:#8b5cf6;
+}
+:root.light{
+  --bg1:#eef2ff; --bg2:#ffffff;
+  --card:rgba(255,255,255,.8);
+  --txt:#0f172a; --mut:#475569; --bor:rgba(0,0,0,.08);
+  --accent:#0ea5e9; --accent2:#7c3aed;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font:16px/1.7 system-ui,Segoe UI,Arial;
+  color:var(--txt);
+  background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
+}
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 16px;
+  backdrop-filter:blur(var(--blur));
+  background:linear-gradient(160deg,rgba(0,0,0,.35),rgba(0,0,0,.15));
+  border-bottom:1px solid var(--bor);
+}
+.brand{font-weight:800; letter-spacing:.3px}
+.container{max-width:960px;margin:0 auto;padding:16px}
+.view.hidden{display:none}
+.card{
+  background:var(--card);
+  border:1px solid var(--bor);
+  border-radius:18px;
+  padding:14px;
+  backdrop-filter:blur(var(--blur));
+  box-shadow:0 10px 30px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.05);
+  margin-bottom:14px;
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:740px){.grid{grid-template-columns:1fr}}
+textarea,input,select,button{
+  border:1px solid var(--bor); border-radius:12px;
+  background:rgba(0,0,0,.25); color:var(--txt); padding:10px 12px; outline:none;
+  backdrop-filter:blur(4px);
+}
+button{
+  cursor:pointer; transition:transform .06s ease, filter .12s ease;
+  background:linear-gradient(135deg,
+            color-mix(in srgb, var(--accent) 40%, transparent),
+            color-mix(in srgb, var(--accent2) 30%, transparent));
+  border:1px solid var(--bor); border-radius:12px; color:#fff; padding:10px 14px;
+}
+button:hover{filter:brightness(1.1)} button:active{transform:translateY(1px)}
+.muted{color:var(--mut);font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.bottom{
+  position:sticky; bottom:0; z-index:9;
+  display:flex; justify-content:space-around; gap:8px;
+  padding:12px;
+  background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.15));
+  border-top:1px solid var(--bor); backdrop-filter:blur(var(--blur));
+}
+.bottom button{flex:1; text-align:center}
+.kbd{background:rgba(255,255,255,.08);border:1px solid var(--bor);border-radius:8px;padding:2px 6px;font-size:12px}
 </style>
 </head>
 <body>
+
 <header class="topbar">
   <div class="brand">اتحاد طب بشري كفر الشيخ</div>
-  <div class="muted">Step 1 ✓</div>
+  <div class="kbd">✓ Step 1</div>
 </header>
 
 <main class="container">
-  <div class="card">
-    <h2>جاهزين 🧱</h2>
-    <p>دي نسخة البداية علشان نتأكد إن <b>GitHub Pages</b> شغّال. بعد ما الرابط يشتغل هنضيف تسجيل الدخول، البوستات، البروفايل، QR… إلخ.</p>
-    <p class="muted">لو الصفحة دي ظهرت من الرابط العام، يبقى تمام ونكمل الخطوة الجاية.</p>
-  </div>
+  <section id="view-home">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="font-size:38px">🧱</div>
+        <div>
+          <h2 style="margin:0 0 6px">جاهزين</h2>
+          <p style="margin:0">
+            دي نسخة البداية علشان نتأكد إن <b>GitHub Pages</b> شغّال. بعد كده هنضيف:
+            تسجيل الدخول، البوستات، البروفايل، QR… إلخ.
+          </p>
+          <p class="muted" style="margin:.5rem 0 0">
+            لو الصفحة دي ظهرت من الرابط العام، يبقى تمام وننتقل للخطوة 2 (Firebase).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <nav class="bottom">
-  <button class="btn">🏠 عام</button>
-  <button class="btn">👤 بروفايل</button>
-  <button class="btn">⚙️ إعدادات</button>
+  <button>🏠 عام</button>
+  <button>👤 بروفايل</button>
+  <button>⚙️ إعدادات</button>
 </nav>
+
+<script>
+/* لو حابب تجرّب الوضع الفاتح افتراضيًا:
+   localStorage.setItem('theme','light'); */
+if(localStorage.getItem('theme')==='light'){
+  document.documentElement.classList.add('light');
+}
+</script>
 </body>
 </html>
