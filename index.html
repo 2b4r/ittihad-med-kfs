@@ -2,24 +2,22 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>اتحاد طب بشري كفر الشيخ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-i18n="title">اتحاد طب بشري كفر الشيخ</title>
 
-<!-- ===== Theme v3 (No‑Blue • Emerald + Amber) ===== -->
 <style>
 :root{
   --bg1:#0e0f11; --bg2:#121316;
   --card:rgba(255,255,255,.05);
   --txt:#f2f3f4; --mut:#a9adb3; --bor:rgba(255,255,255,.10);
   --ring:rgba(16,185,129,.35);
-  --acc1:#10b981; --acc2:#f59e0b;            /* Emerald + Amber */
+  --acc1:#10b981; --acc2:#f59e0b;
   --shadow:0 10px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04);
   --radius-xl:18px; --radius-lg:14px; --radius-md:12px;
   --pad:14px; --gap:10px; --blur:10px;
 }
 :root.light{
-  --bg1:#fbfbfb; --bg2:#ffffff;
-  --card:rgba(255,255,255,.92);
+  --bg1:#fbfbfb; --bg2:#ffffff; --card:rgba(255,255,255,.92);
   --txt:#171717; --mut:#5b6066; --bor:rgba(0,0,0,.08);
   --ring:rgba(245,158,11,.35);
   --acc1:#16a34a; --acc2:#ea580c;
@@ -32,87 +30,45 @@ body{
   background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
-
-/* Topbar */
-.topbar{
-  position:sticky; top:0; z-index:20;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:12px 16px;
-  background:linear-gradient(160deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
-  backdrop-filter:blur(var(--blur));
-  border-bottom:1px solid var(--bor);
-}
-.brand{font-weight:800; letter-spacing:.2px}
-.badge{border:1px solid var(--bor); border-radius:999px; padding:4px 10px;
-  background:rgba(255,255,255,.06); color:var(--mut); font-size:12px}
-
-/* Layout */
-.container{max-width:960px; margin:0 auto; padding:16px}
+.topbar{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;background:linear-gradient(160deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
+  backdrop-filter:blur(var(--blur));border-bottom:1px solid var(--bor)}
+.brand{font-weight:800;letter-spacing:.2px}
+.badge{border:1px solid var(--bor);border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.06);color:var(--mut);font-size:12px}
+.container{max-width:960px;margin:0 auto;padding:16px}
 .view.hidden{display:none}
-
-/* Cards */
-.card{
-  background:var(--card); border:1px solid var(--bor); border-radius:var(--radius-xl);
-  padding:var(--pad); box-shadow:var(--shadow); backdrop-filter:blur(var(--blur));
-  transition:transform .12s, box-shadow .2s, border-color .2s;
-}
+.card{background:var(--card);border:1px solid var(--bor);border-radius:var(--radius-xl);
+  padding:var(--pad);box-shadow:var(--shadow);backdrop-filter:blur(var(--blur));transition:transform .12s}
 .card:hover{transform:translateY(-1px)}
 .separator{height:1px;background:var(--bor);margin:10px 0;border-radius:999px}
-
-/* Grid */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
 @media(max-width:760px){.grid{grid-template-columns:1fr}}
-
-/* Inputs & Buttons */
-textarea,input,select,button{
-  border:1px solid var(--bor); border-radius:var(--radius-md);
-  background:rgba(0,0,0,.18); color:var(--txt); padding:10px 12px; outline:none;
-  transition:border-color .15s, box-shadow .15s, background .2s;
-}
-textarea{min-height:100px; resize:vertical}
-input:focus,textarea:focus,select:focus{
-  border-color:color-mix(in srgb,var(--acc1) 45%,#000);
-  box-shadow:0 0 0 4px var(--ring);
-}
-button{
-  cursor:pointer; border-radius:var(--radius-lg); font-weight:600;
-  background:linear-gradient(135deg,
-    color-mix(in srgb,var(--acc1) 55%, transparent),
-    color-mix(in srgb,var(--acc2) 45%, transparent));
-  color:#fff; border:1px solid var(--bor); padding:10px 14px;
-  box-shadow:0 6px 20px rgba(0,0,0,.18);
-}
+textarea,input,select,button{border:1px solid var(--bor);border-radius:var(--radius-md);
+  background:rgba(0,0,0,.18);color:var(--txt);padding:10px 12px;outline:none;transition:.15s}
+textarea{min-height:100px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:color-mix(in srgb,var(--acc1) 45%,#000);box-shadow:0 0 0 4px var(--ring)}
+button{cursor:pointer;border-radius:var(--radius-lg);font-weight:600;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--acc1) 55%,transparent),color-mix(in srgb,var(--acc2) 45%,transparent));
+  color:#fff;border:1px solid var(--bor);padding:10px 14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 button:hover{filter:brightness(1.04)} button:active{transform:translateY(1px)}
-button.ghost{background:rgba(255,255,255,.04); color:var(--txt)}
-.muted{color:var(--mut); font-size:12.5px}
-.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-
-/* Bottom nav */
-.bottom{
-  position:sticky; bottom:0; z-index:15;
-  display:flex; justify-content:space-around; gap:10px;
-  padding:12px;
-  background:linear-gradient(0deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
-  border-top:1px solid var(--bor); backdrop-filter:blur(var(--blur));
-}
-.bottom button{flex:1; text-align:center}
-.bottom .active{box-shadow:0 0 0 3px var(--ring) inset}
-
-/* Small ui bits */
-.kbd{background:rgba(255,255,255,.06);border:1px solid var(--bor);
-  border-radius:8px;padding:2px 6px;font-size:12px;color:var(--mut)}
-h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
+button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
+.muted{color:var(--mut);font-size:12.5px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.bottom{position:sticky;bottom:0;z-index:15;display:flex;justify-content:space-around;gap:10px;padding:12px;
+  background:linear-gradient(0deg,rgba(0,0,0,.28),rgba(0,0,0,.12));border-top:1px solid var(--bor);backdrop-filter:blur(var(--blur))}
+.bottom button{flex:1;text-align:center}.bottom .active{box-shadow:0 0 0 3px var(--ring) inset}
+.post{border:1px solid var(--bor);border-radius:12px;padding:12px;background:rgba(0,0,0,.18)}
+.alert{position:fixed;left:10px;right:10px;bottom:80px;background:#b91c1c;color:#fff;padding:10px;border-radius:12px;z-index:9999;display:none}
+.alert.show{display:block}
 </style>
 </head>
 <body>
 
-<!-- ===== Top bar ===== -->
 <header class="topbar">
-  <div class="brand">اتحاد طب بشري كفر الشيخ</div>
-  <div class="badge" id="statusBadge">Step 1</div>
+  <div class="brand" data-i18n="title">اتحاد طب بشري كفر الشيخ</div>
+  <div class="badge" id="statusBadge">…</div>
 </header>
 
-<!-- ===== Views ===== -->
 <main class="container">
 
   <!-- عام -->
@@ -121,14 +77,13 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
       <div style="display:flex;align-items:center;gap:14px">
         <div style="font-size:40px">🧱</div>
         <div>
-          <h2 style="margin:0 0 6px">جاهزين</h2>
-          <p style="margin:0">
-            نسخة البداية للتأكد إن <b>GitHub Pages</b> شغّال. دلوقتي ربطنا Firebase كمان،
-            وبعدها هنضيف تسجيل الدخول، البوستات، البروفايل، QR… إلخ.
+          <h2 style="margin:0 0 6px" data-i18n="ready">جاهزين</h2>
+          <p style="margin:0" data-i18n="desc">
+            نسخة البداية للتأكد أن GitHub Pages شغال. دلوقتي ربطنا Firebase كمان، وبعدها هنضيف تسجيل الدخول، البوستات، البروفايل، QR… إلخ.
           </p>
           <div class="separator"></div>
-          <p class="muted" style="margin:0">
-            لو الشارة فوق بقت <span class="kbd">✓ Firebase مرتبط</span> يبقى الربط نجح.
+          <p class="muted" style="margin:0" data-i18n="badgeNote">
+            لو الشارة فوق بقت ✓ Firebase مرتبط يبقى الربط نجح.
           </p>
         </div>
       </div>
@@ -137,58 +92,56 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
     <div class="card">
       <div class="grid">
         <div>
-          <label class="muted">حجم النص</label>
+          <label class="muted" data-i18n="fontSize">حجم النص</label>
           <select id="fontSizeSel">
-            <option value="15.5">افتراضي</option>
-            <option value="16">كبير</option>
-            <option value="17">أكبر</option>
+            <option value="15.5" data-i18n="fsDefault">افتراضي</option>
+            <option value="16" data-i18n="fsLarge">كبير</option>
+            <option value="17" data-i18n="fsXL">أكبر</option>
           </select>
         </div>
         <div>
-          <label class="muted">الوضع</label><br/>
-          <button id="themeToggle" class="ghost">تبديل ليلي/نهاري</button>
+          <label class="muted" data-i18n="theme">الوضع</label><br/>
+          <button id="themeToggle" class="ghost" data-i18n="toggleTheme">تبديل ليلي/نهاري</button>
         </div>
       </div>
-      <p class="muted" style="margin:.6rem 0 0">
+      <p class="muted" style="margin:.6rem 0 0" data-i18n="prefsNote">
         * الاختيارات تتخزّن محليًا — الوظائف المتقدمة هنفعلها بعد تسجيل الدخول.
       </p>
     </div>
 
     <div class="card">
-      <h3 style="margin-top:0">بوستات عامة (placeholder)</h3>
-      <div class="list" id="publicPosts">
-        <div class="post">🎉 مثال: إعلان ندوة تعريفية — <span class="muted">سيتم استبداله لاحقًا ببيانات حقيقية</span></div>
-        <div class="post">🗓️ مثال: فعالية رياضية داخلية — <span class="muted">placeholder</span></div>
-      </div>
+      <h3 style="margin-top:0" data-i18n="publicPosts">بوستات عامة (placeholder)</h3>
+      <div class="post">🎉 <span data-i18n="post1">إعلان ندوة تعريفية — سيتم استبداله لاحقًا ببيانات حقيقية</span></div>
+      <div class="post">🗓️ <span data-i18n="post2">فعالية رياضية داخلية — placeholder</span></div>
     </div>
   </section>
 
   <!-- بروفايل -->
   <section id="view-profile" class="view hidden">
     <div class="card">
-      <h2 style="margin-top:0">بروفايل</h2>
+      <h2 style="margin-top:0" data-i18n="profile">بروفايل</h2>
       <div class="grid">
         <div>
-          <label class="muted">الاسم</label>
-          <input id="pName" placeholder="—">
+          <label class="muted" data-i18n="name">الاسم</label>
+          <input id="pName" placeholder="—" value="Mahmoud Emara">
         </div>
         <div>
-          <label class="muted">البريد</label>
-          <input id="pEmail" placeholder="—">
+          <label class="muted" data-i18n="email">البريد</label>
+          <input id="pEmail" placeholder="—" value="dr.emara10@gmail.com">
         </div>
         <div>
-          <label class="muted">العمر</label>
-          <input id="pAge" type="number" min="16" max="100" placeholder="—">
+          <label class="muted" data-i18n="age">العمر</label>
+          <input id="pAge" type="number" min="16" max="100" placeholder="—" value="18">
         </div>
         <div>
-          <label class="muted">رقم الدفعة</label>
-          <input id="pBatch" placeholder="—">
+          <label class="muted" data-i18n="batch">رقم الدفعة</label>
+          <input id="pBatch" placeholder="—" value="12">
         </div>
       </div>
       <div class="row" style="margin-top:10px">
-        <button class="ghost" id="btnSaveProfile">حفظ (محليًا الآن)</button>
+        <button class="ghost" id="btnSaveProfile" data-i18n="saveLocal">حفظ (محليًا الآن)</button>
       </div>
-      <p class="muted" style="margin:.6rem 0 0">
+      <p class="muted" style="margin:.6rem 0 0" data-i18n="profileNote">
         * في مرحلة تسجيل الدخول هنربط البيانات دي بحساب المستخدم.
       </p>
     </div>
@@ -197,10 +150,10 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
   <!-- إعدادات -->
   <section id="view-settings" class="view hidden">
     <div class="card">
-      <h2 style="margin-top:0">إعدادات</h2>
+      <h2 style="margin-top:0" data-i18n="settings">إعدادات</h2>
       <div class="grid">
         <div>
-          <label class="muted">اللغة</label>
+          <label class="muted" data-i18n="language">اللغة</label>
           <select id="langSel">
             <option value="ar">العربية</option>
             <option value="en">English</option>
@@ -210,11 +163,11 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
           </select>
         </div>
         <div>
-          <label class="muted">تخصيص</label><br/>
-          <button class="ghost" id="btnClearLocal">مسح تفضيلات الجهاز</button>
+          <label class="muted" data-i18n="customize">تخصيص</label><br/>
+          <button class="ghost" id="btnClearLocal" data-i18n="clearPrefs">مسح تفضيلات الجهاز</button>
         </div>
       </div>
-      <p class="muted" style="margin:.6rem 0 0">
+      <p class="muted" style="margin:.6rem 0 0" data-i18n="laterNote">
         * لاحقًا هنضيف لوحة المشرف، والموافقة على الحسابات، ومسح QR للحضور.
       </p>
     </div>
@@ -222,14 +175,15 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
 
 </main>
 
-<!-- ===== Bottom nav ===== -->
 <nav class="bottom">
-  <button class="active" data-view="view-home">🏠 عام</button>
-  <button data-view="view-profile">👤 بروفايل</button>
-  <button data-view="view-settings">⚙️ إعدادات</button>
+  <button class="active" data-view="view-home" data-i18n="tabHome">🏠 عام</button>
+  <button data-view="view-profile" data-i18n="tabProfile">👤 بروفايل</button>
+  <button data-view="view-settings" data-i18n="tabSettings">⚙️ إعدادات</button>
 </nav>
 
-<!-- ===== Client JS (theme + nav + local prefs) ===== -->
+<div class="alert" id="errBox"></div>
+
+<!-- ===== Client JS (nav + theme + i18n + local prefs) ===== -->
 <script>
 (function(){
   // theme boot
@@ -241,7 +195,6 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
     const fs=localStorage.getItem('fs'); if(fs){document.body.style.fontSize=fs+'px'; sel.value=fs;}
     sel.onchange=()=>{document.body.style.fontSize=sel.value+'px'; localStorage.setItem('fs',sel.value);};
   }
-
   // toggle theme
   const tg=document.getElementById('themeToggle');
   if(tg){tg.onclick=()=>{const isLight=document.documentElement.classList.toggle('light');
@@ -270,19 +223,69 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
       };
       localStorage.setItem('profileDraft', JSON.stringify(data));
       save.textContent='✅ تم الحفظ محليًا';
-      setTimeout(()=>save.textContent='حفظ (محليًا الآن)',1500);
+      setTimeout(()=>save.textContent=document.querySelector('[data-i18n="saveLocal"]').textContent,1500);
     };
-    // load draft if exists
     const draft=localStorage.getItem('profileDraft');
     if(draft){
       const d=JSON.parse(draft);
-      ['pName','pEmail','pAge','pBatch'].forEach(id=>{ if(d[id.slice(1).toLowerCase()]) document.getElementById(id).value=d[id.slice(1).toLowerCase()]; });
+      document.getElementById('pName').value=d.name||'';
+      document.getElementById('pEmail').value=d.email||'';
+      document.getElementById('pAge').value=d.age||'';
+      document.getElementById('pBatch').value=d.batch||'';
     }
   }
 
-  // clear local prefs
-  const clr=document.getElementById('btnClearLocal');
-  if(clr){clr.onclick=()=>{localStorage.clear(); location.reload();};}
+  // ====== i18n ======
+  const dict={
+    ar:{title:"اتحاد طب بشري كفر الشيخ",ready:"جاهزين",desc:"نسخة البداية للتأكد أن GitHub Pages شغال. دلوقتي ربطنا Firebase كمان، وبعدها هنضيف تسجيل الدخول، البوستات، البروفايل، QR… إلخ.",
+      badgeNote:"لو الشارة فوق بقت ✓ Firebase مرتبط يبقى الربط نجح.",fontSize:"حجم النص",fsDefault:"افتراضي",fsLarge:"كبير",fsXL:"أكبر",
+      theme:"الوضع",toggleTheme:"تبديل ليلي/نهاري",prefsNote:"* الاختيارات تتخزّن محليًا — الوظائف المتقدمة هنفعلها بعد تسجيل الدخول.",
+      publicPosts:"بوستات عامة (placeholder)",post1:"إعلان ندوة تعريفية — سيتم استبداله لاحقًا ببيانات حقيقية",post2:"فعالية رياضية داخلية — placeholder",
+      profile:"بروفايل",name:"الاسم",email:"البريد",age:"العمر",batch:"رقم الدفعة",saveLocal:"حفظ (محليًا الآن)",profileNote:"* في مرحلة تسجيل الدخول هنربط البيانات دي بحساب المستخدم.",
+      settings:"إعدادات",language:"اللغة",customize:"تخصيص",clearPrefs:"مسح تفضيلات الجهاز",laterNote:"* لاحقًا هنضيف لوحة المشرف، والموافقة على الحسابات، ومسح QR للحضور.",
+      tabHome:"🏠 عام",tabProfile:"👤 بروفايل",tabSettings:"⚙️ إعدادات"},
+    en:{title:"Kafr El-Sheikh Med Students’ Union",ready:"Ready",desc:"Starter page to confirm GitHub Pages is working. We also link Firebase now, then we’ll add Sign‑in, Posts, Profile, QR, etc.",
+      badgeNote:"If the badge shows ✓ Firebase linked, the link is OK.",fontSize:"Font size",fsDefault:"Default",fsLarge:"Large",fsXL:"X‑Large",
+      theme:"Theme",toggleTheme:"Light/Dark",prefsNote:"* Preferences are saved locally. Advanced features require sign‑in.",
+      publicPosts:"Public posts (placeholder)",post1:"Intro seminar announcement — will be replaced with real data",post2:"Internal sports event — placeholder",
+      profile:"Profile",name:"Name",email:"Email",age:"Age",batch:"Batch No.",saveLocal:"Save (local)",profileNote:"* Will be linked to the user after sign‑in stage.",
+      settings:"Settings",language:"Language",customize:"Customize",clearPrefs:"Clear local prefs",laterNote:"* Admin dashboard, approvals and QR attendance come next.",
+      tabHome:"🏠 Home",tabProfile:"👤 Profile",tabSettings:"⚙️ Settings"},
+    es:{title:"Unión de Medicina Kafr El-Sheikh",ready:"Listos",desc:"Página inicial para comprobar GitHub Pages. Ahora enlazamos Firebase; luego inicio de sesión, publicaciones, perfil, QR…",
+      badgeNote:"Si ves ✓ Firebase linked, todo OK.",fontSize:"Tamaño de fuente",fsDefault:"Predeterminado",fsLarge:"Grande",fsXL:"Muy grande",
+      theme:"Tema",toggleTheme:"Claro/Oscuro",prefsNote:"* Preferencias locales. Funciones avanzadas requieren inicio de sesión.",
+      publicPosts:"Publicaciones públicas (placeholder)",post1:"Seminario de introducción — se reemplazará",post2:"Evento deportivo interno — placeholder",
+      profile:"Perfil",name:"Nombre",email:"Correo",age:"Edad",batch:"Promoción",saveLocal:"Guardar (local)",profileNote:"* Se vinculará tras el inicio de sesión.",
+      settings:"Ajustes",language:"Idioma",customize:"Personalizar",clearPrefs:"Borrar preferencias",laterNote:"* Pronto: panel admin, aprobaciones y QR.",
+      tabHome:"🏠 Inicio",tabProfile:"👤 Perfil",tabSettings:"⚙️ Ajustes"},
+    fr:{title:"Union des étudiants en Médecine – Kafr El‑Cheikh",ready:"Prêts",desc:"Page de démarrage pour vérifier GitHub Pages. On lie Firebase, puis Connexion, Posts, Profil, QR…",
+      badgeNote:"Si ✓ Firebase linked s’affiche, c’est bon.",fontSize:"Taille du texte",fsDefault:"Par défaut",fsLarge:"Grand",fsXL:"Très grand",
+      theme:"Thème",toggleTheme:"Clair/Sombre",prefsNote:"* Préférences locales. Les fonctions avancées nécessitent la connexion.",
+      publicPosts:"Publications publiques (bouchon)",post1:"Annonce de séminaire — sera remplacée",post2:"Événement sportif interne — placeholder",
+      profile:"Profil",name:"Nom",email:"Email",age:"Âge",batch:"Promo",saveLocal:"Enregistrer (local)",profileNote:"* Relié après la connexion.",
+      settings:"Paramètres",language:"Langue",customize:"Personnaliser",clearPrefs:"Effacer les préférences",laterNote:"* Bientôt: panneau admin, validations et QR.",
+      tabHome:"🏠 Accueil",tabProfile:"👤 Profil",tabSettings:"⚙️ Réglages"},
+    de:{title:"Medizin‑Studierendenrat Kafr El‑Sheikh",ready:"Bereit",desc:"Startseite zum Prüfen von GitHub Pages. Jetzt verknüpfen wir Firebase; dann Login, Posts, Profil, QR …",
+      badgeNote:"Wenn ✓ Firebase linked erscheint, ist alles ok.",fontSize:"Schriftgröße",fsDefault:"Standard",fsLarge:"Groß",fsXL:"Sehr groß",
+      theme:"Theme",toggleTheme:"Hell/Dunkel",prefsNote:"* Einstellungen lokal gespeichert. Erweiterte Funktionen nach Anmeldung.",
+      publicPosts:"Öffentliche Beiträge (Platzhalter)",post1:"Einführungsseminar — wird ersetzt",post2:"Internes Sportevent — Platzhalter",
+      profile:"Profil",name:"Name",email:"E‑Mail",age:"Alter",batch:"Jahrgang",saveLocal:"Speichern (lokal)",profileNote:"* Nach Anmeldung verknüpft.",
+      settings:"Einstellungen",language:"Sprache",customize:"Anpassen",clearPrefs:"Lokale Einstellungen löschen",laterNote:"* Bald: Admin‑Konsole, Freigaben & QR.",
+      tabHome:"🏠 Start",tabProfile:"👤 Profil",tabSettings:"⚙️ Einstell."}
+  };
+  const i18nElems=[...document.querySelectorAll('[data-i18n]')];
+  function applyLang(lang){
+    const d=dict[lang]||dict.ar;
+    i18nElems.forEach(el=>{ const k=el.getAttribute('data-i18n'); if(d[k]) el.textContent=d[k]; });
+    document.documentElement.lang = lang;
+    document.dir = (lang==='ar' ? 'rtl' : 'ltr');
+    localStorage.setItem('lang', lang);
+    const sel=document.getElementById('langSel'); if(sel) sel.value=lang;
+  }
+  const savedLang=localStorage.getItem('lang')||'ar';
+  applyLang(savedLang);
+  const langSel=document.getElementById('langSel');
+  if(langSel){ langSel.onchange=()=>applyLang(langSel.value); }
 })();
 </script>
 
@@ -292,7 +295,7 @@ h1,h2,h3{margin:.2rem 0 .6rem} h2{font-size:1.35rem}
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
-/* مفاتيح مشروعك (من Firebase Console) */
+// مفاتيح مشروعك
 const firebaseConfig = {
   apiKey: "AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",
   authDomain: "ittihad-med-kfs.firebaseapp.com",
@@ -300,23 +303,35 @@ const firebaseConfig = {
   appId: "1:323302922960:web:3343605d75d2a5147cdcd5"
 };
 
-/* تهيئة + اختبار كتابة مستند */
 (function(){
   const badge = document.getElementById('statusBadge');
+  const errBox = document.getElementById('errBox');
+  function showErr(msg){ errBox.textContent = msg; errBox.classList.add('show'); }
+
   try{
+    badge.textContent = '… جاري ربط Firebase';
     firebase.initializeApp(firebaseConfig);
-    const db=firebase.firestore();
-    if(badge) badge.textContent='… جاري ربط Firebase';
+    const db = firebase.firestore();
+
+    // اختبار كتابة
     db.collection('ping').doc('hello').set({time:new Date().toISOString(), page:location.href})
-      .then(()=>{ if(badge){badge.textContent='✓ Firebase مرتبط';} console.log('Firestore write OK'); })
-      .catch(e=>{ if(badge){badge.textContent='⚠️ Firestore error';} alert('Firestore error: '+e.message); console.error(e); });
+      .then(()=>{ badge.textContent='✓ Firebase مرتبط'; })
+      .catch(e=>{
+        badge.textContent='⚠️ Firestore error';
+        if (e && e.code==='permission-denied') {
+          showErr('Firestore Permission Denied — عدّل القواعد (Rules) مؤقتًا أو فعّل المصادقة.');
+        } else {
+          showErr('Firestore error: ' + (e.message||e));
+        }
+        console.error(e);
+      });
   }catch(e){
-    if(badge) badge.textContent='⚠️ Init error';
-    alert('Firebase init error: '+(e.message||e));
+    badge.textContent='⚠️ Init error';
+    showErr('Firebase init error: ' + (e.message||e));
     console.error(e);
   }
 })();
 </script>
 
 </body>
-        </html>
+</html>
