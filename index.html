@@ -216,6 +216,35 @@ document.querySelectorAll('.bottom button').forEach(btn=>{
   });
 });
 </script>
-https://firebase.google.com/docs/web/setup#available-libraries
+<!-- Firebase (ESM via CDN) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",
+    authDomain: "ittihad-med-kfs.firebaseapp.com",
+    projectId: "ittihad-med-kfs",
+    // storageBucket: "ittihad-med-kfs.appspot.com", // اختياري الآن
+    messagingSenderId: "323302922960",
+    appId: "1:323302922960:web:3343605d75d2a5147cdcd5",
+    measurementId: "G-EKC4FVZH6T"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // اختبار سريع للاتصال بفايرستور
+  try {
+    await setDoc(doc(db, "ping", "hello"), { time: new Date().toISOString(), page: location.href });
+    console.log("Firestore write OK");
+    const badge = document.getElementById('statusBadge');
+    if (badge) badge.textContent = "✓ Firebase linked";
+  } catch (e) {
+    console.error("Firestore error:", e);
+  }
+</script>
 </body>
 </html>
