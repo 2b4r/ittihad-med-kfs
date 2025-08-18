@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title data-i18n="title">اتحاد طب بشري كفر الشيخ</title>
+<meta name="color-scheme" content="dark light" />
 
 <style>
 :root{
@@ -14,14 +15,12 @@
   --acc1:#10b981; --acc2:#f59e0b;
   --shadow:0 10px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04);
   --radius-xl:18px; --radius-lg:14px; --radius-md:12px;
-  --pad:14px; --gap:10px; --blur:10px;
+  --pad:14px; --gap:12px; --blur:10px;
 }
 :root.light{
-  --bg1:#fbfbfb; --bg2:#ffffff; --card:rgba(255,255,255,.92);
-  --txt:#171717; --mut:#5b6066; --bor:rgba(0,0,0,.08);
-  --ring:rgba(245,158,11,.35);
-  --acc1:#16a34a; --acc2:#ea580c;
-  --shadow:0 10px 30px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9);
+  --bg1:#fbfbfb; --bg2:#ffffff; --card:#ffffff;
+  --txt:#171717; --mut:#5b6066; --bor:rgba(0,0,0,.12);
+  --ring:rgba(245,158,11,.35); --shadow:0 10px 30px rgba(0,0,0,.08);
 }
 *{box-sizing:border-box} html,body{height:100%}
 body{
@@ -30,43 +29,56 @@ body{
   background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
-.topbar{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;
+.topbar{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:10px;
   padding:12px 16px;background:linear-gradient(160deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
   backdrop-filter:blur(var(--blur));border-bottom:1px solid var(--bor)}
 .brand{font-weight:800;letter-spacing:.2px}
 .badge{border:1px solid var(--bor);border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.06);color:var(--mut);font-size:12px}
-.container{max-width:960px;margin:0 auto;padding:16px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.container{max-width:1100px;margin:0 auto;padding:16px}
 .view.hidden{display:none}
 .card{background:var(--card);border:1px solid var(--bor);border-radius:var(--radius-xl);
   padding:var(--pad);box-shadow:var(--shadow);backdrop-filter:blur(var(--blur));transition:transform .12s}
 .card:hover{transform:translateY(-1px)}
 .separator{height:1px;background:var(--bor);margin:10px 0;border-radius:999px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
 textarea,input,select,button{border:1px solid var(--bor);border-radius:var(--radius-md);
   background:rgba(0,0,0,.18);color:var(--txt);padding:10px 12px;outline:none;transition:.15s}
+:root.light textarea,:root.light input,:root.light select,:root.light button{background:#f6f7f9}
 textarea{min-height:100px;resize:vertical}
-input:focus,textarea:focus,select:focus{border-color:color-mix(in srgb,var(--acc1) 45%,#000);box-shadow:0 0 0 4px var(--ring)}
+input:focus,textarea:focus,select:focus{border-color:color-mix(in srgb,var(--acc1) 55%,#000);box-shadow:0 0 0 4px var(--ring)}
 button{cursor:pointer;border-radius:var(--radius-lg);font-weight:600;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--acc1) 55%,transparent),color-mix(in srgb,var(--acc2) 45%,transparent));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--acc1) 60%,transparent),color-mix(in srgb,var(--acc2) 40%,transparent));
   color:#fff;border:1px solid var(--bor);padding:10px 14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
-button:hover{filter:brightness(1.04)} button:active{transform:translateY(1px)}
-button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
+button:hover{filter:brightness(1.05)} button:active{transform:translateY(1px)}
+button.ghost{background:rgba(255,255,255,.08);color:var(--txt)}
 .muted{color:var(--mut);font-size:12.5px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.bottom{position:sticky;bottom:0;z-index:15;display:flex;justify-content:space-around;gap:10px;padding:12px;
+.bottom{position:sticky;bottom:0;z-index:30;display:flex;justify-content:space-around;gap:10px;padding:12px;
   background:linear-gradient(0deg,rgba(0,0,0,.28),rgba(0,0,0,.12));border-top:1px solid var(--bor);backdrop-filter:blur(var(--blur))}
 .bottom button{flex:1;text-align:center}.bottom .active{box-shadow:0 0 0 3px var(--ring) inset}
-.post{border:1px solid var(--bor);border-radius:12px;padding:12px;background:rgba(0,0,0,.18)}
+.post{border:1px solid var(--bor);border-radius:12px;padding:12px;background:rgba(0,0,0,.16)}
 .alert{position:fixed;left:10px;right:10px;bottom:80px;background:#b91c1c;color:#fff;padding:10px;border-radius:12px;z-index:9999;display:none}
 .alert.show{display:block}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.45);z-index:50}
+.modal .box{width:min(560px,94vw);background:var(--card);border:1px solid var(--bor);
+  border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.modal h3{margin-top:0}
+.note{font-size:12px;color:var(--mut)}
 </style>
 </head>
 <body>
 
 <header class="topbar">
   <div class="brand" data-i18n="title">اتحاد طب بشري كفر الشيخ</div>
-  <div class="badge" id="statusBadge">…</div>
+  <div class="actions">
+    <div class="badge" id="statusBadge">…</div>
+    <button id="btnOpenAuth" class="ghost">تسجيل الدخول</button>
+    <button id="btnSignOut" class="ghost" style="display:none">تسجيل الخروج</button>
+  </div>
 </header>
 
 <main class="container">
@@ -79,7 +91,7 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
         <div>
           <h2 style="margin:0 0 6px" data-i18n="ready">جاهزين</h2>
           <p style="margin:0" data-i18n="desc">
-            نسخة البداية للتأكد أن GitHub Pages شغال. دلوقتي ربطنا Firebase كمان، وبعدها هنضيف تسجيل الدخول، البوستات، البروفايل، QR… إلخ.
+            نسخة البداية للتأكد أن GitHub Pages شغال. دلوقتي ربطنا Firebase، وبعدها هنضيف البوستات، البروفايل، QR… إلخ.
           </p>
           <div class="separator"></div>
           <p class="muted" style="margin:0" data-i18n="badgeNote">
@@ -105,7 +117,7 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
         </div>
       </div>
       <p class="muted" style="margin:.6rem 0 0" data-i18n="prefsNote">
-        * الاختيارات تتخزّن محليًا — الوظائف المتقدمة هنفعلها بعد تسجيل الدخول.
+        * الاختيارات تتخزّن محليًا — الوظائف المتقدمة تتطلب تسجيل الدخول.
       </p>
     </div>
 
@@ -123,26 +135,27 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
       <div class="grid">
         <div>
           <label class="muted" data-i18n="name">الاسم</label>
-          <input id="pName" placeholder="—" value="Mahmoud Emara">
+          <input id="pName" placeholder="—">
         </div>
         <div>
           <label class="muted" data-i18n="email">البريد</label>
-          <input id="pEmail" placeholder="—" value="dr.emara10@gmail.com">
+          <input id="pEmail" placeholder="—">
         </div>
         <div>
           <label class="muted" data-i18n="age">العمر</label>
-          <input id="pAge" type="number" min="16" max="100" placeholder="—" value="18">
+          <input id="pAge" type="number" min="16" max="100" placeholder="—">
         </div>
         <div>
           <label class="muted" data-i18n="batch">رقم الدفعة</label>
-          <input id="pBatch" placeholder="—" value="12">
+          <input id="pBatch" placeholder="—">
         </div>
       </div>
       <div class="row" style="margin-top:10px">
         <button class="ghost" id="btnSaveProfile" data-i18n="saveLocal">حفظ (محليًا الآن)</button>
+        <button id="btnSaveToCloud">حفظ على السحابة</button>
       </div>
-      <p class="muted" style="margin:.6rem 0 0" data-i18n="profileNote">
-        * في مرحلة تسجيل الدخول هنربط البيانات دي بحساب المستخدم.
+      <p class="muted" style="margin:.6rem 0 0" id="profileTip">
+        * بعد تسجيل الدخول، «حفظ على السحابة» بيربط بياناتك بالحساب واسم مستخدم فريد.
       </p>
     </div>
   </section>
@@ -168,7 +181,7 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
         </div>
       </div>
       <p class="muted" style="margin:.6rem 0 0" data-i18n="laterNote">
-        * لاحقًا هنضيف لوحة المشرف، والموافقة على الحسابات، ومسح QR للحضور.
+        * قريبًا: لوحة المشرف، واعتماد الحسابات، ومسح QR للحضور.
       </p>
     </div>
   </section>
@@ -181,9 +194,39 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
   <button data-view="view-settings" data-i18n="tabSettings">⚙️ إعدادات</button>
 </nav>
 
+<!-- Modal: Auth -->
+<div class="modal" id="authModal" aria-hidden="true">
+  <div class="box">
+    <div class="row" style="justify-content:space-between">
+      <h3 style="margin:0">تسجيل الدخول</h3>
+      <button id="btnCloseAuth" class="ghost">✖</button>
+    </div>
+    <div class="grid" style="margin-top:8px">
+      <div>
+        <label class="muted">الاسم (سيُحجز كاسم مستخدم فريد)</label>
+        <input id="authName" placeholder="أدخل اسمك">
+      </div>
+      <div>
+        <label class="muted">البريد الإلكتروني</label>
+        <input id="authEmail" inputmode="email" placeholder="name@email.com">
+      </div>
+      <div>
+        <label class="muted">كلمة المرور</label>
+        <input id="authPass" type="password" placeholder="••••••••">
+      </div>
+      <div class="row">
+        <button id="btnEmailSignUp">إنشاء حساب</button>
+        <button id="btnEmailSignIn" class="ghost">دخول</button>
+        <button id="btnGoogle">دخول عبر Google</button>
+      </div>
+    </div>
+    <div id="authHint" class="note" style="margin-top:8px"></div>
+  </div>
+</div>
+
 <div class="alert" id="errBox"></div>
 
-<!-- ===== Client JS (nav + theme + i18n + local prefs) ===== -->
+<!-- ===== Client (nav + theme + i18n + local prefs) ===== -->
 <script>
 (function(){
   // theme boot
@@ -211,7 +254,7 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
   buttons.forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
   show('view-home');
 
-  // profile local save (placeholder)
+  // profile local save
   const save=document.getElementById('btnSaveProfile');
   if(save){
     save.onclick=()=>{
@@ -235,42 +278,42 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
     }
   }
 
-  // ====== i18n ======
+  // i18n
   const dict={
-    ar:{title:"اتحاد طب بشري كفر الشيخ",ready:"جاهزين",desc:"نسخة البداية للتأكد أن GitHub Pages شغال. دلوقتي ربطنا Firebase كمان، وبعدها هنضيف تسجيل الدخول، البوستات، البروفايل، QR… إلخ.",
+    ar:{title:"اتحاد طب بشري كفر الشيخ",ready:"جاهزين",desc:"نسخة البداية للتأكد أن GitHub Pages شغال. دلوقتي ربطنا Firebase، وبعدها هنضيف البوستات، البروفايل، QR… إلخ.",
       badgeNote:"لو الشارة فوق بقت ✓ Firebase مرتبط يبقى الربط نجح.",fontSize:"حجم النص",fsDefault:"افتراضي",fsLarge:"كبير",fsXL:"أكبر",
-      theme:"الوضع",toggleTheme:"تبديل ليلي/نهاري",prefsNote:"* الاختيارات تتخزّن محليًا — الوظائف المتقدمة هنفعلها بعد تسجيل الدخول.",
+      theme:"الوضع",toggleTheme:"تبديل ليلي/نهاري",prefsNote:"* الاختيارات تتخزّن محليًا — الوظائف المتقدمة تتطلب تسجيل الدخول.",
       publicPosts:"بوستات عامة (placeholder)",post1:"إعلان ندوة تعريفية — سيتم استبداله لاحقًا ببيانات حقيقية",post2:"فعالية رياضية داخلية — placeholder",
-      profile:"بروفايل",name:"الاسم",email:"البريد",age:"العمر",batch:"رقم الدفعة",saveLocal:"حفظ (محليًا الآن)",profileNote:"* في مرحلة تسجيل الدخول هنربط البيانات دي بحساب المستخدم.",
-      settings:"إعدادات",language:"اللغة",customize:"تخصيص",clearPrefs:"مسح تفضيلات الجهاز",laterNote:"* لاحقًا هنضيف لوحة المشرف، والموافقة على الحسابات، ومسح QR للحضور.",
+      profile:"بروفايل",name:"الاسم",email:"البريد",age:"العمر",batch:"رقم الدفعة",saveLocal:"حفظ (محليًا الآن)",
+      settings:"إعدادات",language:"اللغة",customize:"تخصيص",clearPrefs:"مسح تفضيلات الجهاز",laterNote:"* قريبًا: لوحة المشرف، واعتماد الحسابات، ومسح QR للحضور.",
       tabHome:"🏠 عام",tabProfile:"👤 بروفايل",tabSettings:"⚙️ إعدادات"},
-    en:{title:"Kafr El-Sheikh Med Students’ Union",ready:"Ready",desc:"Starter page to confirm GitHub Pages is working. We also link Firebase now, then we’ll add Sign‑in, Posts, Profile, QR, etc.",
-      badgeNote:"If the badge shows ✓ Firebase linked, the link is OK.",fontSize:"Font size",fsDefault:"Default",fsLarge:"Large",fsXL:"X‑Large",
-      theme:"Theme",toggleTheme:"Light/Dark",prefsNote:"* Preferences are saved locally. Advanced features require sign‑in.",
-      publicPosts:"Public posts (placeholder)",post1:"Intro seminar announcement — will be replaced with real data",post2:"Internal sports event — placeholder",
-      profile:"Profile",name:"Name",email:"Email",age:"Age",batch:"Batch No.",saveLocal:"Save (local)",profileNote:"* Will be linked to the user after sign‑in stage.",
-      settings:"Settings",language:"Language",customize:"Customize",clearPrefs:"Clear local prefs",laterNote:"* Admin dashboard, approvals and QR attendance come next.",
+    en:{title:"Kafr El‑Sheikh Med Students’ Union",ready:"Ready",desc:"Starter to confirm GitHub Pages. We link Firebase now; posts, profile and QR come next.",
+      badgeNote:"If you see ✓ Firebase linked, the link is OK.",fontSize:"Font size",fsDefault:"Default",fsLarge:"Large",fsXL:"X‑Large",
+      theme:"Theme",toggleTheme:"Light/Dark",prefsNote:"* Preferences saved locally; advanced features need sign‑in.",
+      publicPosts:"Public posts (placeholder)",post1:"Intro seminar — will be replaced",post2:"Internal sports event — placeholder",
+      profile:"Profile",name:"Name",email:"Email",age:"Age",batch:"Batch",saveLocal:"Save (local)",
+      settings:"Settings",language:"Language",customize:"Customize",clearPrefs:"Clear local",laterNote:"* Admin console, approvals & QR soon.",
       tabHome:"🏠 Home",tabProfile:"👤 Profile",tabSettings:"⚙️ Settings"},
-    es:{title:"Unión de Medicina Kafr El-Sheikh",ready:"Listos",desc:"Página inicial para comprobar GitHub Pages. Ahora enlazamos Firebase; luego inicio de sesión, publicaciones, perfil, QR…",
-      badgeNote:"Si ves ✓ Firebase linked, todo OK.",fontSize:"Tamaño de fuente",fsDefault:"Predeterminado",fsLarge:"Grande",fsXL:"Muy grande",
-      theme:"Tema",toggleTheme:"Claro/Oscuro",prefsNote:"* Preferencias locales. Funciones avanzadas requieren inicio de sesión.",
-      publicPosts:"Publicaciones públicas (placeholder)",post1:"Seminario de introducción — se reemplazará",post2:"Evento deportivo interno — placeholder",
-      profile:"Perfil",name:"Nombre",email:"Correo",age:"Edad",batch:"Promoción",saveLocal:"Guardar (local)",profileNote:"* Se vinculará tras el inicio de sesión.",
-      settings:"Ajustes",language:"Idioma",customize:"Personalizar",clearPrefs:"Borrar preferencias",laterNote:"* Pronto: panel admin, aprobaciones y QR.",
+    es:{title:"Unión de Medicina Kafr El‑Sheikh",ready:"Listos",desc:"Página inicial para comprobar GitHub Pages. Enlazamos Firebase; luego posts, perfil y QR.",
+      badgeNote:"Si ves ✓ Firebase linked, OK.",fontSize:"Tamaño de fuente",fsDefault:"Predeterminado",fsLarge:"Grande",fsXL:"Muy grande",
+      theme:"Tema",toggleTheme:"Claro/Oscuro",prefsNote:"* Preferencias locales; funciones avanzadas requieren inicio de sesión.",
+      publicPosts:"Publicaciones públicas (placeholder)",post1:"Seminario de introducción",post2:"Evento deportivo interno",
+      profile:"Perfil",name:"Nombre",email:"Correo",age:"Edad",batch:"Promoción",saveLocal:"Guardar (local)",
+      settings:"Ajustes",language:"Idioma",customize:"Personalizar",clearPrefs:"Borrar",laterNote:"* Próximo: panel admin y QR.",
       tabHome:"🏠 Inicio",tabProfile:"👤 Perfil",tabSettings:"⚙️ Ajustes"},
-    fr:{title:"Union des étudiants en Médecine – Kafr El‑Cheikh",ready:"Prêts",desc:"Page de démarrage pour vérifier GitHub Pages. On lie Firebase, puis Connexion, Posts, Profil, QR…",
+    fr:{title:"Union Médecine – Kafr El‑Cheikh",ready:"Prêts",desc:"Page de vérif GitHub Pages. On lie Firebase; posts, profil et QR après.",
       badgeNote:"Si ✓ Firebase linked s’affiche, c’est bon.",fontSize:"Taille du texte",fsDefault:"Par défaut",fsLarge:"Grand",fsXL:"Très grand",
-      theme:"Thème",toggleTheme:"Clair/Sombre",prefsNote:"* Préférences locales. Les fonctions avancées nécessitent la connexion.",
-      publicPosts:"Publications publiques (bouchon)",post1:"Annonce de séminaire — sera remplacée",post2:"Événement sportif interne — placeholder",
-      profile:"Profil",name:"Nom",email:"Email",age:"Âge",batch:"Promo",saveLocal:"Enregistrer (local)",profileNote:"* Relié après la connexion.",
-      settings:"Paramètres",language:"Langue",customize:"Personnaliser",clearPrefs:"Effacer les préférences",laterNote:"* Bientôt: panneau admin, validations et QR.",
+      theme:"Thème",toggleTheme:"Clair/Sombre",prefsNote:"* Préférences locales; fonctions avancées nécessitent connexion.",
+      publicPosts:"Publications publiques (bouchon)",post1:"Séminaire d’intro",post2:"Événement sportif interne",
+      profile:"Profil",name:"Nom",email:"Email",age:"Âge",batch:"Promo",saveLocal:"Enregistrer (local)",
+      settings:"Paramètres",language:"Langue",customize:"Personnaliser",clearPrefs:"Effacer",laterNote:"* Bientôt: admin & QR.",
       tabHome:"🏠 Accueil",tabProfile:"👤 Profil",tabSettings:"⚙️ Réglages"},
-    de:{title:"Medizin‑Studierendenrat Kafr El‑Sheikh",ready:"Bereit",desc:"Startseite zum Prüfen von GitHub Pages. Jetzt verknüpfen wir Firebase; dann Login, Posts, Profil, QR …",
-      badgeNote:"Wenn ✓ Firebase linked erscheint, ist alles ok.",fontSize:"Schriftgröße",fsDefault:"Standard",fsLarge:"Groß",fsXL:"Sehr groß",
-      theme:"Theme",toggleTheme:"Hell/Dunkel",prefsNote:"* Einstellungen lokal gespeichert. Erweiterte Funktionen nach Anmeldung.",
-      publicPosts:"Öffentliche Beiträge (Platzhalter)",post1:"Einführungsseminar — wird ersetzt",post2:"Internes Sportevent — Platzhalter",
-      profile:"Profil",name:"Name",email:"E‑Mail",age:"Alter",batch:"Jahrgang",saveLocal:"Speichern (lokal)",profileNote:"* Nach Anmeldung verknüpft.",
-      settings:"Einstellungen",language:"Sprache",customize:"Anpassen",clearPrefs:"Lokale Einstellungen löschen",laterNote:"* Bald: Admin‑Konsole, Freigaben & QR.",
+    de:{title:"Med‑Studierendenrat Kafr El‑Sheikh",ready:"Bereit",desc:"Startseite zur Prüfung. Jetzt Firebase; Posts, Profil & QR folgen.",
+      badgeNote:"Wenn ✓ Firebase linked erscheint, passt es.",fontSize:"Schriftgröße",fsDefault:"Standard",fsLarge:"Groß",fsXL:"Sehr groß",
+      theme:"Theme",toggleTheme:"Hell/Dunkel",prefsNote:"* Lokale Einstellungen; erweiterte Funktionen nach Anmeldung.",
+      publicPosts:"Öffentliche Beiträge (Platzhalter)",post1:"Einführungsseminar",post2:"Internes Sportevent",
+      profile:"Profil",name:"Name",email:"E‑Mail",age:"Alter",batch:"Jahrgang",saveLocal:"Speichern (lokal)",
+      settings:"Einstellungen",language:"Sprache",customize:"Anpassen",clearPrefs:"Löschen",laterNote:"* Bald: Admin & QR.",
       tabHome:"🏠 Start",tabProfile:"👤 Profil",tabSettings:"⚙️ Einstell."}
   };
   const i18nElems=[...document.querySelectorAll('[data-i18n]')];
@@ -286,6 +329,10 @@ button.ghost{background:rgba(255,255,255,.04);color:var(--txt)}
   applyLang(savedLang);
   const langSel=document.getElementById('langSel');
   if(langSel){ langSel.onchange=()=>applyLang(langSel.value); }
+
+  // clear local
+  const clr=document.getElementById('btnClearLocal');
+  if(clr){ clr.onclick=()=>{ localStorage.clear(); location.reload(); }; }
 })();
 </script>
 
@@ -302,45 +349,20 @@ const firebaseConfig = {
   projectId: "ittihad-med-kfs",
   appId: "1:323302922960:web:3343605d75d2a5147cdcd5"
 };
-
-(function(){
-  const badge = document.getElementById('statusBadge');
-  const errBox = document.getElementById('errBox');
-  function showErr(msg){ errBox.textContent = msg; errBox.classList.add('show'); }
-
-  try{
-    badge.textContent = '… جاري ربط Firebase';
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // اختبار كتابة
-    db.collection('ping').doc('hello').set({time:new Date().toISOString(), page:location.href})
-      .then(()=>{ badge.textContent='✓ Firebase مرتبط'; })
-      .catch(e=>{
-        badge.textContent='⚠️ Firestore error';
-        if (e && e.code==='permission-denied') {
-          showErr('Firestore Permission Denied — عدّل القواعد (Rules) مؤقتًا أو فعّل المصادقة.');
-        } else {
-          showErr('Firestore error: ' + (e.message||e));
-        }
-        console.error(e);
-      });
-  }catch(e){
-    badge.textContent='⚠️ Init error';
-    showErr('Firebase init error: ' + (e.message||e));
-    console.error(e);
-  }
-})();
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
 </script>
+
 <script>
 (function(){
   const ADMINS = ['dr.emara10@gmail.com']; // عدّل/زود ايميلات الأدمن
 
-  // عناصر الواجهة
   const badge   = document.getElementById('statusBadge');
+  const errBox  = document.getElementById('errBox');
+  const modal   = document.getElementById('authModal');
   const openBtn = document.getElementById('btnOpenAuth');
   const outBtn  = document.getElementById('btnSignOut');
-  const modal   = document.getElementById('authModal');
   const nameInp = document.getElementById('authName');
   const email   = document.getElementById('authEmail');
   const pass    = document.getElementById('authPass');
@@ -350,112 +372,38 @@ const firebaseConfig = {
   const btnG    = document.getElementById('btnGoogle');
   const btnClose= document.getElementById('btnCloseAuth');
 
-  // Firebase
-  const auth = firebase.auth();
-  const db   = firebase.firestore();
-
-  // Helpers
-  const L = s => (s || '').trim();
-  const lower = s => L(s).toLowerCase();
+  const show   = el => el && (el.style.display = '');
+  const hide   = el => el && (el.style.display = 'none');
+  const L      = s => (s||'').trim();
+  const lower  = s => L(s).toLowerCase();
+  const toast  = msg => { if(hint){ hint.textContent = msg; } };
   const isAdminEmail = (u) => u && ADMINS.includes(lower(u.email||''));
-  const show = el => el && (el.style.display = '');
-  const hide = el => el && (el.style.display = 'none');
-  const toast = msg => { if(hint){ hint.textContent = msg; } };
 
-  function toggleModal(v){ if(!modal) return; modal.style.display = v ? 'block' : 'none'; toast(''); }
+  function toggleModal(v){ if(!modal) return; modal.style.display = v ? 'grid' : 'none'; toast(''); }
   if(openBtn) openBtn.onclick = ()=> toggleModal(true);
   if(btnClose) btnClose.onclick = ()=> toggleModal(false);
 
-  // ========= SIGN UP (Email) مع حجز الاسم الفريد =========
-  if(btnUp) btnUp.onclick = async ()=>{
-    try{
-      const name = L(nameInp && nameInp.value);
-      if(!name || name.length < 2) return toast('⚠️ اكتب اسم صحيح (2 حروف فأكثر)');
-      const emailVal = L(email.value);
-      const passVal  = pass.value;
-
-      // 1) أنشئ الحساب (لو الإيميل مستخدم Firebase هيرجع EMAIL_EXISTS تلقائيًا)
-      const cred = await auth.createUserWithEmailAndPassword(emailVal, passVal);
-      const user = cred.user;
-      const nameKey = lower(name); // مفتاح username
-
-      // 2) احجز الاسم + اكتب user في معاملة واحدة (تمنع السباق)
-      await db.runTransaction(async (tx)=>{
-        const unameRef = db.collection('usernames').doc(nameKey);
-        const userRef  = db.collection('users').doc(user.uid);
-
-        const unameSnap = await tx.get(unameRef);
-        if (unameSnap.exists) {
-          throw new Error('الاسم مستخدم بالفعل');
-        }
-        // لو كله تمام: احجز الاسم لنفس الـuid واكتب ملف المستخدم
-        tx.set(unameRef, { uid: user.uid, at: firebase.firestore.FieldValue.serverTimestamp() });
-        tx.set(userRef, {
-          email: user.email,
-          displayName: name,
-          displayNameLower: nameKey,
-          role: ADMINS.includes(lower(user.email||'')) ? 'admin' : 'user',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge:true });
-      });
-
-      toast('✅ تم إنشاء الحساب وتسجيل الدخول');
-      toggleModal(false);
-    }catch(e){
-      // لو حصل خطأ، ومسجل حساب بالفعل، نعمل signOut علشان ما يفضلش معلق
-      if (auth.currentUser && !auth.currentUser.emailVerified) { /* ignore */ }
-      toast('⚠️ ' + (e && e.message ? e.message : e));
-    }
-  };
-
-  // ========= SIGN IN (Email) =========
-  if(btnIn) btnIn.onclick = async ()=>{
-    try{
-      await auth.signInWithEmailAndPassword(L(email.value), pass.value);
-      toast('✅ تم تسجيل الدخول'); toggleModal(false);
-    }catch(e){ toast('⚠️ ' + e.message); }
-  };
-
-  // ========= Google Sign‑in =========
-  if(btnG) btnG.onclick = async ()=>{
-    try{
-      const provider = new firebase.auth.GoogleAuthProvider();
-      const cred = await auth.signInWithPopup(provider);
-      const user = cred.user;
-
-      // لو أول مرة يدخل Google، خزن ملف user بدون اسم (يقدر يكمّل الاسم لاحقًا)
-      const userRef = db.collection('users').doc(user.uid);
-      const snap = await userRef.get();
-      if(!snap.exists){
-        await userRef.set({
-          email: user.email || '',
-          displayName: user.displayName || '',
-          displayNameLower: lower(user.displayName||''),
-          role: ADMINS.includes(lower(user.email||'')) ? 'admin' : 'user',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge:true });
-      }
-      toggleModal(false);
-    }catch(e){ toast('⚠️ ' + e.message); }
-  };
-
-  // ========= Sign‑out =========
-  if(outBtn) outBtn.onclick = ()=> auth.signOut();
-
-  // ========= حالة الدخول =========
-  auth.onAuthStateChanged(async (user)=>{
+  // شارة الحالة بدون أي كتابة قبل المصادقة
+  auth.onAuthStateChanged(user=>{
     if(user){
-      const admin = isAdminEmail(user);
-      badge.textContent = admin ? `👑 Admin: ${user.email}` : `✓ Logged: ${user.email}`;
-      hide(openBtn); show(outBtn);
-      document.body.classList.toggle('is-admin', admin);
+      badge.textContent = (isAdminEmail(user) ? '👑 ' : '✓ ') + (user.email || user.uid.slice(0,6));
+      show(outBtn); hide(openBtn);
     }else{
       badge.textContent = '✓ Firebase مرتبط';
-      show(openBtn); hide(outBtn);
-      document.body.classList.remove('is-admin');
+      hide(outBtn); show(openBtn);
     }
   });
-})();
-</script>
-</body>
-</html>
+
+  if(outBtn){ outBtn.onclick = ()=>auth.signOut(); }
+
+  // إنشاء حساب + حجز اسم فريد + إنشاء users/{uid} — كله في Transaction
+  async function createOrUpdateUserDoc(user, displayName){
+    const nameKey = lower(displayName);
+    await db.runTransaction(async (tx)=>{
+      const unameRef = db.collection('usernames').doc(nameKey);
+      const userRef  = db.collection('users').doc(user.uid);
+
+      const unameSnap = await tx.get(unameRef);
+      if (unameSnap.exists) throw new Error('الاسم مستخدم بالفعل');
+
+      tx.set(unameRef, { uid:u
