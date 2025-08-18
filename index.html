@@ -1,337 +1,456 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>اتحاد طب بشري كفر الشيخ</title>
-<meta name="theme-color" content="#0e1116"/>
 
+<!-- ====== Favicon / OpenGraph ====== -->
+<link rel="icon" type="image/png" href="logo.png" sizes="32x32">
+<link rel="apple-touch-icon" href="logo.png">
+<meta property="og:title" content="اتحاد طب بشري كفر الشيخ">
+<meta property="og:image" content="logo.png">
+<meta name="theme-color" content="#0b1320">
+
+<!-- ====== Manifest (يُنشأ ديناميكياً أيضاً من JS) ====== -->
+<link rel="manifest" id="man">
 <style>
+/* =======================
+   تصميم عام Modern Glass
+   ======================= */
 :root{
-  --bg1:#0b1016;--bg2:#0f1520;--txt:#e8edf3;--mut:#9aa6b2;
-  --bor:rgba(255,255,255,.12);--card:rgba(255,255,255,.06);
-  --acc:#38bdf8;--ok:#22c55e;--err:#ef4444;--ring:rgba(56,189,248,.35)
+  --bg1:#0b1320; --bg2:#0e1627; --card:rgba(255,255,255,.06);
+  --txt:#e9eef6; --mut:#a6b2c6; --bor:rgba(255,255,255,.12);
+  --ring:rgba(16,185,129,.35); --accent:#10b981; --accent2:#f59e0b;
+  --err:#ef4444; --ok:#22c55e; --warn:#f59e0b;
+  --shadow:0 10px 30px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.05);
+  --radius-xl:18px; --radius-lg:14px; --radius-md:12px; --pad:14px; --gap:12px; --blur:12px;
 }
-*{box-sizing:border-box}html,body{height:100%}
-body{margin:0;font:16px/1.8 ui-rounded,system-ui,Segoe UI,Arial;color:var(--txt);
-background:radial-gradient(1100px 700px at 10% 0%,#0ea5e960 0%,transparent 50%),
-radial-gradient(1100px 700px at 100% 20%,#22c55e40 0%,transparent 55%),
-linear-gradient(160deg,var(--bg1),var(--bg2)) fixed}
-.topbar{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;
-padding:14px 16px;border-bottom:1px solid var(--bor);background:rgba(0,0,0,.35);backdrop-filter:blur(8px)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:900}
-.badge{border:1px solid var(--bor);border-radius:999px;padding:6px 10px;color:var(--mut);background:rgba(255,255,255,.06);font-size:12px}
-.container{max-width:1100px;margin:0 auto;padding:16px}
-.card{background:var(--card);border:1px solid var(--bor);border-radius:16px;padding:16px}
-.sep{height:1px;background:var(--bor);margin:10px 0;border-radius:999px}
+:root.light{
+  --bg1:#f6f8fb; --bg2:#ffffff; --card:rgba(255,255,255,.9);
+  --txt:#0f172a; --mut:#677389; --bor:rgba(0,0,0,.08);
+  --ring:rgba(37,99,235,.25); --accent:#0ea5e9; --accent2:#f59e0b;
+  --shadow:0 12px 26px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font:15.5px/1.75 ui-rounded,system-ui,"Tajawal",Segoe UI,Arial;
+  color:var(--txt);
+  background:radial-gradient(1200px 600px at 20% -10%, #0f1c35 20%, transparent 60%),
+             radial-gradient(1200px 600px at 90% 10%, #09203a 25%, transparent 65%),
+             linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* ===== Topbar ===== */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;justify-content:space-between;
+  padding:12px 16px;background:linear-gradient(160deg,rgba(0,0,0,.35),rgba(0,0,0,.18));
+  backdrop-filter:blur(var(--blur));border-bottom:1px solid var(--bor)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+.brand img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45));border-radius:9px}
+.badge{border:1px solid var(--bor);border-radius:999px;padding:5px 10px;background:rgba(255,255,255,.06);color:var(--mut);font-size:12px;white-space:nowrap}
+
+/* ===== Layout ===== */
+.container{max-width:1080px;margin:0 auto;padding:18px}
+.view{display:none}
+.view.active{display:block}
+.card{background:var(--card);border:1px solid var(--bor);border-radius:var(--radius-xl);
+  padding:var(--pad);box-shadow:var(--shadow);backdrop-filter:blur(var(--blur));transition:transform .12s}
+.card:hover{transform:translateY(-1px)}
+.grid{display:grid;gap:var(--gap)}
+@media(min-width:800px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}}
+.separator{height:1px;background:var(--bor);margin:10px 0;border-radius:999px}
+
+/* ===== Inputs / Buttons ===== */
+label{display:block;margin:2px 0 6px;color:var(--mut)}
+input,select,button,textarea{border:1px solid var(--bor);border-radius:var(--radius-md);
+  background:rgba(0,0,0,.22);color:var(--txt);padding:10px 12px;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:color-mix(in srgb,var(--accent) 45%,#000);box-shadow:0 0 0 4px var(--ring)}
+input.err{border-color:var(--err) !important;box-shadow:0 0 0 3px color-mix(in srgb,var(--err) 40%, transparent)}
+.hint{font-size:12.5px;color:var(--mut)}
+.err-txt{color:var(--err);font-size:13px;margin-top:5px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.btn{cursor:pointer;border-radius:12px;font-weight:700;letter-spacing:.3px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 60%,transparent),color-mix(in srgb,var(--accent2) 40%,transparent));
+  color:#fff;border:1px solid var(--bor);padding:12px 14px;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.btn.ghost{background:rgba(255,255,255,.05);color:var(--txt)}
+.btn.red{background:linear-gradient(135deg,#ef4444,#b91c1c)}
+.btn.green{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.right{float:inline-start}
+.center{text-align:center}
+.small{font-size:12px}
 
-input,select,button{border:1px solid var(--bor);border-radius:12px;background:rgba(255,255,255,.06);color:var(--txt);padding:11px 12px;outline:none;transition:.15s}
-input:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 4px var(--ring)}
-button{cursor:pointer;font-weight:800;background:linear-gradient(135deg,#38bdf8,#22c55e);color:#fff}
-button.ghost{background:rgba(255,255,255,.06);color:var(--txt)}
-button.danger{background:#b91c1c}
-.msg{font-size:12px;color:var(--mut);margin-top:6px}
-.invalid{border-color:var(--err)!important}
-.valid{border-color:var(--ok)!important}
-.eye{position:absolute;inset-inline-end:10px;top:50%;transform:translateY(-50%);user-select:none;cursor:pointer;opacity:.85}
-.field{position:relative}
+/* ===== Forms ===== */
+.form{max-width:520px;margin:24px auto}
+.field{margin-bottom:12px}
+.flex2{display:grid;gap:12px}
+@media(min-width:640px){.flex2{grid-template-columns:1fr 1fr}}
+.pwd-wrap{position:relative}
+.eye{position:absolute;top:50%;inset-inline-end:10px;transform:translateY(-50%);cursor:pointer;opacity:.9}
 
-.bottom{position:sticky;bottom:0;z-index:15;display:flex;gap:12px;justify-content:space-around;padding:14px;border-top:1px solid var(--bor);background:rgba(0,0,0,.35);backdrop-filter:blur(8px)}
-.bottom button{flex:1} .bottom .active{box-shadow:0 0 0 3px var(--ring) inset}
-.view.hidden{display:none}
+/* ===== Bottom Nav ===== */
+.bottom{position:sticky;bottom:0;z-index:15;display:flex;justify-content:space-around;gap:10px;padding:12px;
+  background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.12));border-top:1px solid var(--bor);backdrop-filter:blur(var(--blur))}
+.bottom .tab{flex:1;text-align:center}
+.bottom .tab.active{box-shadow:0 0 0 3px var(--ring) inset;border-radius:12px}
 
-/* Gate (Auth) */
-.gate{position:fixed;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:40}
-.box{width:min(640px,100%);background:rgba(255,255,255,.06);border:1px solid var(--bor);border-radius:18px;padding:16px}
-.tabs{display:flex;gap:8px;border-bottom:1px solid var(--bor);margin-bottom:10px}
-.tab{border:1px solid var(--bor);border-bottom:none;border-radius:12px 12px 0 0;background:rgba(255,255,255,.06);padding:10px 12px;color:var(--mut);cursor:pointer}
-.tab.active{background:rgba(0,0,0,.12);color:var(--txt)}
-.panel{display:none}.panel.show{display:block}
-
-/* toast */
-.toast{position:fixed;left:12px;right:12px;bottom:86px;background:#b91c1c;color:#fff;padding:12px;border-radius:14px;z-index:60;display:none}
+/* ===== Toast / Alert ===== */
+.toast{position:fixed;inset-inline:16px;bottom:90px;z-index:9999;background:#111827;border:1px solid var(--bor);
+  color:#fff;border-radius:12px;padding:10px 12px;display:none}
 .toast.show{display:block}
+.toast.ok{background:#063a2f} .toast.err{background:#3b0d0d}
+
+/* ===== Profile ===== */
+.avatar{width:86px;height:86px;border-radius:50%;border:2px solid var(--bor);object-fit:cover;background:#0b1220}
+.owner{color:#7dd3fc;font-weight:800;white-space:nowrap}
+
+/* ===== Tables / Lists ===== */
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px;align-items:center}
+.kv div{padding:6px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bor);border-radius:10px}
+kbd{background:#111827;border:1px solid var(--bor);border-radius:6px;padding:2px 6px;font:12px/1 system-ui}
+
+/* ===== Helper badges ===== */
+.badge-mini{display:inline-flex;gap:6px;align-items:center;padding:4px 8px;border:1px solid var(--bor);border-radius:999px;background:rgba(255,255,255,.06);font-size:12px;color:var(--mut)}
 </style>
 </head>
 <body>
 
 <header class="topbar">
-  <div class="brand">🏛️ اتحاد طب بشري كفر الشيخ</div>
-  <div id="status" class="badge">…</div>
+  <div class="brand">
+    <img src="logo.png" alt="شعار">
+    <div>
+      <div style="font-weight:800">اتحاد طب بشري كفر الشيخ</div>
+      <div class="small" id="userChip" aria-live="polite" style="color:var(--mut)"></div>
+    </div>
+  </div>
+  <div class="badge" id="statusBadge">…</div>
 </header>
 
-<!-- ===== Gate (Sign Up / Sign In) ===== -->
-<section id="gate" class="gate">
-  <div class="box">
-    <div class="tabs">
-      <button class="tab active" data-tab="up" type="button">إنشاء حساب</button>
-      <button class="tab" data-tab="in" type="button">تسجيل الدخول</button>
+<main class="container">
+
+  <!-- ========= صفحة الدخول ========= -->
+  <section id="page-login" class="view active">
+    <div class="card form">
+      <h2 class="center">تسجيل الدخول</h2>
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input id="loginEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+        <div class="err-txt" id="loginEmailErr"></div>
+      </div>
+      <div class="field pwd-wrap">
+        <label>كلمة السر</label>
+        <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••">
+        <span class="eye" data-eye="loginPass">👁️</span>
+        <div class="err-txt" id="loginPassErr"></div>
+      </div>
+      <div class="field">
+        <label>اللغة</label>
+        <select id="loginLang">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <button class="btn green" id="btnLoginEmail">دخول بالبريد</button>
+      <div class="row" style="justify-content:space-between;margin-top:8px">
+        <a href="#" id="goReset" class="small">نسيت كلمة السر؟</a>
+        <a href="#" id="goRegister" class="small">إنشاء حساب جديد</a>
+      </div>
+      <div class="separator"></div>
+      <button class="btn" id="btnGoogle">دخول بحساب Google</button>
+      <p class="hint center" style="margin-top:10px">* يلزم الموافقة على البريد في بعض الأحيان.</p>
     </div>
+  </section>
 
-    <!-- Sign Up -->
-    <div id="p-up" class="panel show">
-      <div class="grid2">
-        <div class="field">
-          <label class="msg">الإيميل</label>
-          <input id="suEmail" inputmode="email" placeholder="you@example.com">
-          <div class="msg" id="mSuEmail"></div>
-        </div>
-        <div>
-          <label class="msg">اللغة</label>
-          <select id="suLang"><option value="ar">العربية</option><option value="en">English</option></select>
-        </div>
+  <!-- ========= صفحة إنشاء حساب ========= -->
+  <section id="page-register" class="view">
+    <div class="card form">
+      <h2 class="center">إنشاء حساب</h2>
 
+      <div class="flex2">
         <div class="field">
-          <label class="msg">كلمة السر</label>
-          <input id="suPass" type="password" placeholder="••••••••">
-          <span class="eye" data-eye="suPass">👁️</span>
-          <div class="msg" id="mSuPass"></div>
+          <label>الاسم الأول + اسم العائلة</label>
+          <input id="regName" placeholder="الاسم الكامل (≥ 4 حروف)">
+          <div class="err-txt" id="regNameErr"></div>
         </div>
         <div class="field">
-          <label class="msg">تأكيد كلمة السر</label>
-          <input id="suPass2" type="password" placeholder="••••••••">
-          <span class="eye" data-eye="suPass2">👁️</span>
-          <div class="msg" id="mSuPass2"></div>
-        </div>
-
-        <div class="field">
-          <label class="msg">الاسم (اسم + عائلة)</label>
-          <input id="suName" placeholder="محمد أحمد">
-          <div class="msg" id="mSuName"></div>
-        </div>
-        <div class="field">
-          <label class="msg">الموبايل</label>
-          <input id="suPhone" inputmode="tel" placeholder="01xxxxxxxxx">
-          <div class="msg" id="mSuPhone"></div>
-        </div>
-
-        <div class="field">
-          <label class="msg">الدفعة</label>
-          <input id="suBatch" placeholder="مثال: 12">
-          <div class="msg" id="mSuBatch"></div>
+          <label>الموبايل</label>
+          <input id="regPhone" inputmode="numeric" placeholder="01xxxxxxxxx">
+          <div class="err-txt" id="regPhoneErr"></div>
         </div>
       </div>
+
+      <div class="flex2">
+        <div class="field">
+          <label>الدفعة</label>
+          <input id="regBatch" inputmode="numeric" placeholder="مثال: 12">
+          <div class="err-txt" id="regBatchErr"></div>
+        </div>
+        <div class="field">
+          <label>اللغة</label>
+          <select id="regLang"><option value="ar">العربية</option><option value="en">English</option></select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input id="regEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        <div class="err-txt" id="regEmailErr"></div>
+      </div>
+
+      <div class="flex2">
+        <div class="field pwd-wrap">
+          <label>كلمة السر</label>
+          <input id="regPass" type="password" autocomplete="new-password" placeholder="••••••••">
+          <span class="eye" data-eye="regPass">👁️</span>
+          <div class="err-txt" id="regPassErr"></div>
+        </div>
+        <div class="field pwd-wrap">
+          <label>تأكيد كلمة السر</label>
+          <input id="regPass2" type="password" autocomplete="new-password" placeholder="••••••••">
+          <span class="eye" data-eye="regPass2">👁️</span>
+          <div class="err-txt" id="regPass2Err"></div>
+        </div>
+      </div>
+
+      <button class="btn green" id="btnRegister">تسجيل</button>
+      <div class="row" style="justify-content:space-between;margin-top:10px">
+        <a href="#" id="goLoginFromReg" class="small">عندي حساب بالفعل</a>
+      </div>
+      <p class="hint small" style="margin-top:10px">
+        بالضغط على تسجيل، أنت توافق على حفظ بياناتك (الاسم/البريد/الهاتف/الدفعة) لاستخدامها في فعاليات الاتحاد.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========= صفحة نسيان كلمة السر (مع تحقق) ========= -->
+  <section id="page-reset" class="view">
+    <div class="card form">
+      <h2 class="center">استعادة كلمة السر</h2>
+      <div class="field"><label>البريد</label><input id="resetEmail" type="email" placeholder="you@example.com"></div>
+      <div class="flex2">
+        <div class="field"><label>الموبايل</label><input id="resetPhone" inputmode="numeric" placeholder="01xxxxxxxxx"></div>
+        <div class="field"><label>الدفعة</label><input id="resetBatch" inputmode="numeric" placeholder="12"></div>
+      </div>
+      <button class="btn" id="btnReset">تأكيد وإرسال رابط إعادة التعيين</button>
+      <div class="row" style="justify-content:space-between;margin-top:10px">
+        <a href="#" id="goLoginFromReset" class="small">رجوع للدخول</a>
+      </div>
+      <p class="hint small">نتحقق أولاً من تطابق (الموبايل + الدفعة) مع بيانات حسابك قبل إرسال الرابط.</p>
+    </div>
+  </section>
+
+  <!-- ========= الصفحة الرئيسية (بعد الدخول) ========= -->
+  <section id="page-home" class="view">
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h2 style="margin:0">مرحبًا بك</h2>
+        <span class="badge-mini">حالة Firebase: <b id="fbState">—</b></span>
+      </div>
+      <p class="hint" id="welcomeMsg">…</p>
+      <div class="separator"></div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="margin-top:0">أحدث الأخبار</h3>
+          <div id="newsList">
+            <div class="hint">سيتم إضافة منشورات وفعاليات لاحقًا.</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">مختصر سريع</h3>
+          <div class="kv">
+            <div>اسم المستخدم</div><div id="kvName">—</div>
+            <div>البريد</div><div id="kvEmail">—</div>
+            <div>الدفعة</div><div id="kvBatch">—</div>
+            <div>موبايل</div><div id="kvPhone">—</div>
+            <div>الدور</div><div id="kvRole">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= البروفايل ========= -->
+  <section id="page-profile" class="view">
+    <div class="card">
+      <h2 style="margin-top:0">الملف الشخصي</h2>
+      <div class="row" style="gap:18px;align-items:center">
+        <img id="avatar" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect width='100%25' height='100%25' fill='%23111827'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' fill='%23a6b2c6' font-size='22' font-family='system-ui'%3E👤%3C/text%3E%3C/svg%3E" alt="avatar">
+        <div>
+          <div style="font-weight:800" id="pName">—</div>
+          <div class="small" style="color:var(--mut)"><span id="pEmail">—</span> • <span id="pRole">—</span></div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:12px">
+        <div>
+          <label>تغيير الصورة</label>
+          <input type="file" id="fileAvatar" accept="image/*">
+          <div class="hint small">تُصغّر تلقائيًا إلى 256×256 وتُحفظ في الحساب.</div>
+        </div>
+        <div class="flex2">
+          <div>
+            <label>الموبايل</label>
+            <input id="pPhone" placeholder="01xxxxxxxxx">
+          </div>
+          <div>
+            <label>الدفعة</label>
+            <input id="pBatch" placeholder="12">
+          </div>
+        </div>
+      </div>
+
       <div class="row" style="margin-top:12px">
-        <button id="btnUp" type="button" style="flex:1">إنشاء الحساب</button>
+        <button class="btn green" id="btnSaveProfile">حفظ التعديلات</button>
+        <span class="hint" id="saveStatus"></span>
       </div>
-      <div class="sep"></div>
-      <button id="btnGoogleUp" type="button" style="width:100%">إنشاء/دخول بحساب Google</button>
-      <div class="msg" id="hintUp" style="margin-top:8px"></div>
     </div>
+  </section>
 
-    <!-- Sign In -->
-    <div id="p-in" class="panel">
-      <div class="grid2">
-        <div class="field">
-          <label class="msg">الإيميل</label>
-          <input id="siEmail" inputmode="email" placeholder="you@example.com">
-          <div class="msg" id="mSiEmail"></div>
-        </div>
-        <div class="field">
-          <label class="msg">كلمة السر</label>
-          <input id="siPass" type="password" placeholder="••••••••">
-          <span class="eye" data-eye="siPass">👁️</span>
-          <div class="msg" id="mSiPass"></div>
+  <!-- ========= الإعدادات ========= -->
+  <section id="page-settings" class="view">
+    <div class="card">
+      <h2 style="margin-top:0">الإعدادات</h2>
+      <div class="grid grid-3">
+        <div>
+          <label>الوضع</label><br>
+          <button class="btn ghost" id="btnTheme">☀️ / 🌙 تبديل</button>
         </div>
         <div>
-          <label class="msg">اللغة</label>
-          <select id="siLang"><option value="ar">العربية</option><option value="en">English</option></select>
+          <label>اللغة</label><br>
+          <select id="selLang">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div>
+          <label>حجم الخط</label><br>
+          <div class="row">
+            <button class="btn ghost small" data-fs="14">A-</button>
+            <button class="btn ghost small" data-fs="16">A</button>
+            <button class="btn ghost small" data-fs="18">A+</button>
+          </div>
         </div>
       </div>
-      <div class="row" style="margin-top:10px;justify-content:space-between">
-        <button id="btnIn" class="ghost" type="button">دخول</button>
-        <button id="btnForgot" class="ghost" type="button">نسيت كلمة السر؟</button>
+      <div class="separator"></div>
+      <div class="row" style="justify-content:space-between">
+        <button class="btn red" id="btnLogout">تسجيل الخروج</button>
+        <button class="btn ghost" id="btnClear">مسح تفضيلات الجهاز</button>
       </div>
-      <div class="msg" id="hintIn" style="margin-top:8px"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Forgot -->
-<section id="fgBox" class="gate" style="display:none;background:rgba(0,0,0,.7)">
-  <div class="box">
-    <h3 style="margin:.2rem 0 8px">استرجاع كلمة السر</h3>
-    <p class="msg">اكتب الإيميل + الموبايل + الدفعة. لو مطابقين هنرسل رابط التغيير على الإيميل.</p>
-    <div class="grid2">
-      <div><label class="msg">الإيميل</label><input id="fgEmail" inputmode="email"></div>
-      <div><label class="msg">الموبايل</label><input id="fgPhone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
-      <div><label class="msg">الدفعة</label><input id="fgBatch"></div>
-    </div>
-    <div class="row" style="margin-top:10px;justify-content:space-between">
-      <button id="btnFgSend" type="button">تحقق وأرسل الرابط</button>
-      <button id="btnFgClose" class="ghost" type="button">إغلاق</button>
-    </div>
-    <div class="msg" id="hintFg" style="margin-top:8px"></div>
-  </div>
-</section>
-
-<!-- ===== App after login ===== -->
-<main id="app" class="container" style="display:none">
-  <section id="v-home" class="view">
-    <div class="card">
-      <h2 style="margin:0 0 6px">جاهزين</h2>
-      <p>تم تسجيل الدخول بنجاح. سنضيف قريبًا البوستات والحضور بالـQR ولوحة المشرف.</p>
-      <div class="sep"></div>
-      <p class="msg">لو الشارة فوق فيها ✓ مرتبط فكل شيء تمام.</p>
+      <p class="hint small" style="margin-top:8px">* تسجيل الخروج موجود هنا كما طلبت.</p>
     </div>
   </section>
 
-  <section id="v-profile" class="view hidden">
-    <div class="card">
-      <h2 style="margin-top:0">بروفايل</h2>
-      <div class="grid2">
-        <div><label class="msg">الاسم</label><input id="pName"></div>
-        <div><label class="msg">البريد</label><input id="pEmail" disabled></div>
-        <div><label class="msg">الموبايل</label><input id="pPhone"></div>
-        <div><label class="msg">الدفعة</label><input id="pBatch"></div>
-      </div>
-      <div class="row" style="margin-top:10px"><button id="btnSaveProfile" class="ghost" type="button">حفظ (محليًا الآن)</button></div>
-    </div>
-  </section>
-
-  <section id="v-settings" class="view hidden">
-    <div class="card">
-      <h2 style="margin-top:0">إعدادات</h2>
-      <div class="grid2">
-        <div><label class="msg">الوضع</label><button id="themeToggle" class="ghost" type="button">تبديل ليلي/نهاري</button></div>
-        <div><label class="msg">حجم النص</label>
-          <select id="fs"><option value="16">افتراضي</option><option value="17">كبير</option><option value="18">أكبر</option></select>
-        </div>
-        <div><label class="msg">اللغة</label><select id="lang"><option value="ar">العربية</option><option value="en">English</option></select></div>
-        <div><label class="msg">جلسة</label><button id="btnOut" class="danger" type="button" style="width:100%">تسجيل الخروج</button></div>
-      </div>
-      <div class="sep"></div>
-      <button id="clear" class="ghost" type="button">مسح تفضيلات الجهاز</button>
-    </div>
-  </section>
 </main>
 
-<nav id="nav" class="bottom" style="display:none">
-  <button class="active" data-view="v-home" type="button">🏠 عام</button>
-  <button data-view="v-profile" type="button">👤 بروفايل</button>
-  <button data-view="v-settings" type="button">⚙️ إعدادات</button>
+<!-- ===== Bottom Nav (يظهر بعد الدخول) ===== -->
+<nav class="bottom" id="nav" style="display:none">
+  <button class="tab active" data-goto="page-home">🏠 الرئيسية</button>
+  <button class="tab" data-goto="page-profile">👤 بروفايل</button>
+  <button class="tab" data-goto="page-settings">⚙️ إعدادات</button>
 </nav>
 
-<div id="toast" class="toast"></div>
+<!-- ===== Toast ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- ===== Firebase (compat) ===== -->
+<!-- ===== Firebase (Compat) ===== -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
 <script>
-/* ---------- UI helpers ---------- */
-(function(){
-  // tabs
-  const tabs=document.querySelectorAll('.tab'), panels={up:document.getElementById('p-up'),in:document.getElementById('p-in')};
-  tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');Object.values(panels).forEach(p=>p.classList.remove('show'));panels[t.dataset.tab].classList.add('show')});
-  // eyes
-  document.querySelectorAll('.eye').forEach(e=>e.onclick=()=>{const id=e.getAttribute('data-eye'); const i=document.getElementById(id); i.type=(i.type==='password'?'text':'password')});
-  // theme + font
-  const th=localStorage.getItem('theme'); if(th==='light') document.documentElement.classList.add('light');
-  const tgl=document.getElementById('themeToggle'); if(tgl) tgl.onclick=()=>{const isLight=document.documentElement.classList.toggle('light'); localStorage.setItem('theme',isLight?'light':'dark')};
-  const fs=document.getElementById('fs'), saved=localStorage.getItem('fs'); if(saved) document.body.style.fontSize=saved+'px';
-  if(fs){ fs.value=saved||'16'; fs.onchange=()=>{document.body.style.fontSize=fs.value+'px'; localStorage.setItem('fs',fs.value)}}
-  // nav
-  const views=document.querySelectorAll('.view'); const navBtns=document.querySelectorAll('#nav button');
-  function show(id){views.forEach(v=>v.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');navBtns.forEach(b=>b.classList.toggle('active',b.dataset.view===id))}
-  navBtns.forEach(b=>b.onclick=()=>show(b.dataset.view)); show('v-home');
+/* ===============================
+   Firebase Config + Boot
+   (مربوط على مشروعك الحالي)
+   =============================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",
+  authDomain: "ittihad-med-kfs.firebaseapp.com",
+  projectId: "ittihad-med-kfs",
+  appId: "1:323302922960:web:3343605d75d2a5147cdcd5"
+};
+// إيميل المالك
+const OWNER_EMAIL = "dr.emara10@gmail.com";
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+try{ firebase.analytics(); }catch{}
+
+/* ===============================
+   Utilities
+   =============================== */
+const qs = sel => document.querySelector(sel);
+const qsa = sel => [...document.querySelectorAll(sel)];
+const L = s => (s||"").trim();
+const lower = s => L(s).toLowerCase();
+const show = id => (qs(id).style.display="");
+const hide = id => (qs(id).style.display="none");
+const toast = (msg, type="ok")=>{
+  const t=qs("#toast"); t.textContent=msg; t.className="toast show "+type;
+  setTimeout(()=>t.className="toast", 2500);
+};
+function setActive(pageId){
+  qsa(".view").forEach(v=>v.classList.remove("active"));
+  qs("#"+pageId).classList.add("active");
+  qsa(".bottom .tab").forEach(b=>b.classList.toggle("active", b.dataset.goto===pageId));
+}
+
+/* ===============================
+   Theme, Lang, Font
+   =============================== */
+(function bootPrefs(){
+  const man = qs("#man");
+  const manifest = {
+    name:"اتحاد طب بشري كفر الشيخ",
+    short_name:"اتحاد الطب",
+    icons:[{src:"logo.png",sizes:"192x192",type:"image/png"}],
+    start_url:"./", display:"standalone", background_color:"#0b1320", theme_color:"#0b1320"
+  };
+  const blob = new Blob([JSON.stringify(manifest)],{type:"application/json"});
+  man.setAttribute("href", URL.createObjectURL(blob));
+
+  const theme = localStorage.getItem("theme"); if(theme==="light") document.documentElement.classList.add("light");
+  const fs = localStorage.getItem("fs"); if(fs) document.body.style.fontSize = fs+"px";
+  const lang = localStorage.getItem("lang")||"ar"; qs("#loginLang").value = lang; qs("#regLang").value = lang; qs("#selLang").value = lang;
 })();
-</script>
+qs("#btnTheme").onclick = ()=>{ const isLight=document.documentElement.classList.toggle("light"); localStorage.setItem("theme", isLight?"light":"dark"); };
+qsa('[data-fs]').forEach(b=>b.onclick=()=>{ const v=b.getAttribute('data-fs'); document.body.style.fontSize=v+'px'; localStorage.setItem('fs',v); });
+qs("#selLang").onchange = e => { localStorage.setItem("lang", e.target.value); toast("تم حفظ اللغة"); };
+qs("#btnClear").onclick = ()=>{ localStorage.clear(); toast("تم مسح التفضيلات، أعد التحميل"); };
 
-<script>
-/* ---------- Firebase logic ---------- */
-const cfg={apiKey:"AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",authDomain:"ittihad-med-kfs.firebaseapp.com",projectId:"ittihad-med-kfs",appId:"1:323302922960:web:3343605d75d2a5147cdcd5"};
-firebase.initializeApp(cfg);
-const auth=firebase.auth(), db=firebase.firestore();
-
-const $=id=>document.getElementById(id);
-const toast=(t)=>{const x=$('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2500)}
-const L=s=>(s||'').trim(), emailOk=e=>/^\S+@\S+\.\S+$/.test(e||''), phoneOk=p=>/^01\d{9}$/.test((p||'').replace(/\s+/g,'')), nameOk=n=>L(n).length>=5 && /\s/.test(L(n));
-const mark=(el,ok,msg)=>(el&&(el.classList.remove('invalid','valid'),el.classList.add(ok?'valid':'invalid'), msg&& (msg.textContent='')));
-
-/* status */
-db.collection('ping').doc('hello').set({t:Date.now()}).then(()=>$('status').textContent='✓ مرتبط').catch(()=>$('status').textContent='✓ مرتبط');
-
-/* ---- Sign Up ---- */
-$('btnUp').onclick=async ()=>{
-  const email=L($('suEmail').value), pass=$('suPass').value, pass2=$('suPass2').value, name=L($('suName').value),
-        phone=L($('suPhone').value), batch=L($('suBatch').value), lang=$('suLang').value;
-  let ok=true;
-  if(!emailOk(email)){ok=false;$('suEmail').classList.add('invalid');$('mSuEmail').textContent='بريد غير صحيح'} else {$('suEmail').classList.remove('invalid')}
-  if(pass.length<6){ok=false;$('suPass').classList.add('invalid');$('mSuPass').textContent='٦ أحرف على الأقل'} else {$('suPass').classList.remove('invalid')}
-  if(pass!==pass2){ok=false;$('suPass2').classList.add('invalid');$('mSuPass2').textContent='غير مطابق'} else {$('suPass2').classList.remove('invalid')}
-  if(!nameOk(name)){ok=false;$('suName').classList.add('invalid');$('mSuName').textContent='اكتب اسم + عائلة (≥5)'} else {$('suName').classList.remove('invalid')}
-  if(!phoneOk(phone)){ok=false;$('suPhone').classList.add('invalid');$('mSuPhone').textContent='الصيغة 01xxxxxxxxx'} else {$('suPhone').classList.remove('invalid')}
-  if(!batch){ok=false;$('suBatch').classList.add('invalid');$('mSuBatch').textContent='اكتب الدفعة'} else {$('suBatch').classList.remove('invalid')}
-  if(!ok) return;
-
-  try{
-    const c=await auth.createUserWithEmailAndPassword(email,pass);
-    await db.collection('users').doc(c.user.uid).set({displayName:name,email,phone,batch,lang,createdAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
-    localStorage.setItem('lang',lang);
-    $('hintUp').textContent='تم إنشاء الحساب ✔'; toast('تم الإنشاء ✔ — يمكنك تسجيل الدخول الآن');
-  }catch(e){
-    if((e.code||'').includes('email-already-in-use')){$('mSuEmail').textContent='الإيميل مستخدم';$('suEmail').classList.add('invalid')}
-    $('hintUp').textContent=e.message||String(e);
-  }
-};
-
-/* Google */
-$('btnGoogleUp').onclick=async()=>{ try{ await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }catch(e){ $('hintUp').textContent=e.message||String(e);} };
-
-/* ---- Sign In ---- */
-$('btnIn').onclick=async ()=>{
-  const email=L($('siEmail').value), pass=$('siPass').value, lang=$('siLang').value;
-  if(!emailOk(email)){ $('mSiEmail').textContent='بريد غير صحيح'; $('siEmail').classList.add('invalid'); return}
-  try{ await auth.signInWithEmailAndPassword(email,pass); localStorage.setItem('lang',lang); $('hintIn').textContent='' }
-  catch(e){
-    const c=e.code||''; if(c.includes('wrong-password')||c.includes('invalid-credential')){$('mSiPass').textContent='كلمة السر غير صحيحة';$('siPass').classList.add('invalid')}
-    if(c.includes('user-not-found')){$('mSiEmail').textContent='لا يوجد حساب بهذا البريد';$('siEmail').classList.add('invalid')}
-    $('hintIn').textContent=e.message||String(e);
-  }
-};
-
-/* Forgot */
-$('btnForgot').onclick=()=>{$('fgBox').style.display='grid';$('hintFg').textContent=''};
-$('btnFgClose').onclick=()=>{$('fgBox').style.display='none'};
-$('btnFgSend').onclick=async ()=>{
-  const email=L($('fgEmail').value), phone=L($('fgPhone').value), batch=L($('fgBatch').value);
-  if(!emailOk(email)) return $('hintFg').textContent='اكتب بريد صحيح';
-  try{
-    const q=await db.collection('users').where('email','==',email).limit(1).get();
-    if(q.empty) return $('hintFg').textContent='لا يوجد حساب بهذا البريد';
-    const u=q.docs[0].data();
-    if((u.phone||'')!==phone || (u.batch||'')!==batch) return $('hintFg').textContent='التحقق فشل: رقم أو دفعة غير مطابقة';
-    await auth.sendPasswordResetEmail(email);
-    $('hintFg').textContent='تم إرسال رابط إعادة التعيين ✔';
-  }catch(e){ $('hintFg').textContent=e.message||String(e) }
-};
-
-/* Session */
-const gate=$('gate'), app=$('app'), nav=$('nav');
-const showApp=()=>{ gate.style.display='none'; app.style.display='block'; nav.style.display='flex' }
-const hideApp=()=>{ app.style.display='none'; nav.style.display='none'; gate.style.display='grid' }
-
-auth.onAuthStateChanged(async(u)=>{
-  if(u){ // logged in
-    showApp();
-    $('status').textContent = (['dr.emara10@gmail.com'].includes((u.email||'').toLowerCase()) ? '👑 Admin — ' : 'عضو — ') + (u.email||'');
-    // hydrate profile
-    $('pEmail').value=u.email||''; 
-    try{ const d=await db.collection('users').doc(u.uid).get(); if(d.exists){ const v=d.data(); $('pName').value=v.displayName||''; $('pPhone').value=v.phone||''; $('pBatch').value=v.batch||''; } }catch(_){}
-  }else{ hideApp(); $('status').textContent='✓ مرتبط' }
+/* ===============================
+   Nav
+   =============================== */
+qsa(".bottom .tab").forEach(b=> b.onclick=()=> setActive(b.dataset.goto));
+["#goRegister","#goLoginFromReg","#goReset","#goLoginFromReset"].forEach(id=>{
+  const el = qs(id); if(!el) return;
+  el.onclick = (e)=>{ e.preventDefault(); setActive(el.id.includes("Register")? "page-register": el.id.includes("Reset")? "page-reset" : "page-login"); };
 });
 
-$('btnOut').onclick=()=>auth.signOut();
+/* ===============================
+   Eye toggles
+   =============================== */
+qsa(".eye").forEach(e=> e.onclick=()=>{
+  const id=e.getAttribute("data-eye"), inp=qs("#"+id); inp.type = (inp.type==="password"?"text":"password");
+});
 
-/* profile local save */
-$('btnSaveProfile').onclick=()=>{ const data={n:$('pName').value,e:$('pEmail').value,ph:$('pPhone').value,b:$('pBatch').value}; localStorage.setItem('profileDraft',JSON.stringify(data)); toast('تم الحفظ محليًا') }
-const d=localStorage.getItem('profileDraft'); if(d){const v=JSON.parse(d);$('pName').value=v.n||'';$('pEmail').value=v.e||'';$('pPhone').value=v.ph||'';$('pBatch').value=v.b||''}
-$('clear').onclick=()=>{localStorage.clear(); location.reload()}
-</script>
-</body>
-  </html>
+/* ===============================
+   Firestore helpers
+   =============================== */
+const usernames = () => db.collection("usernames");  // docId = nameLower, data:{uid}
+const usersCol  = () => db.collection("users");      // docId = uid
+
+/* ===============================
+   Sign Up
+   =============================== */
+qs("#btnRegister").onclick = async ()=>{
+  // inputs
+  const name = L(qs("#regName").value);
+  const phone= L(qs("#regPhone").value);
+  const batch= L(qs("#regBatch").value);
+  const email= L(qs("#regEmail").value);
+  const pass = qs("#regPass").value;
+  const pass2= qs("#regPass2").value;
+  const lang = qs("#regLang").valu
