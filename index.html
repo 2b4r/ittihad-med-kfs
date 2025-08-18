@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+er claYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
@@ -15,6 +15,20 @@
 <!-- ====== Manifest (يُنشأ ديناميكياً أيضاً من JS) ====== -->
 <link rel="manifest" id="man">
 <style>
+   /* روابط أكشن تحت الفورم */
+.auth-links{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
+.auth-links a{
+  color:#fff;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.25);
+  padding-bottom:2px; font-weight:600;
+}
+.auth-links a:hover{border-bottom-color:#fff}
+
+/* زر إظهار/إخفاء كلمة السر */
+.eye-btn{position:absolute;left:-34px;top:50%;transform:translateY(-50%);opacity:.8}
+.eye-btn button{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
+
+/* رسائل الخطأ تحت الحقول */
+.input-error{color:#fca5a5;font-size:12px;margin-top:6px}
 /* =======================
    تصميم عام Modern Glass
    ======================= */
@@ -117,16 +131,15 @@ kbd{background:#111827;border:1px solid var(--bor);border-radius:6px;padding:2px
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <img src="logo.png" alt="شعار">
-    <div>
-      <div style="font-weight:800">اتحاد طب بشري كفر الشيخ</div>
-      <div class="small" id="userChip" aria-live="polite" style="color:var(--mut)"></div>
-    </div>
+   <header class="topbar">
+  <div class="brand" style="display:flex;align-items:center;gap:10px">
+    <img src="./logo.png" alt="شعار" width="36" height="36"
+         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><circle cx=%2232%22 cy=%2232%22 r=%2230%22 fill=%230ea5a5/></svg>';"
+         style="border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.25)">
+    <span id="siteTitle">اتحاد طب بشري كفر الشيخ</span>
   </div>
   <div class="badge" id="statusBadge">…</div>
-</header>
+   </header>
 
 <main class="container">
 
@@ -441,7 +454,135 @@ qsa(".eye").forEach(e=> e.onclick=()=>{
    =============================== */
 const usernames = () => db.collection("usernames");  // docId = nameLower, data:{uid}
 const usersCol  = () => db.collection("users");      // docId = uid
+<script>
+(function(){
+  // مراجع عناصر نموذج تسجيل الدخول/إنشاء الحساب
+  const emailIn   = document.querySelector('#authEmail, #loginEmail') || document.getElementById('authEmail');
+  const passIn    = document.querySelector('#authPass, #loginPass')   || document.getElementById('authPass');
+  const nameIn    = document.getElementById('authName');   // في إنشاء الحساب فقط
+  const phoneIn   = document.getElementById('authPhone');  // إن وجد
+  const batchIn   = document.getElementById('authBatch');  // إن وجد
+  const pass2In   = document.getElementById('authPass2');  // تأكيد كلمة السر (إن وجد)
+  const btnSignIn = document.getElementById('btnEmailSignIn');
+  const btnSignUp = document.getElementById('btnEmailSignUp');
+  const btnGoogle = document.getElementById('btnGoogle');
+  const forgotA   = document.getElementById('linkForgot');
+  const toSignupA = document.getElementById('linkToSignup');
+  const toLoginA  = document.getElementById('linkToLogin');
+  const langSel   = document.querySelector('#loginLang, #signupLang');
+  const toastBox  = document.getElementById('authHint') || document.getElementById('errBox');
 
+  // زر إظهار/إخفاء كلمة السر
+  const eyeBtn = document.getElementById('togglePass');
+  if (eyeBtn && passIn){
+    eyeBtn.addEventListener('click', ()=>{
+      const t = passIn.type === 'password' ? 'text':'password';
+      passIn.type = t;
+      if (pass2In) pass2In.type = t;
+    });
+  }
+
+  const showMsg = (msg)=>{ if (toastBox){ toastBox.textContent = msg; toastBox.classList.add('show'); setTimeout(()=>toastBox.classList.remove('show'), 4000);} else alert(msg); };
+
+  // helper للتحقق من الاسم (لازم اسم + لقب >= 4)
+  const validName = (s)=>{
+    if (!s) return false;
+    const p = s.trim().split(/\s+/);
+    return s.trim().length >= 4 && p.length >= 2;
+  };
+
+  // ===== تسجيل الدخول بالبريد =====
+  if (btnSignIn){
+    btnSignIn.addEventListener('click', async ()=>{
+      try{
+        const email = (emailIn?.value||'').trim();
+        const pass  = passIn?.value||'';
+        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return showMsg('البريد غير صالح');
+        if (pass.length < 6) return showMsg('كلمة السر قصيرة');
+        const cred = await firebase.auth().signInWithEmailAndPassword(email, pass);
+        showMsg('تم تسجيل الدخول ✅');
+      }catch(e){
+        if (e?.code === 'auth/wrong-password') showMsg('كلمة السر غير صحيحة');
+        else if (e?.code === 'auth/user-not-found') showMsg('لا يوجد حساب بهذا البريد');
+        else showMsg('خطأ: ' + (e.message||e));
+      }
+    });
+  }
+
+  // ===== إنشاء حساب بالبريد =====
+  if (btnSignUp){
+    btnSignUp.addEventListener('click', async ()=>{
+      try{
+        const name  = (nameIn?.value||'').trim();
+        const email = (emailIn?.value||'').trim();
+        const phone = (phoneIn?.value||'').trim();
+        const batch = (batchIn?.value||'').trim();
+        const pass  = passIn?.value||'';
+        const pass2 = pass2In?.value||'';
+
+        if (!validName(name)) return showMsg('من فضلك اكتب الاسم الأول واسم العائلة (٤ أحرف فأكثر)');
+        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return showMsg('البريد غير صالح');
+        if (pass.length < 6) return showMsg('كلمة السر لا تقل عن 6 أحرف');
+        if (pass !== pass2) return showMsg('تأكيد كلمة السر غير مطابق');
+
+        // إنشاء الحساب
+        const cred = await firebase.auth().createUserWithEmailAndPassword(email, pass);
+        const user = cred.user;
+        await user.updateProfile({ displayName: name });
+
+        // حفظ بيانات أساسية في Firestore (يتطلب قواعد تسمح للمستخدم بإنشاء وثيقته)
+        const db = firebase.firestore();
+        await db.collection('users').doc(user.uid).set({
+          email, phone, batch, displayName:name, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showMsg('تم إنشاء الحساب ✅');
+      }catch(e){
+        if (e?.code === 'auth/email-already-in-use') showMsg('البريد مستخدم من قبل');
+        else showMsg('خطأ: ' + (e.message||e));
+      }
+    });
+  }
+
+  // ===== جوجل =====
+  if (btnGoogle){
+    btnGoogle.addEventListener('click', async ()=>{
+      try{
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await firebase.auth().signInWithPopup(provider);
+        showMsg('تم تسجيل الدخول بجوجل ✅');
+      }catch(e){ showMsg('فشل تسجيل الدخول بجوجل: ' + (e.message||e)); }
+    });
+  }
+
+  // ===== نسيت كلمة السر؟ =====
+  if (forgotA){
+    forgotA.addEventListener('click', async (ev)=>{
+      ev.preventDefault();
+      try{
+        const email = (emailIn?.value||'').trim();
+        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return showMsg('اكتب بريدك أولاً ثم اضغط نسيت كلمة السر');
+        await firebase.auth().sendPasswordResetEmail(email);
+        showMsg('تم إرسال رابط إعادة التعيين إلى بريدك');
+      }catch(e){ showMsg('تعذّر الإرسال: ' + (e.message||e)); }
+    });
+  }
+
+  // ===== تبديل اللغة من داخل النافذة =====
+  if (langSel){
+    langSel.addEventListener('change', ()=>{
+      localStorage.setItem('lang', langSel.value);
+      location.reload(); // أسهل حل لتطبيق النصوص
+    });
+  }
+
+  // ألوان/شريط الروابط أسفل النموذج
+  const linksRow = document.getElementById('authLinks');
+  if (linksRow) linksRow.classList.add('auth-links');
+
+})();
+</script>
+   
 /* ===============================
    Sign Up
    =============================== */
@@ -454,3 +595,6 @@ qs("#btnRegister").onclick = async ()=>{
   const pass = qs("#regPass").value;
   const pass2= qs("#regPass2").value;
   const lang = qs("#regLang").valu
+</main> 
+</body> 
+</html> 
