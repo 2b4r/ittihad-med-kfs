@@ -1,118 +1,220 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>اتحاد طب بشري كفر الشيخ — البداية</title>
 
-<!-- ===== Theme v2 (Glass + Gradient) ===== -->
+<!-- ===== Theme v3 (No-Blue Palette • Emerald + Amber) ===== -->
 <style>
 :root{
-  --bg1:#0b1020; --bg2:#101a35;
-  --card:rgba(255,255,255,.06);
-  --blur:10px;
-  --txt:#eaf2ff; --mut:#9fb3c8; --bor:rgba(255,255,255,.12);
-  --accent:#4dd0e1; --accent2:#8b5cf6;
+  /* لوحة داكنة خالية تمامًا من الأزرق */
+  --bg1:#0e0f11; --bg2:#121316;                 /* خلفية جراديانت رمادي فحمي */
+  --card:rgba(255,255,255,.05);                 /* زجاجي خفيف */
+  --txt:#f2f3f4; --mut:#a9adb3;                 /* نصوص */
+  --bor:rgba(255,255,255,.10);                  /* حدود رفيعة */
+  --ring:rgba(16,185,129,.35);                  /* حلقة فوكس خضراء */
+  --acc1:#10b981; --acc2:#f59e0b;               /* Emerald + Amber */
+  --shadow:0 10px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04);
+
+  --radius-xl:18px; --radius-lg:14px; --radius-md:12px;
+  --pad:14px; --gap:10px; --blur:10px;
 }
 :root.light{
-  --bg1:#eef2ff; --bg2:#ffffff;
-  --card:rgba(255,255,255,.8);
-  --txt:#0f172a; --mut:#475569; --bor:rgba(0,0,0,.08);
-  --accent:#0ea5e9; --accent2:#7c3aed;
+  /* وضع فاتح بلا أزرق */
+  --bg1:#fbfbfb; --bg2:#ffffff;
+  --card:rgba(255,255,255,.92);
+  --txt:#171717; --mut:#5b6066;
+  --bor:rgba(0,0,0,.08);
+  --ring:rgba(245,158,11,.35);
+  --acc1:#16a34a; --acc2:#ea580c;               /* أخضر أغمق + برتقالي */
+  --shadow:0 10px 30px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9);
 }
+
+/* أساسيات */
 *{box-sizing:border-box}
+html,body{height:100%}
 body{
-  margin:0; font:16px/1.7 system-ui,Segoe UI,Arial;
+  margin:0; font:15.5px/1.75 ui-rounded, system-ui, Segoe UI, Arial;
   color:var(--txt);
   background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
+
+/* شريط علوي */
 .topbar{
-  position:sticky; top:0; z-index:10;
+  position:sticky; top:0; z-index:20;
   display:flex; justify-content:space-between; align-items:center;
   padding:12px 16px;
+  background:linear-gradient(160deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
   backdrop-filter:blur(var(--blur));
-  background:linear-gradient(160deg,rgba(0,0,0,.35),rgba(0,0,0,.15));
   border-bottom:1px solid var(--bor);
 }
-.brand{font-weight:800; letter-spacing:.3px}
+.brand{font-weight:800; letter-spacing:.2px}
+.badge{
+  border:1px solid var(--bor); border-radius:999px; padding:4px 10px;
+  background:rgba(255,255,255,.06); color:var(--mut); font-size:12px;
+}
+
+/* الحاوية */
 .container{max-width:960px;margin:0 auto;padding:16px}
 .view.hidden{display:none}
+
+/* كروت زجاجية */
 .card{
-  background:var(--card);
-  border:1px solid var(--bor);
-  border-radius:18px;
-  padding:14px;
-  backdrop-filter:blur(var(--blur));
-  box-shadow:0 10px 30px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.05);
-  margin-bottom:14px;
+  background:var(--card); border:1px solid var(--bor); border-radius:var(--radius-xl);
+  padding:var(--pad); box-shadow:var(--shadow); backdrop-filter:blur(var(--blur));
+  transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:740px){.grid{grid-template-columns:1fr}}
+.card:hover{transform:translateY(-1px)}
+
+/* شبكة متجاوبة */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+
+/* عناصر الإدخال */
 textarea,input,select,button{
-  border:1px solid var(--bor); border-radius:12px;
-  background:rgba(0,0,0,.25); color:var(--txt); padding:10px 12px; outline:none;
-  backdrop-filter:blur(4px);
+  border:1px solid var(--bor); border-radius:var(--radius-md);
+  background:rgba(0,0,0,.18); color:var(--txt);
+  padding:10px 12px; outline:none; transition:border-color .15s, box-shadow .15s, background .2s;
 }
+textarea{min-height:100px; resize:vertical}
+input:focus, textarea:focus, select:focus{
+  border-color:color-mix(in srgb, var(--acc1) 45%, #000);
+  box-shadow:0 0 0 4px var(--ring);
+}
+
+/* أزرار */
 button{
-  cursor:pointer; transition:transform .06s ease, filter .12s ease;
+  cursor:pointer; border-radius:var(--radius-lg); font-weight:600;
   background:linear-gradient(135deg,
-            color-mix(in srgb, var(--accent) 40%, transparent),
-            color-mix(in srgb, var(--accent2) 30%, transparent));
-  border:1px solid var(--bor); border-radius:12px; color:#fff; padding:10px 14px;
+            color-mix(in srgb, var(--acc1) 55%, transparent),
+            color-mix(in srgb, var(--acc2) 45%, transparent));
+  color:#fff; border:1px solid var(--bor); padding:10px 14px;
+  box-shadow:0 6px 20px rgba(0,0,0,.18);
 }
-button:hover{filter:brightness(1.1)} button:active{transform:translateY(1px)}
-.muted{color:var(--mut);font-size:13px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button:hover{filter:brightness(1.04)}
+button:active{transform:translateY(1px)}
+button.ghost{
+  background:rgba(255,255,255,.04); color:var(--txt);
+}
+
+/* نصوص مساعدة */
+.muted{color:var(--mut);font-size:12.5px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* لستات وبوست */
+.list{display:grid;gap:10px}
+.post{
+  border:1px solid var(--bor); border-radius:var(--radius-lg); padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+/* شريط سفلي */
 .bottom{
-  position:sticky; bottom:0; z-index:9;
-  display:flex; justify-content:space-around; gap:8px;
-  padding:12px;
-  background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.15));
+  position:sticky; bottom:0; z-index:15;
+  display:flex; justify-content:space-around; gap:10px;
+  padding:12px; background:linear-gradient(0deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
   border-top:1px solid var(--bor); backdrop-filter:blur(var(--blur));
 }
 .bottom button{flex:1; text-align:center}
-.kbd{background:rgba(255,255,255,.08);border:1px solid var(--bor);border-radius:8px;padding:2px 6px;font-size:12px}
+.bottom .active{
+  outline:0; box-shadow:0 0 0 3px var(--ring) inset;
+}
+
+/* عناصر صغيرة */
+.kbd{background:rgba(255,255,255,.06);border:1px solid var(--bor);
+  border-radius:8px;padding:2px 6px;font-size:12px;color:var(--mut)}
+.separator{height:1px;background:var(--bor);margin:10px 0;border-radius:999px}
+
+/* توجّه أسطر العناوين */
+h1,h2,h3{margin:.2rem 0 .6rem}
+h2{font-size:1.35rem}
 </style>
 </head>
 <body>
 
 <header class="topbar">
   <div class="brand">اتحاد طب بشري كفر الشيخ</div>
-  <div class="kbd">✓ Step 1</div>
+  <div class="badge">✓ Step 1</div>
 </header>
 
 <main class="container">
   <section id="view-home">
     <div class="card">
       <div style="display:flex;align-items:center;gap:14px">
-        <div style="font-size:38px">🧱</div>
+        <div style="font-size:40px">🧱</div>
         <div>
           <h2 style="margin:0 0 6px">جاهزين</h2>
           <p style="margin:0">
             دي نسخة البداية علشان نتأكد إن <b>GitHub Pages</b> شغّال. بعد كده هنضيف:
             تسجيل الدخول، البوستات، البروفايل، QR… إلخ.
           </p>
-          <p class="muted" style="margin:.5rem 0 0">
-            لو الصفحة دي ظهرت من الرابط العام، يبقى تمام وننتقل للخطوة 2 (Firebase).
+          <div class="separator"></div>
+          <p class="muted" style="margin:0">
+            لو الصفحة دي ظهرت من الرابط العام، يبقى تمام ونروح للخطوة 2 (Firebase).
           </p>
         </div>
       </div>
+    </div>
+
+    <!-- تفاصيل دقيقة إضافية للتجربة -->
+    <div class="card">
+      <div class="grid">
+        <div>
+          <label class="muted">حجم النص</label>
+          <select id="fontSizeSel">
+            <option value="15.5">افتراضي</option>
+            <option value="16">كبير</option>
+            <option value="17">أكبر</option>
+          </select>
+        </div>
+        <div>
+          <label class="muted">الوضع</label><br/>
+          <button id="themeToggle" class="ghost">تبديل ليلي/نهاري</button>
+        </div>
+      </div>
+      <p class="muted" style="margin:.6rem 0 0">
+        * الاختيارات تتخزّن محليًا — هنكمّل بربط الحسابات والبيانات في الخطوة الجاية.
+      </p>
     </div>
   </section>
 </main>
 
 <nav class="bottom">
-  <button>🏠 عام</button>
+  <button class="active">🏠 عام</button>
   <button>👤 بروفايل</button>
   <button>⚙️ إعدادات</button>
 </nav>
 
 <script>
-/* لو حابب تجرّب الوضع الفاتح افتراضيًا:
-   localStorage.setItem('theme','light'); */
-if(localStorage.getItem('theme')==='light'){
-  document.documentElement.classList.add('light');
-}
+/* لا أزرق: الثيم فاتح/داكن بحفظ محلي */
+(function initTheme(){
+  const t = localStorage.getItem('theme');
+  if(t==='light') document.documentElement.classList.add('light');
+})();
+document.getElementById('themeToggle').onclick = ()=>{
+  const root = document.documentElement;
+  const isLight = root.classList.toggle('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+};
+
+/* تحكم دقيق في حجم الخط للمستخدم */
+const sel = document.getElementById('fontSizeSel');
+const savedFs = localStorage.getItem('fs');
+if(savedFs){ document.body.style.fontSize = savedFs+'px'; sel.value = savedFs; }
+sel.onchange = ()=>{
+  document.body.style.fontSize = sel.value+'px';
+  localStorage.setItem('fs', sel.value);
+};
+
+/* تفعيل/تعطيل حالة الأزرار السفلية (تجميليًا) */
+document.querySelectorAll('.bottom button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
