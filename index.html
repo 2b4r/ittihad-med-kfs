@@ -6,7 +6,6 @@
 <title>اتحاد طب بشري كفر الشيخ</title>
 <meta name="theme-color" content="#0d1116"/>
 
-<!-- ====== Styles ====== -->
 <style>
 :root{
   --bg1:#0b1016; --bg2:#0f1520;
@@ -90,80 +89,142 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
 .bottom .active{box-shadow:0 0 0 3px var(--ring) inset}
 .post{border:1px solid var(--bor);border-radius:14px;padding:12px;background:rgba(255,255,255,.05)}
 
-/* ====== Gate (Login-first) ====== */
-.gate{
-  position:fixed; inset:0; display:grid; place-items:center; z-index:40;
-  padding:18px; background:linear-gradient(160deg,rgba(0,0,0,.65),rgba(0,0,0,.55));
-  backdrop-filter:blur(6px);
-}
-.gate .box{
-  width:min(540px,100%); border:1px solid var(--bor); border-radius:20px; padding:18px;
-  background:var(--surface); box-shadow:var(--shadow)
-}
-.gate h1{margin:.2rem 0 0}
-.glyph{font-size:42px}
+/* ===== Gate (tabs) ===== */
+.gate{position:fixed; inset:0; display:grid; place-items:center; z-index:40; padding:18px;
+  background:linear-gradient(160deg,rgba(0,0,0,.65),rgba(0,0,0,.55)); backdrop-filter:blur(6px);}
+.gate .box{width:min(560px,100%); border:1px solid var(--bor); border-radius:20px; padding:18px; background:var(--surface); box-shadow:var(--shadow)}
+.tabs{display:flex;gap:8px; border-bottom:1px solid var(--bor); margin-bottom:10px}
+.tab{padding:10px 12px; border:1px solid var(--bor); border-bottom:none; border-radius:12px 12px 0 0; background:rgba(255,255,255,.05); cursor:pointer; color:var(--mut)}
+.tab.active{background:rgba(0,0,0,.12); color:var(--txt)}
+.panel{display:none}.panel.show{display:block}
 
-/* Toast / error */
+/* Toast */
 .toast{position:fixed;left:14px;right:14px;bottom:90px;background:#b91c1c;color:#fff;padding:12px;border-radius:14px;z-index:60;display:none}
 .toast.show{display:block}
 
-/* badges / chips */
-.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--bor);background:rgba(255,255,255,.06);color:var(--mut);font-size:12px}
+/* avatar */
+.avatar{width:96px;height:96px;border-radius:50%;border:2px solid var(--bor);object-fit:cover;background:#111}
 </style>
 </head>
 <body>
 
-<!-- Topbar -->
 <header class="topbar">
   <div class="brand">
     <div class="logo">🏛️</div>
     <div>اتحاد طب بشري كفر الشيخ</div>
   </div>
-  <div class="row">
-    <div class="badge" id="statusBadge">…</div>
-  </div>
+  <div class="badge" id="statusBadge">…</div>
 </header>
 
-<!-- ===== Gate: يظهر قبل الدخول ===== -->
+<!-- ===== Gate (Sign Up / Sign In) ===== -->
 <section id="gate" class="gate">
   <div class="box">
-    <div class="row" style="justify-content:space-between;align-items:center">
-      <div class="glyph">🔐</div>
-      <div class="chip">GitHub Pages + Firebase</div>
-    </div>
-    <h1 style="margin-top:8px">مرحبًا! سجّل الدخول أولًا</h1>
-    <p class="muted" style="margin-top:4px">لن تستطيع الوصول للمحتوى قبل تسجيل الدخول/إنشاء حساب.</p>
-    <div class="sep"></div>
-
-    <div class="grid">
-      <div>
-        <label class="muted">الاسم (يظهر للناس)</label>
-        <input id="authName" placeholder="اسمك">
-      </div>
-      <div>
-        <label class="muted">البريد</label>
-        <input id="authEmail" placeholder="you@example.com" inputmode="email">
-      </div>
-      <div>
-        <label class="muted">كلمة السر</label>
-        <input id="authPass" type="password" placeholder="••••••••">
-      </div>
-      <div class="row" style="align-items:flex-end">
-        <button id="btnEmailSignUp">إنشاء حساب بالبريد</button>
-        <button id="btnEmailSignIn" class="ghost">دخول بالبريد</button>
-      </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="up">إنشاء حساب</button>
+      <button class="tab" data-tab="in">تسجيل الدخول</button>
     </div>
 
-    <div class="sep"></div>
-    <button id="btnGoogle" style="width:100%">دخول بحساب Google</button>
-    <div class="row" style="justify-content:space-between;margin-top:8px">
-      <div class="muted" id="authHint"></div>
-      <div class="muted">بدخولك فأنت موافق على سياسات الاتحاد.</div>
+    <!-- Sign Up -->
+    <div id="panel-up" class="panel show">
+      <div class="grid">
+        <div>
+          <label class="muted">الإيميل</label>
+          <input id="suEmail" placeholder="you@example.com" inputmode="email">
+        </div>
+        <div>
+          <label class="muted">كلمة السر</label>
+          <input id="suPass" type="password" placeholder="••••••••">
+        </div>
+        <div>
+          <label class="muted">تأكيد كلمة السر</label>
+          <input id="suPass2" type="password" placeholder="••••••••">
+        </div>
+        <div>
+          <label class="muted">الاسم</label>
+          <input id="suName" placeholder="اسمك">
+        </div>
+        <div>
+          <label class="muted">الموبايل</label>
+          <input id="suPhone" placeholder="01xxxxxxxxx" inputmode="tel">
+        </div>
+        <div>
+          <label class="muted">الدفعة</label>
+          <input id="suBatch" placeholder="مثال: 12">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div style="flex:1">
+          <label class="muted">اللغة</label>
+          <select id="suLang">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <button id="btnSignUp" style="flex:1">إنشاء الحساب</button>
+      </div>
+      <div class="sep"></div>
+      <button id="btnGoogleUp" style="width:100%">إنشاء/دخول بحساب Google</button>
+      <div class="muted" id="hintUp" style="margin-top:8px"></div>
+    </div>
+
+    <!-- Sign In -->
+    <div id="panel-in" class="panel">
+      <div class="grid">
+        <div>
+          <label class="muted">الإيميل</label>
+          <input id="siEmail" placeholder="you@example.com" inputmode="email">
+        </div>
+        <div>
+          <label class="muted">كلمة السر</label>
+          <input id="siPass" type="password" placeholder="••••••••">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div style="flex:1">
+          <label class="muted">اللغة</label>
+          <select id="siLang">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <button id="btnSignIn" style="flex:1" class="ghost">دخول</button>
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:8px">
+        <button id="btnForgot" class="ghost">نسيت كلمة السر؟</button>
+        <div class="muted" id="hintIn"></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== Main content (يظهر بعد الدخول) ===== -->
+<!-- Forgot modal -->
+<section id="forgotBox" class="gate" style="display:none;background:rgba(0,0,0,.7)">
+  <div class="box">
+    <h3 style="margin:.2rem 0 8px">استرجاع كلمة السر</h3>
+    <p class="muted" style="margin-top:0">أدخل الإيميل + رقم الموبايل + الدفعة. لو طابقوا بياناتك هنرسل رابط إعادة التعيين على الإيميل.</p>
+    <div class="grid">
+      <div>
+        <label class="muted">الإيميل</label>
+        <input id="fgEmail" placeholder="you@example.com" inputmode="email">
+      </div>
+      <div>
+        <label class="muted">الموبايل</label>
+        <input id="fgPhone" placeholder="01xxxxxxxxx" inputmode="tel">
+      </div>
+      <div>
+        <label class="muted">الدفعة</label>
+        <input id="fgBatch" placeholder="مثال: 12">
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px;justify-content:space-between">
+      <button id="btnFgSend">تحقق وأرسل الرابط</button>
+      <button id="btnFgClose" class="ghost">إغلاق</button>
+    </div>
+    <div class="muted" id="hintFg" style="margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ===== Main (after login) ===== -->
 <main class="container" id="app" style="display:none">
 
   <!-- عام -->
@@ -173,19 +234,11 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
         <div class="glyph">📣</div>
         <div>
           <h2 style="margin:0 0 6px">جاهزين</h2>
-          <p style="margin:0">
-            تم تفعيل الدخول. هنضيف لاحقًا البوستات، الحضور بالـQR، ولوحة المشرف.
-          </p>
+          <p style="margin:0">تم تفعيل الدخول. هنضيف لاحقًا البوستات، الحضور بالـQR، ولوحة المشرف.</p>
           <div class="sep"></div>
           <p class="muted" style="margin:0">لو الشارة فوق بقت ✓ مرتبط — الربط مع Firebase تمام.</p>
         </div>
       </div>
-    </div>
-
-    <div class="card">
-      <h3 style="margin-top:0">بوستات عامة (Placeholder)</h3>
-      <div class="post">🎉 إعلان ندوة تعريفية — سيتم استبداله لاحقًا ببيانات حقيقية</div>
-      <div class="post">🗓️ فعالية رياضية داخلية — Placeholder</div>
     </div>
   </section>
 
@@ -193,7 +246,14 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
   <section id="view-profile" class="view hidden">
     <div class="card">
       <h2 style="margin-top:0">بروفايل</h2>
-      <div class="grid">
+      <div class="row" style="align-items:center">
+        <img id="avatar" class="avatar" alt="avatar">
+        <div>
+          <input id="avatarFile" type="file" accept="image/*">
+          <div class="muted">* الصورة تُحفظ محليًا الآن (نربطها لاحقًا بالتخزين).</div>
+        </div>
+      </div>
+      <div class="grid" style="margin-top:10px">
         <div>
           <label class="muted">الاسم</label>
           <input id="pName" placeholder="—">
@@ -203,8 +263,8 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
           <input id="pEmail" placeholder="—">
         </div>
         <div>
-          <label class="muted">العمر</label>
-          <input id="pAge" type="number" min="16" max="100" placeholder="—">
+          <label class="muted">الموبايل</label>
+          <input id="pPhone" placeholder="—">
         </div>
         <div>
           <label class="muted">رقم الدفعة</label>
@@ -214,7 +274,6 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
       <div class="row" style="margin-top:10px">
         <button class="ghost" id="btnSaveProfile">حفظ (محليًا الآن)</button>
       </div>
-      <p class="muted" style="margin:.6rem 0 0">* البيانات دي هتتربط بالحساب في المرحلة الجاية.</p>
     </div>
   </section>
 
@@ -222,13 +281,11 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
   <section id="view-settings" class="view hidden">
     <div class="card">
       <h2 style="margin-top:0">إعدادات</h2>
-
       <div class="grid">
         <div>
           <label class="muted">الوضع</label>
           <div class="row">
             <button id="themeToggle" class="ghost">تبديل ليلي/نهاري</button>
-            <span class="chip">مظهر</span>
           </div>
         </div>
         <div>
@@ -252,14 +309,12 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
           <button id="btnSignOut" class="danger" style="width:100%">تسجيل الخروج</button>
         </div>
       </div>
-
       <div class="sep"></div>
       <button class="ghost" id="btnClearLocal">مسح تفضيلات الجهاز</button>
     </div>
   </section>
 </main>
 
-<!-- Bottom nav -->
 <nav class="bottom" id="nav" style="display:none">
   <button class="active" data-view="view-home">🏠 عام</button>
   <button data-view="view-profile">👤 بروفايل</button>
@@ -268,52 +323,47 @@ button:hover{filter:brightness(1.06)} button:active{transform:translateY(1px)}
 
 <div class="toast" id="toast"></div>
 
-<!-- ===== Firebase (compat) ===== -->
+<!-- Firebase compat -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
-/* ===== Client utilities (UI/i18n/theme/font) ===== */
+/* UI basics: theme/lang/font/nav + avatar local save */
 (function(){
-  // اللغة (مختصرة)
-  const dict={
-    ar:{home:'عام', profile:'بروفايل', settings:'إعدادات'},
-    en:{home:'Home', profile:'Profile', settings:'Settings'}
-  };
-  function applyLang(lang){
-    document.documentElement.lang=lang;
-    document.dir=(lang==='ar'?'rtl':'ltr');
-    localStorage.setItem('lang',lang);
-    const sel=document.getElementById('langSel'); if(sel) sel.value=lang;
-  }
-  applyLang(localStorage.getItem('lang')||'ar');
+  // theme
+  const th=localStorage.getItem('theme'); if(th==='light') document.documentElement.classList.add('light');
+  const tgl=document.getElementById('themeToggle'); if(tgl){ tgl.onclick=()=>{const isLight=document.documentElement.classList.toggle('light'); localStorage.setItem('theme',isLight?'light':'dark');}; }
 
-  // حجم الخط
+  // font size
   const fsSel=document.getElementById('fontSizeSel');
   const savedFs=localStorage.getItem('fs'); if(savedFs) document.body.style.fontSize=savedFs+'px';
   if(fsSel){ fsSel.value=savedFs||'16'; fsSel.onchange=()=>{document.body.style.fontSize=fsSel.value+'px'; localStorage.setItem('fs',fsSel.value);} }
 
-  // ثيم
-  const th=localStorage.getItem('theme'); if(th==='light') document.documentElement.classList.add('light');
-  const tgl=document.getElementById('themeToggle'); if(tgl){ tgl.onclick=()=>{const isLight=document.documentElement.classList.toggle('light'); localStorage.setItem('theme',isLight?'light':'dark');}; }
-
-  // إعدادات عامة
+  // language
+  function applyLang(lang){ document.documentElement.lang=lang; document.dir=(lang==='ar'?'rtl':'ltr'); localStorage.setItem('lang',lang); const s=document.getElementById('langSel'); if(s) s.value=lang; }
+  applyLang(localStorage.getItem('lang')||'ar');
   const langSel=document.getElementById('langSel'); if(langSel){ langSel.onchange=()=>applyLang(langSel.value); }
-  const clearBtn=document.getElementById('btnClearLocal'); if(clearBtn){ clearBtn.onclick=()=>{localStorage.clear(); location.reload();}; }
 
-  // تنقّل
+  // nav
   const views=document.querySelectorAll('.view');
   const navBtns=document.querySelectorAll('.bottom button');
-  function show(id){ views.forEach(v=>v.classList.add('hidden')); document.getElementById(id).classList.remove('hidden');
-    navBtns.forEach(b=>b.classList.toggle('active',b.dataset.view===id)); }
-  navBtns.forEach(b=>b.onclick=()=>show(b.dataset.view));
-  show('view-home');
+  function show(id){ views.forEach(v=>v.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); navBtns.forEach(b=>b.classList.toggle('active',b.dataset.view===id)); }
+  navBtns.forEach(b=>b.onclick=()=>show(b.dataset.view)); show('view-home');
+
+  // avatar local preview/save
+  const av=document.getElementById('avatar'), file=document.getElementById('avatarFile');
+  const savedAv=localStorage.getItem('avatarData'); if(savedAv) av.src=savedAv;
+  if(file){ file.onchange=(e)=>{const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{av.src=r.result; localStorage.setItem('avatarData', r.result);}; r.readAsDataURL(f);} }
+
+  // tabs gate
+  const tabs=document.querySelectorAll('.tab'); const panels={up:document.getElementById('panel-up'), in:document.getElementById('panel-in')};
+  tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active'); Object.values(panels).forEach(p=>p.classList.remove('show')); panels[t.dataset.tab].classList.add('show');});
 })();
 </script>
 
 <script>
-/* ===== Firebase config ===== */
+/* Firebase */
 const firebaseConfig = {
   apiKey: "AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",
   authDomain: "ittihad-med-kfs.firebaseapp.com",
@@ -323,111 +373,84 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 (function(){
-  const ADMINS = ['dr.emara10@gmail.com']; // ايميل الأدمن → 👑
-  const gate = document.getElementById('gate');
-  const app  = document.getElementById('app');
-  const nav  = document.getElementById('nav');
-  const badge= document.getElementById('statusBadge');
-  const toast= document.getElementById('toast');
-  const say  = (m)=>{toast.textContent=m; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),4000);};
+  const ADMINS=['dr.emara10@gmail.com']; // 👑
 
-  // حقول الدخول
-  const nameInp = document.getElementById('authName');
-  const email   = document.getElementById('authEmail');
-  const pass    = document.getElementById('authPass');
-  const hint    = document.getElementById('authHint');
-  const btnUp   = document.getElementById('btnEmailSignUp');
-  const btnIn   = document.getElementById('btnEmailSignIn');
-  const btnG    = document.getElementById('btnGoogle');
-  const btnOut  = document.getElementById('btnSignOut');
+  const gate=document.getElementById('gate');
+  const app =document.getElementById('app');
+  const nav =document.getElementById('nav');
+  const badge=document.getElementById('statusBadge');
+  const toast=document.getElementById('toast'); const say=(m)=>{toast.textContent=m; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),4000);};
 
-  const L=s=>(s||'').trim(); const lower=s=>L(s).toLowerCase();
-  const validEmail = (e)=>/^\S+@\S+\.\S+$/.test(e||'');
+  const db=firebase.firestore(); const auth=firebase.auth();
 
-  const auth=firebase.auth();
-  const db  =firebase.firestore();
-
-  // نمنع أي كتابة قبل المصادقة
+  // status
   if(badge) badge.textContent='… ربط Firebase';
   db.collection('ping').doc('hello').get().then(()=>{ if(badge) badge.textContent='✓ مرتبط'; }).catch(()=>{ if(badge) badge.textContent='✓ مرتبط'; });
 
-  // واجهة الدخول
-  function hintMsg(t){ if(hint) hint.textContent=t||''; }
+  // Sign Up elements
+  const suEmail=document.getElementById('suEmail'), suPass=document.getElementById('suPass'), suPass2=document.getElementById('suPass2'),
+        suName=document.getElementById('suName'), suPhone=document.getElementById('suPhone'), suBatch=document.getElementById('suBatch'),
+        suLang=document.getElementById('suLang'), hintUp=document.getElementById('hintUp'), btnSignUp=document.getElementById('btnSignUp'),
+        btnGoogleUp=document.getElementById('btnGoogleUp');
 
-  if(btnUp) btnUp.onclick=async ()=>{
+  // Sign In elements
+  const siEmail=document.getElementById('siEmail'), siPass=document.getElementById('siPass'),
+        siLang=document.getElementById('siLang'), btnSignIn=document.getElementById('btnSignIn'),
+        hintIn=document.getElementById('hintIn'), btnForgot=document.getElementById('btnForgot');
+
+  // Forgot modal
+  const fg=document.getElementById('forgotBox'), fgEmail=document.getElementById('fgEmail'), fgPhone=document.getElementById('fgPhone'),
+        fgBatch=document.getElementById('fgBatch'), btnFgSend=document.getElementById('btnFgSend'), btnFgClose=document.getElementById('btnFgClose'),
+        hintFg=document.getElementById('hintFg');
+
+  // Settings actions
+  const btnOut=document.getElementById('btnSignOut');
+
+  const L=s=>(s||'').trim(); const lower=s=>L(s).toLowerCase();
+  const validEmail=(e)=>/^\S+@\S+\.\S+$/.test(e||'');
+  const validPhone=(p)=>/^01\d{9}$/.test((p||'').replace(/\s+/g,''));
+
+  // SIGN UP (email/password)
+  if(btnSignUp) btnSignUp.onclick=async ()=>{
     try{
-      const n=L(nameInp.value), em=L(email.value), pw=pass.value;
-      if(n.length<2) return hintMsg('اكتب اسم صحيح (2 حرف فأكثر)');
-      if(!validEmail(em)) return hintMsg('من فضلك اكتب بريد صحيح');
-      const cred=await auth.createUserWithEmailAndPassword(em,pw);
-      await db.collection('users').doc(cred.user.uid).set({displayName:n,email:em,createdAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
-      hintMsg('تم إنشاء الحساب ✔');
-    }catch(e){ hintMsg(e.message||String(e)); }
+      const email=L(suEmail.value), pass=suPass.value, pass2=suPass2.value,
+            name=L(suName.value), phone=L(suPhone.value), batch=L(suBatch.value), lang=suLang.value;
+      if(!validEmail(email)) return hintUp.textContent='اكتب بريد صحيح';
+      if(pass.length<6) return hintUp.textContent='كلمة السر 6 أحرف على الأقل';
+      if(pass!==pass2) return hintUp.textContent='تأكيد كلمة السر غير مطابق';
+      if(name.length<2) return hintUp.textContent='اكتب اسم صحيح';
+      if(!validPhone(phone)) return hintUp.textContent='رقم الموبايل بصيغة 01xxxxxxxxx';
+      const cred=await auth.createUserWithEmailAndPassword(email,pass);
+      await db.collection('users').doc(cred.user.uid).set({
+        displayName:name, email, phone, batch, lang,
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      },{merge:true});
+      localStorage.setItem('lang',lang);
+      hintUp.textContent='تم إنشاء الحساب ✔';
+    }catch(e){ hintUp.textContent=e.message||String(e); }
   };
+  if(btnGoogleUp) btnGoogleUp.onclick=async ()=>{ try{ await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }catch(e){ hintUp.textContent=e.message||String(e);} };
 
-  if(btnIn) btnIn.onclick=async ()=>{
+  // SIGN IN
+  if(btnSignIn) btnSignIn.onclick=async ()=>{
     try{
-      const em=L(email.value), pw=pass.value;
-      if(!validEmail(em)) return hintMsg('من فضلك اكتب بريد صحيح');
-      await auth.signInWithEmailAndPassword(em,pw);
-    }catch(e){ hintMsg(e.message||String(e)); }
+      const email=L(siEmail.value), pass=siPass.value, lang=siLang.value;
+      if(!validEmail(email)) return hintIn.textContent='بريد غير صحيح';
+      await auth.signInWithEmailAndPassword(email,pass);
+      localStorage.setItem('lang',lang);
+    }catch(e){ hintIn.textContent=e.message||String(e); }
   };
 
-  if(btnG) btnG.onclick=async ()=>{
-    try{ await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
-    catch(e){ hintMsg(e.message||String(e)); }
-  };
-
-  if(btnOut) btnOut.onclick=()=>auth.signOut();
-
-  // حالة المستخدم
-  auth.onAuthStateChanged(async (u)=>{
-    if(u){
-      // افتح التطبيق
-      gate.style.display='none'; app.style.display='block'; nav.style.display='flex';
-
-      // شارة 👑 أو عضو
-      const isAdmin = ADMINS.includes(lower(u.email||''));
-      if(badge) badge.textContent = (isAdmin ? '👑 Admin — ' : 'عضو — ') + (u.displayName||u.email);
-
-      // املأ بروفايل لو فاضي
-      const pn=document.getElementById('pName'), pe=document.getElementById('pEmail');
-      if(pn && !pn.value) pn.value=u.displayName||'';
-      if(pe && !pe.value) pe.value=u.email||'';
-
-      // Ping باسم المستخدم (قراءه/كتابه بعد المصادقة)
-      try{ await db.collection('ping').doc(u.uid).set({t:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}); }
-      catch(e){ console.warn(e); }
-    }else{
-      // ارجع للبوابة
-      app.style.display='none'; nav.style.display='none'; gate.style.display='grid';
-      if(badge) badge.textContent='✓ مرتبط';
-    }
-  });
-
-  // حفظ بروفايل محلي
-  const save=document.getElementById('btnSaveProfile');
-  if(save){
-    save.onclick=()=>{
-      const data={
-        name:document.getElementById('pName').value||'',
-        email:document.getElementById('pEmail').value||'',
-        age:document.getElementById('pAge').value||'',
-        batch:document.getElementById('pBatch').value||''
-      };
-      localStorage.setItem('profileDraft', JSON.stringify(data));
-      say('تم الحفظ محليًا');
-    };
-    const draft=localStorage.getItem('profileDraft');
-    if(draft){
-      const d=JSON.parse(draft);
-      document.getElementById('pName').value=d.name||'';
-      document.getElementById('pEmail').value=d.email||'';
-      document.getElementById('pAge').value=d.age||'';
-      document.getElementById('pBatch').value=d.batch||'';
-    }
-  }
-})();
-</script>
-</body>
-</html>
+  // FORGOT PASSWORD (verify phone & batch then send reset link)
+  if(btnForgot) btnForgot.onclick=()=>{ fg.style.display='grid'; hintFg.textContent=''; };
+  if(btnFgClose) btnFgClose.onclick=()=>{ fg.style.display='none'; };
+  if(btnFgSend) btnFgSend.onclick=async ()=>{
+    try{
+      const email=L(fgEmail.value), phone=L(fgPhone.value), batch=L(fgBatch.value);
+      if(!validEmail(email)) return hintFg.textContent='اكتب بريد صحيح';
+      const q=await db.collection('users').where('email','==',email).limit(1).get();
+      if(q.empty) return hintFg.textContent='لا يوجد حساب بهذا البريد';
+      const user=q.docs[0].data();
+      if((user.phone||'')!==L(phone) || (user.batch||'')!==L(batch)) return hintFg.textContent='التحقق فشل: رقم أو دفعة غير مطابقة';
+      await auth.sendPasswordResetEmail(email);
+      hintFg.textContent='تم إرسال
