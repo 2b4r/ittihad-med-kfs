@@ -1,600 +1,470 @@
-er claYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>اتحاد طب بشري كفر الشيخ</title>
+<meta name="theme-color" content="#0b1220"/>
 
-<!-- ====== Favicon / OpenGraph ====== -->
-<link rel="icon" type="image/png" href="logo.png" sizes="32x32">
-<link rel="apple-touch-icon" href="logo.png">
-<meta property="og:title" content="اتحاد طب بشري كفر الشيخ">
-<meta property="og:image" content="logo.png">
-<meta name="theme-color" content="#0b1320">
-
-<!-- ====== Manifest (يُنشأ ديناميكياً أيضاً من JS) ====== -->
-<link rel="manifest" id="man">
 <style>
-   /* روابط أكشن تحت الفورم */
-.auth-links{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
-.auth-links a{
-  color:#fff;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.25);
-  padding-bottom:2px; font-weight:600;
-}
-.auth-links a:hover{border-bottom-color:#fff}
-
-/* زر إظهار/إخفاء كلمة السر */
-.eye-btn{position:absolute;left:-34px;top:50%;transform:translateY(-50%);opacity:.8}
-.eye-btn button{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
-
-/* رسائل الخطأ تحت الحقول */
-.input-error{color:#fca5a5;font-size:12px;margin-top:6px}
-/* =======================
-   تصميم عام Modern Glass
-   ======================= */
 :root{
-  --bg1:#0b1320; --bg2:#0e1627; --card:rgba(255,255,255,.06);
-  --txt:#e9eef6; --mut:#a6b2c6; --bor:rgba(255,255,255,.12);
-  --ring:rgba(16,185,129,.35); --accent:#10b981; --accent2:#f59e0b;
-  --err:#ef4444; --ok:#22c55e; --warn:#f59e0b;
-  --shadow:0 10px 30px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.05);
-  --radius-xl:18px; --radius-lg:14px; --radius-md:12px; --pad:14px; --gap:12px; --blur:12px;
+  --bg:#0b1220; --bg2:#0e1426; --card:#10192f; --ink:#e8eefc; --mut:#97a2b8; --bor:#1e2a44;
+  --acc:#22c55e; --acc2:#f59e0b; --danger:#ef4444; --ok:#10b981; --ring:rgba(34,197,94,.25);
+  --radius:16px; --rsm:10px; --pad:14px; --gap:12px;
 }
 :root.light{
-  --bg1:#f6f8fb; --bg2:#ffffff; --card:rgba(255,255,255,.9);
-  --txt:#0f172a; --mut:#677389; --bor:rgba(0,0,0,.08);
-  --ring:rgba(37,99,235,.25); --accent:#0ea5e9; --accent2:#f59e0b;
-  --shadow:0 12px 26px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9);
+  --bg:#f6f8ff; --bg2:#ffffff; --card:#ffffff; --ink:#0f172a; --mut:#5b6580; --bor:#e3e8f5;
+  --acc:#16a34a; --ring:rgba(22,163,74,.25);
 }
-*{box-sizing:border-box}
-html,body{height:100%}
+*{box-sizing:border-box} html,body{height:100%}
 body{
-  margin:0; font:15.5px/1.75 ui-rounded,system-ui,"Tajawal",Segoe UI,Arial;
-  color:var(--txt);
-  background:radial-gradient(1200px 600px at 20% -10%, #0f1c35 20%, transparent 60%),
-             radial-gradient(1200px 600px at 90% 10%, #09203a 25%, transparent 65%),
-             linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
+  margin:0; font:15.5px/1.75 ui-rounded,system-ui,Segoe UI,Arial;
+  color:var(--ink); background:linear-gradient(160deg,var(--bg),var(--bg2)) fixed;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
-
-/* ===== Topbar ===== */
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;justify-content:space-between;
-  padding:12px 16px;background:linear-gradient(160deg,rgba(0,0,0,.35),rgba(0,0,0,.18));
-  backdrop-filter:blur(var(--blur));border-bottom:1px solid var(--bor)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
-.brand img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45));border-radius:9px}
-.badge{border:1px solid var(--bor);border-radius:999px;padding:5px 10px;background:rgba(255,255,255,.06);color:var(--mut);font-size:12px;white-space:nowrap}
-
-/* ===== Layout ===== */
-.container{max-width:1080px;margin:0 auto;padding:18px}
-.view{display:none}
-.view.active{display:block}
-.card{background:var(--card);border:1px solid var(--bor);border-radius:var(--radius-xl);
-  padding:var(--pad);box-shadow:var(--shadow);backdrop-filter:blur(var(--blur));transition:transform .12s}
-.card:hover{transform:translateY(-1px)}
-.grid{display:grid;gap:var(--gap)}
-@media(min-width:800px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}}
-.separator{height:1px;background:var(--bor);margin:10px 0;border-radius:999px}
-
-/* ===== Inputs / Buttons ===== */
-label{display:block;margin:2px 0 6px;color:var(--mut)}
-input,select,button,textarea{border:1px solid var(--bor);border-radius:var(--radius-md);
-  background:rgba(0,0,0,.22);color:var(--txt);padding:10px 12px;outline:none;transition:.15s}
-input:focus,select:focus,textarea:focus{border-color:color-mix(in srgb,var(--accent) 45%,#000);box-shadow:0 0 0 4px var(--ring)}
-input.err{border-color:var(--err) !important;box-shadow:0 0 0 3px color-mix(in srgb,var(--err) 40%, transparent)}
-.hint{font-size:12.5px;color:var(--mut)}
-.err-txt{color:var(--err);font-size:13px;margin-top:5px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{cursor:pointer;border-radius:12px;font-weight:700;letter-spacing:.3px;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 60%,transparent),color-mix(in srgb,var(--accent2) 40%,transparent));
-  color:#fff;border:1px solid var(--bor);padding:12px 14px;box-shadow:0 8px 22px rgba(0,0,0,.18)}
-.btn.ghost{background:rgba(255,255,255,.05);color:var(--txt)}
-.btn.red{background:linear-gradient(135deg,#ef4444,#b91c1c)}
-.btn.green{background:linear-gradient(135deg,#22c55e,#16a34a)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.right{float:inline-start}
-.center{text-align:center}
-.small{font-size:12px}
-
-/* ===== Forms ===== */
-.form{max-width:520px;margin:24px auto}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+.top{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  position:sticky; top:0; z-index:50; padding:10px 16px;
+  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0));
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--bor)
+}
+.brand{display:flex; align-items:center; gap:12px}
+.brand img{height:38px; width:38px; object-fit:contain; filter:drop-shadow(0 0 10px rgba(0,0,0,.4))}
+.title{font-weight:800; letter-spacing:.2px}
+.badge{border:1px solid var(--bor); color:var(--mut); background:rgba(255,255,255,.04);
+  padding:6px 12px; border-radius:999px; font-size:12px}
+.btn{cursor:pointer; border:1px solid var(--bor); border-radius:12px; padding:10px 14px;
+  color:#fff; background:linear-gradient(135deg,rgba(34,197,94,.22),rgba(245,158,11,.18));
+  box-shadow:0 8px 22px rgba(0,0,0,.18); transition:.14s}
+.btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
+.btn.ghost{background:rgba(255,255,255,.04); color:var(--ink)}
+.btn.danger{background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(239,68,68,.15))}
+.link{color:#fff; text-decoration:none; border-bottom:1px dashed #fff4}
+.link.muted{color:var(--mut); border-color:transparent}
+.card{
+  background:var(--card); border:1px solid var(--bor); border-radius:var(--radius);
+  padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04)
+}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+input,select,button,textarea{
+  outline:none; border:1px solid var(--bor); border-radius:12px; padding:12px 14px;
+  background:#0d172c; color:var(--ink); transition:.18s
+}
+:root.light input,:root.light select,:root.light textarea{background:#f7f9ff}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 4px var(--ring); border-color:color-mix(in srgb,var(--acc) 55%, transparent)}
 .field{margin-bottom:12px}
-.flex2{display:grid;gap:12px}
-@media(min-width:640px){.flex2{grid-template-columns:1fr 1fr}}
-.pwd-wrap{position:relative}
-.eye{position:absolute;top:50%;inset-inline-end:10px;transform:translateY(-50%);cursor:pointer;opacity:.9}
-
-/* ===== Bottom Nav ===== */
-.bottom{position:sticky;bottom:0;z-index:15;display:flex;justify-content:space-around;gap:10px;padding:12px;
-  background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.12));border-top:1px solid var(--bor);backdrop-filter:blur(var(--blur))}
-.bottom .tab{flex:1;text-align:center}
-.bottom .tab.active{box-shadow:0 0 0 3px var(--ring) inset;border-radius:12px}
-
-/* ===== Toast / Alert ===== */
-.toast{position:fixed;inset-inline:16px;bottom:90px;z-index:9999;background:#111827;border:1px solid var(--bor);
-  color:#fff;border-radius:12px;padding:10px 12px;display:none}
-.toast.show{display:block}
-.toast.ok{background:#063a2f} .toast.err{background:#3b0d0d}
-
-/* ===== Profile ===== */
-.avatar{width:86px;height:86px;border-radius:50%;border:2px solid var(--bor);object-fit:cover;background:#0b1220}
-.owner{color:#7dd3fc;font-weight:800;white-space:nowrap}
-
-/* ===== Tables / Lists ===== */
-.kv{display:grid;grid-template-columns:150px 1fr;gap:8px;align-items:center}
-.kv div{padding:6px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bor);border-radius:10px}
-kbd{background:#111827;border:1px solid var(--bor);border-radius:6px;padding:2px 6px;font:12px/1 system-ui}
-
-/* ===== Helper badges ===== */
-.badge-mini{display:inline-flex;gap:6px;align-items:center;padding:4px 8px;border:1px solid var(--bor);border-radius:999px;background:rgba(255,255,255,.06);font-size:12px;color:var(--mut)}
+.field label{display:block; margin-bottom:6px; color:var(--mut)}
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.right{margin-inline-start:auto}
+.center{text-align:center}
+.err{color:#fecaca; background:#7f1d1d; border:1px solid #dc2626; padding:10px 12px; border-radius:12px; display:none}
+.ok{color:#d1fae5; background:#064e3b; border:1px solid #10b981; padding:10px 12px; border-radius:12px; display:none}
+.show{display:block}
+.eye{position:absolute; inset-inline-start:-36px; top:50%; transform:translateY(-50%); cursor:pointer; opacity:.7}
+.sep{height:1px; background:var(--bor); margin:12px 0; border-radius:999px}
+.tabs{display:flex; gap:8px; border-bottom:1px solid var(--bor); margin-bottom:14px}
+.tab{background:transparent; border:1px solid var(--bor); padding:8px 12px; color:var(--mut); border-radius:10px 10px 0 0; cursor:pointer}
+.tab.active{background:#0d172c; color:#fff; border-bottom-color:#0d172c}
+.view{display:none} .view.active{display:block}
+.footerNote{color:var(--mut); font-size:12px}
+.small{font-size:12.5px; color:var(--mut)}
+.linkbar a{color:#fff; text-decoration:none; margin-inline:8px; border-bottom:1px dashed #fff4}
 </style>
 </head>
 <body>
 
-   <header class="topbar">
-  <div class="brand" style="display:flex;align-items:center;gap:10px">
-    <img src="./logo.png" alt="شعار" width="36" height="36"
-         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><circle cx=%2232%22 cy=%2232%22 r=%2230%22 fill=%230ea5a5/></svg>';"
-         style="border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.25)">
-    <span id="siteTitle">اتحاد طب بشري كفر الشيخ</span>
+<!-- ================== Header ================== -->
+<header class="top">
+  <div class="brand">
+    <img src="logo.png" alt="شعار" onerror="this.style.display='none'"/>
+    <div class="title">اتحاد طب بشري كفر الشيخ</div>
   </div>
-  <div class="badge" id="statusBadge">…</div>
-   </header>
+  <div class="row">
+    <span id="authBadge" class="badge">غير مسجل</span>
+    <button id="btnTheme" class="btn ghost">تبديل ليلي/نهاري</button>
+  </div>
+</header>
 
-<main class="container">
+<div class="wrap">
 
-  <!-- ========= صفحة الدخول ========= -->
-  <section id="page-login" class="view active">
-    <div class="card form">
+  <!-- =============== LOGIN VIEW =============== -->
+  <section id="viewLogin" class="view active">
+    <div class="card">
       <h2 class="center">تسجيل الدخول</h2>
-      <div class="field">
-        <label>البريد الإلكتروني</label>
-        <input id="loginEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
-        <div class="err-txt" id="loginEmailErr"></div>
-      </div>
-      <div class="field pwd-wrap">
-        <label>كلمة السر</label>
-        <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••">
-        <span class="eye" data-eye="loginPass">👁️</span>
-        <div class="err-txt" id="loginPassErr"></div>
-      </div>
-      <div class="field">
-        <label>اللغة</label>
-        <select id="loginLang">
-          <option value="ar">العربية</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-      <button class="btn green" id="btnLoginEmail">دخول بالبريد</button>
-      <div class="row" style="justify-content:space-between;margin-top:8px">
-        <a href="#" id="goReset" class="small">نسيت كلمة السر؟</a>
-        <a href="#" id="goRegister" class="small">إنشاء حساب جديد</a>
-      </div>
-      <div class="separator"></div>
-      <button class="btn" id="btnGoogle">دخول بحساب Google</button>
-      <p class="hint center" style="margin-top:10px">* يلزم الموافقة على البريد في بعض الأحيان.</p>
-    </div>
-  </section>
 
-  <!-- ========= صفحة إنشاء حساب ========= -->
-  <section id="page-register" class="view">
-    <div class="card form">
-      <h2 class="center">إنشاء حساب</h2>
+      <div id="loginErr" class="err"></div>
+      <div id="loginOk"  class="ok"></div>
 
-      <div class="flex2">
+      <div class="grid" style="position:relative">
         <div class="field">
-          <label>الاسم الأول + اسم العائلة</label>
-          <input id="regName" placeholder="الاسم الكامل (≥ 4 حروف)">
-          <div class="err-txt" id="regNameErr"></div>
+          <label>البريد الإلكتروني</label>
+          <input id="inEmail" type="email" placeholder="you@example.com" autocomplete="email">
         </div>
-        <div class="field">
-          <label>الموبايل</label>
-          <input id="regPhone" inputmode="numeric" placeholder="01xxxxxxxxx">
-          <div class="err-txt" id="regPhoneErr"></div>
+        <div class="field" style="position:relative">
+          <label>كلمة السر</label>
+          <span class="eye" id="eyeLogin">👁️</span>
+          <input id="inPass" type="password" placeholder="•••••••" autocomplete="current-password">
         </div>
       </div>
 
-      <div class="flex2">
-        <div class="field">
-          <label>الدفعة</label>
-          <input id="regBatch" inputmode="numeric" placeholder="مثال: 12">
-          <div class="err-txt" id="regBatchErr"></div>
-        </div>
+      <div class="grid">
         <div class="field">
           <label>اللغة</label>
-          <select id="regLang"><option value="ar">العربية</option><option value="en">English</option></select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>البريد الإلكتروني</label>
-        <input id="regEmail" type="email" autocomplete="email" placeholder="you@example.com">
-        <div class="err-txt" id="regEmailErr"></div>
-      </div>
-
-      <div class="flex2">
-        <div class="field pwd-wrap">
-          <label>كلمة السر</label>
-          <input id="regPass" type="password" autocomplete="new-password" placeholder="••••••••">
-          <span class="eye" data-eye="regPass">👁️</span>
-          <div class="err-txt" id="regPassErr"></div>
-        </div>
-        <div class="field pwd-wrap">
-          <label>تأكيد كلمة السر</label>
-          <input id="regPass2" type="password" autocomplete="new-password" placeholder="••••••••">
-          <span class="eye" data-eye="regPass2">👁️</span>
-          <div class="err-txt" id="regPass2Err"></div>
-        </div>
-      </div>
-
-      <button class="btn green" id="btnRegister">تسجيل</button>
-      <div class="row" style="justify-content:space-between;margin-top:10px">
-        <a href="#" id="goLoginFromReg" class="small">عندي حساب بالفعل</a>
-      </div>
-      <p class="hint small" style="margin-top:10px">
-        بالضغط على تسجيل، أنت توافق على حفظ بياناتك (الاسم/البريد/الهاتف/الدفعة) لاستخدامها في فعاليات الاتحاد.
-      </p>
-    </div>
-  </section>
-
-  <!-- ========= صفحة نسيان كلمة السر (مع تحقق) ========= -->
-  <section id="page-reset" class="view">
-    <div class="card form">
-      <h2 class="center">استعادة كلمة السر</h2>
-      <div class="field"><label>البريد</label><input id="resetEmail" type="email" placeholder="you@example.com"></div>
-      <div class="flex2">
-        <div class="field"><label>الموبايل</label><input id="resetPhone" inputmode="numeric" placeholder="01xxxxxxxxx"></div>
-        <div class="field"><label>الدفعة</label><input id="resetBatch" inputmode="numeric" placeholder="12"></div>
-      </div>
-      <button class="btn" id="btnReset">تأكيد وإرسال رابط إعادة التعيين</button>
-      <div class="row" style="justify-content:space-between;margin-top:10px">
-        <a href="#" id="goLoginFromReset" class="small">رجوع للدخول</a>
-      </div>
-      <p class="hint small">نتحقق أولاً من تطابق (الموبايل + الدفعة) مع بيانات حسابك قبل إرسال الرابط.</p>
-    </div>
-  </section>
-
-  <!-- ========= الصفحة الرئيسية (بعد الدخول) ========= -->
-  <section id="page-home" class="view">
-    <div class="card">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <h2 style="margin:0">مرحبًا بك</h2>
-        <span class="badge-mini">حالة Firebase: <b id="fbState">—</b></span>
-      </div>
-      <p class="hint" id="welcomeMsg">…</p>
-      <div class="separator"></div>
-      <div class="grid grid-2">
-        <div class="card">
-          <h3 style="margin-top:0">أحدث الأخبار</h3>
-          <div id="newsList">
-            <div class="hint">سيتم إضافة منشورات وفعاليات لاحقًا.</div>
-          </div>
-        </div>
-        <div class="card">
-          <h3 style="margin-top:0">مختصر سريع</h3>
-          <div class="kv">
-            <div>اسم المستخدم</div><div id="kvName">—</div>
-            <div>البريد</div><div id="kvEmail">—</div>
-            <div>الدفعة</div><div id="kvBatch">—</div>
-            <div>موبايل</div><div id="kvPhone">—</div>
-            <div>الدور</div><div id="kvRole">—</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========= البروفايل ========= -->
-  <section id="page-profile" class="view">
-    <div class="card">
-      <h2 style="margin-top:0">الملف الشخصي</h2>
-      <div class="row" style="gap:18px;align-items:center">
-        <img id="avatar" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect width='100%25' height='100%25' fill='%23111827'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' fill='%23a6b2c6' font-size='22' font-family='system-ui'%3E👤%3C/text%3E%3C/svg%3E" alt="avatar">
-        <div>
-          <div style="font-weight:800" id="pName">—</div>
-          <div class="small" style="color:var(--mut)"><span id="pEmail">—</span> • <span id="pRole">—</span></div>
-        </div>
-      </div>
-
-      <div class="grid grid-2" style="margin-top:12px">
-        <div>
-          <label>تغيير الصورة</label>
-          <input type="file" id="fileAvatar" accept="image/*">
-          <div class="hint small">تُصغّر تلقائيًا إلى 256×256 وتُحفظ في الحساب.</div>
-        </div>
-        <div class="flex2">
-          <div>
-            <label>الموبايل</label>
-            <input id="pPhone" placeholder="01xxxxxxxxx">
-          </div>
-          <div>
-            <label>الدفعة</label>
-            <input id="pBatch" placeholder="12">
-          </div>
-        </div>
-      </div>
-
-      <div class="row" style="margin-top:12px">
-        <button class="btn green" id="btnSaveProfile">حفظ التعديلات</button>
-        <span class="hint" id="saveStatus"></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========= الإعدادات ========= -->
-  <section id="page-settings" class="view">
-    <div class="card">
-      <h2 style="margin-top:0">الإعدادات</h2>
-      <div class="grid grid-3">
-        <div>
-          <label>الوضع</label><br>
-          <button class="btn ghost" id="btnTheme">☀️ / 🌙 تبديل</button>
-        </div>
-        <div>
-          <label>اللغة</label><br>
-          <select id="selLang">
+          <select id="loginLang">
             <option value="ar">العربية</option>
             <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
           </select>
         </div>
-        <div>
-          <label>حجم الخط</label><br>
-          <div class="row">
-            <button class="btn ghost small" data-fs="14">A-</button>
-            <button class="btn ghost small" data-fs="16">A</button>
-            <button class="btn ghost small" data-fs="18">A+</button>
-          </div>
+      </div>
+
+      <div class="row" style="margin-top:8px">
+        <button id="btnLogin" class="btn">دخول بالبريد</button>
+        <button id="btnGoogle" class="btn">دخول بحساب Google</button>
+        <div class="right linkbar">
+          <a id="linkSignup" href="#">إنشاء حساب جديد</a>
+          <a id="linkForgot" href="#">نسيت كلمة السر؟</a>
         </div>
       </div>
-      <div class="separator"></div>
-      <div class="row" style="justify-content:space-between">
-        <button class="btn red" id="btnLogout">تسجيل الخروج</button>
-        <button class="btn ghost" id="btnClear">مسح تفضيلات الجهاز</button>
-      </div>
-      <p class="hint small" style="margin-top:8px">* تسجيل الخروج موجود هنا كما طلبت.</p>
+
+      <p class="footerNote" style="margin-top:10px">* يلزم الموافقة على البريد في بعض الأحيان.</p>
     </div>
   </section>
 
-</main>
+  <!-- =============== SIGNUP VIEW =============== -->
+  <section id="viewSignup" class="view">
+    <div class="card">
+      <h2 class="center">إنشاء حساب</h2>
 
-<!-- ===== Bottom Nav (يظهر بعد الدخول) ===== -->
-<nav class="bottom" id="nav" style="display:none">
-  <button class="tab active" data-goto="page-home">🏠 الرئيسية</button>
-  <button class="tab" data-goto="page-profile">👤 بروفايل</button>
-  <button class="tab" data-goto="page-settings">⚙️ إعدادات</button>
-</nav>
+      <div id="signupErr" class="err"></div>
+      <div id="signupOk"  class="ok"></div>
 
-<!-- ===== Toast ===== -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <div class="grid">
+        <div class="field">
+          <label>الاسم (الاسم + العائلة)</label>
+          <input id="suName" placeholder="مثال: أحمد علي">
+        </div>
+        <div class="field">
+          <label>رقم الموبايل</label>
+          <input id="suPhone" inputmode="numeric" pattern="[0-9]*" placeholder="أرقام فقط">
+        </div>
+      </div>
 
-<!-- ===== Firebase (Compat) ===== -->
+      <div class="grid">
+        <div class="field">
+          <label>الدفعة</label>
+          <input id="suBatch" type="number" min="1" max="200" placeholder="مثال: 72">
+        </div>
+        <div class="field">
+          <label>البريد الإلكتروني</label>
+          <input id="suEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="grid" style="position:relative">
+        <div class="field" style="position:relative">
+          <label>كلمة السر</label>
+          <span class="eye" id="eyeSu1">👁️</span>
+          <input id="suPass" type="password" placeholder="•••••••" autocomplete="new-password">
+        </div>
+        <div class="field" style="position:relative">
+          <label>تأكيد كلمة السر</label>
+          <span class="eye" id="eyeSu2">👁️</span>
+          <input id="suPass2" type="password" placeholder="إعادة الإدخال" autocomplete="new-password">
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label>اللغة</label>
+          <select id="signupLang">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:8px">
+        <button id="btnSignup" class="btn">إنشاء الحساب</button>
+        <a id="linkBackLogin" class="link right" href="#">رجوع لتسجيل الدخول</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== APP (AFTER LOGIN) =============== -->
+  <section id="viewApp" class="view">
+    <div class="card">
+      <div class="row">
+        <div class="title">مرحبًا <span id="helloName">—</span></div>
+        <div class="right">
+          <span id="roleBadge" class="badge">Member</span>
+          <button id="btnLogout" class="btn danger">تسجيل الخروج</button>
+        </div>
+      </div>
+      <div class="sep"></div>
+      <div class="tabs">
+        <button class="tab active" data-tab="homeTab">الرئيسية</button>
+        <button class="tab" data-tab="profileTab">الملف الشخصي</button>
+        <button class="tab" data-tab="settingsTab">الإعدادات</button>
+      </div>
+
+      <div id="homeTab" class="tabview">
+        <p>نسخة أولية — بعد تفعيل الصلاحيات هنضيف البوستات، حضور QR… إلخ.</p>
+      </div>
+
+      <div id="profileTab" class="tabview" style="display:none">
+        <div class="grid">
+          <div class="field">
+            <label>الاسم</label>
+            <input id="pfName">
+          </div>
+          <div class="field">
+            <label>البريد</label>
+            <input id="pfEmail" disabled>
+          </div>
+          <div class="field">
+            <label>الموبايل</label>
+            <input id="pfPhone">
+          </div>
+          <div class="field">
+            <label>الدفعة</label>
+            <input id="pfBatch" type="number" min="1" max="200">
+          </div>
+          <div class="field">
+            <label>صورة البروفايل (URL اختيارية)</label>
+            <input id="pfPhoto" placeholder="https://…">
+          </div>
+        </div>
+        <div class="row">
+          <button id="btnSaveProfile" class="btn">حفظ الملف</button>
+        </div>
+      </div>
+
+      <div id="settingsTab" class="tabview" style="display:none">
+        <div class="grid">
+          <div class="field">
+            <label>الوضع</label><br/>
+            <button id="btnTheme2" class="btn ghost">تبديل ليلي/نهاري</button>
+          </div>
+          <div class="field">
+            <label>اللغة</label>
+            <select id="appLang">
+              <option value="ar">العربية</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+            </select>
+          </div>
+        </div>
+        <p class="small">* سيتم تخزين التفضيلات محليًا على جهازك.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================== Firebase (Compat) ================== -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+
 <script>
-/* ===============================
-   Firebase Config + Boot
-   (مربوط على مشروعك الحالي)
-   =============================== */
+/* ========= Theme & Small helpers ========= */
+(function(){
+  const btn1=document.getElementById('btnTheme'), btn2=document.getElementById('btnTheme2');
+  const apply=()=>{ document.documentElement.classList.toggle('light'); localStorage.setItem('theme', document.documentElement.classList.contains('light')?'light':'dark'); };
+  const boot=localStorage.getItem('theme'); if(boot==='light') document.documentElement.classList.add('light');
+  if(btn1) btn1.onclick=apply; if(btn2) btn2.onclick=apply;
+})();
+const $ = s=>document.querySelector(s);
+const $$ = s=>[...document.querySelectorAll(s)];
+function show(id){ $$('.view').forEach(v=>v.classList.remove('active')); $('#'+id).classList.add('active'); }
+function toast(el,msg,ok=false){ if(!el) return; el.textContent=msg; el.classList.add('show'); if(ok){ el.classList.remove('err'); el.classList.add('ok'); } else { el.classList.remove('ok'); el.classList.add('err'); } setTimeout(()=>el.classList.remove('show'), 4500); }
+function toggleEye(eye,input){ eye?.addEventListener('click',()=>{ input.type=(input.type==='password'?'text':'password'); }); }
+
+/* ========= Language (basic wiring) ========= */
+(function(){
+  const loginLang=$('#loginLang'), signupLang=$('#signupLang'), appLang=$('#appLang');
+  const set=(v)=>{ localStorage.setItem('lang', v); [loginLang,signupLang,appLang].forEach(s=>{ if(s) s.value=v; }); document.documentElement.lang=v; document.dir=(v==='ar'?'rtl':'ltr'); };
+  const boot=localStorage.getItem('lang')||'ar'; set(boot);
+  [loginLang,signupLang,appLang].forEach(s=> s && (s.onchange=()=>set(s.value)));
+})();
+
+/* ========= Firebase Config + Boot ========= */
 const firebaseConfig = {
   apiKey: "AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",
   authDomain: "ittihad-med-kfs.firebaseapp.com",
   projectId: "ittihad-med-kfs",
   appId: "1:323302922960:web:3343605d75d2a5147cdcd5"
 };
-// إيميل المالك
-const OWNER_EMAIL = "dr.emara10@gmail.com";
-
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db   = firebase.firestore();
-try{ firebase.analytics(); }catch{}
+try{ firebase.analytics(); }catch(e){}
 
-/* ===============================
-   Utilities
-   =============================== */
-const qs = sel => document.querySelector(sel);
-const qsa = sel => [...document.querySelectorAll(sel)];
-const L = s => (s||"").trim();
-const lower = s => L(s).toLowerCase();
-const show = id => (qs(id).style.display="");
-const hide = id => (qs(id).style.display="none");
-const toast = (msg, type="ok")=>{
-  const t=qs("#toast"); t.textContent=msg; t.className="toast show "+type;
-  setTimeout(()=>t.className="toast", 2500);
+/* ========= Globals ========= */
+const auth=firebase.auth();
+const db  =firebase.firestore();
+const OWNER_EMAIL="dr.emara10@gmail.com".toLowerCase();
+
+/* ========= UI Refs ========= */
+const badge  = $('#authBadge');
+const eyeLogin=$('#eyeLogin'), eyeSu1=$('#eyeSu1'), eyeSu2=$('#eyeSu2');
+toggleEye(eyeLogin,$('#inPass')); toggleEye(eyeSu1,$('#suPass')); toggleEye(eyeSu2,$('#suPass2'));
+
+$('#linkSignup').onclick=(e)=>{ e.preventDefault(); show('viewSignup'); };
+$('#linkBackLogin').onclick=(e)=>{ e.preventDefault(); show('viewLogin'); };
+$('#linkForgot').onclick= async (e)=>{
+  e.preventDefault();
+  const email=prompt('ادخل بريدك لإرسال رابط إعادة كلمة السر:');
+  if(!email) return;
+  try{ await auth.sendPasswordResetEmail(email); alert('تم إرسال رابط تغيير كلمة السر إلى بريدك.'); }
+  catch(err){ alert('خطأ: '+(err.message||err)); }
 };
-function setActive(pageId){
-  qsa(".view").forEach(v=>v.classList.remove("active"));
-  qs("#"+pageId).classList.add("active");
-  qsa(".bottom .tab").forEach(b=>b.classList.toggle("active", b.dataset.goto===pageId));
-}
 
-/* ===============================
-   Theme, Lang, Font
-   =============================== */
-(function bootPrefs(){
-  const man = qs("#man");
-  const manifest = {
-    name:"اتحاد طب بشري كفر الشيخ",
-    short_name:"اتحاد الطب",
-    icons:[{src:"logo.png",sizes:"192x192",type:"image/png"}],
-    start_url:"./", display:"standalone", background_color:"#0b1320", theme_color:"#0b1320"
+/* ========= Signup ========= */
+$('#btnSignup').onclick= async ()=>{
+  const name = ($('#suName').value||'').trim();
+  const phone= ($('#suPhone').value||'').replace(/\D/g,'');
+  const batch= parseInt($('#suBatch').value||'0',10);
+  const email= ($('#suEmail').value||'').trim();
+  const pass = $('#suPass').value||'';
+  const pass2= $('#suPass2').value||'';
+
+  const err=$('#signupErr'), ok=$('#signupOk');
+
+  if(name.length<5 || !name.includes(' ')) return toast(err,'اكتب الاسم كامل: اسم + عائلة (≥ 5 حروف)');
+  if(phone.length<10 || phone.length>15)   return toast(err,'رقم الهاتف غير صالح (10–15 رقم).');
+  if(!(batch>=1 && batch<=200))            return toast(err,'اكتب رقم دفعة صحيح (1–200).');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast(err,'بريد إلكتروني غير صالح.');
+  if(pass.length<6)                         return toast(err,'كلمة السر لا تقل عن 6 حروف.');
+  if(pass!==pass2)                          return toast(err,'تأكيد كلمة السر غير مطابق.');
+
+  try{
+    const cred = await auth.createUserWithEmailAndPassword(email, pass);
+    await cred.user.updateProfile({ displayName: name });
+    // اكتب ملف المستخدم
+    await db.collection('users').doc(cred.user.uid).set({
+      uid: cred.user.uid,
+      email: email.toLowerCase(),
+      displayName: name,
+      phone, batch,
+      role: (email.toLowerCase()===OWNER_EMAIL?'owner':'member'),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+    toast(ok,'تم إنشاء الحساب بنجاح ✅',true);
+    show('viewApp');
+  }catch(e){
+    toast(err, 'خطأ في تسجيل الحساب: ' + (e.code||e.message||e));
+  }
+};
+
+/* ========= Login ========= */
+$('#btnLogin').onclick= async ()=>{
+  const email=($('#inEmail').value||'').trim();
+  const pass =$('#inPass').value||'';
+  const err=$('#loginErr'), ok=$('#loginOk');
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast(err,'صيغة البريد غير صحيحة.');
+  if(pass.length<6) return toast(err,'تحقق من كلمة السر.');
+
+  try{
+    const cred=await auth.signInWithEmailAndPassword(email,pass);
+    toast(ok,'تم تسجيل الدخول ✅',true);
+    show('viewApp');
+  }catch(e){
+    toast(err,'فشل تسجيل الدخول: ' + (e.code||e.message||e));
+  }
+};
+
+/* ========= Google Sign-In ========= */
+$('#btnGoogle').onclick= async ()=>{
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    const res=await auth.signInWithPopup(provider);
+    const u=res.user;
+    await db.collection('users').doc(u.uid).set({
+      uid:u.uid, email:u.email.toLowerCase(), displayName:u.displayName||'', role:(u.email.toLowerCase()===OWNER_EMAIL?'owner':'member')
+    },{merge:true});
+    show('viewApp');
+  }catch(e){
+    toast($('#loginErr'),'Google Sign-In: '+(e.code||e.message||e));
+  }
+};
+
+/* ========= Logout ========= */
+$('#btnLogout').onclick=()=>auth.signOut();
+
+/* ========= Tabs ========= */
+$$('.tab').forEach(b=>{
+  b.onclick=()=>{
+    $$('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    $$('.tabview').forEach(x=>x.style.display='none');
+    document.getElementById(b.dataset.tab).style.display='';
   };
-  const blob = new Blob([JSON.stringify(manifest)],{type:"application/json"});
-  man.setAttribute("href", URL.createObjectURL(blob));
-
-  const theme = localStorage.getItem("theme"); if(theme==="light") document.documentElement.classList.add("light");
-  const fs = localStorage.getItem("fs"); if(fs) document.body.style.fontSize = fs+"px";
-  const lang = localStorage.getItem("lang")||"ar"; qs("#loginLang").value = lang; qs("#regLang").value = lang; qs("#selLang").value = lang;
-})();
-qs("#btnTheme").onclick = ()=>{ const isLight=document.documentElement.classList.toggle("light"); localStorage.setItem("theme", isLight?"light":"dark"); };
-qsa('[data-fs]').forEach(b=>b.onclick=()=>{ const v=b.getAttribute('data-fs'); document.body.style.fontSize=v+'px'; localStorage.setItem('fs',v); });
-qs("#selLang").onchange = e => { localStorage.setItem("lang", e.target.value); toast("تم حفظ اللغة"); };
-qs("#btnClear").onclick = ()=>{ localStorage.clear(); toast("تم مسح التفضيلات، أعد التحميل"); };
-
-/* ===============================
-   Nav
-   =============================== */
-qsa(".bottom .tab").forEach(b=> b.onclick=()=> setActive(b.dataset.goto));
-["#goRegister","#goLoginFromReg","#goReset","#goLoginFromReset"].forEach(id=>{
-  const el = qs(id); if(!el) return;
-  el.onclick = (e)=>{ e.preventDefault(); setActive(el.id.includes("Register")? "page-register": el.id.includes("Reset")? "page-reset" : "page-login"); };
 });
 
-/* ===============================
-   Eye toggles
-   =============================== */
-qsa(".eye").forEach(e=> e.onclick=()=>{
-  const id=e.getAttribute("data-eye"), inp=qs("#"+id); inp.type = (inp.type==="password"?"text":"password");
+/* ========= Profile Save ========= */
+$('#btnSaveProfile').onclick= async ()=>{
+  const u=auth.currentUser; if(!u) return alert('سجّل دخول أولاً');
+  try{
+    const name=($('#pfName').value||'').trim();
+    const phone=($('#pfPhone').value||'').replace(/\D/g,'');
+    const batch=parseInt($('#pfBatch').value||'0',10);
+    const photo=($('#pfPhoto').value||'').trim();
+    if(name.length<5 || !name.includes(' ')) return alert('اكتب الاسم كامل (اسم + عائلة).');
+    await u.updateProfile({displayName:name, photoURL: photo||null});
+    await db.collection('users').doc(u.uid).set({displayName:name, phone, batch, photoURL:photo||null},{merge:true});
+    alert('تم حفظ الملف.');
+  }catch(e){ alert('خطأ: '+(e.message||e)); }
+};
+
+/* ========= Auth State ========= */
+auth.onAuthStateChanged(async (u)=>{
+  if(!u){
+    badge.textContent='غير مسجل';
+    show('viewLogin');
+    return;
+  }
+  // load user doc
+  try{
+    const doc=await db.collection('users').doc(u.uid).get();
+    const role = (doc.exists && doc.data().role) ? doc.data().role : (u.email.toLowerCase()===OWNER_EMAIL?'owner':'member');
+    $('#helloName').textContent = u.displayName || (doc.exists? (doc.data().displayName||'عضو'): 'عضو');
+    $('#pfName').value  = u.displayName || (doc.exists? (doc.data().displayName||'') : '');
+    $('#pfEmail').value = u.email||'';
+    $('#pfPhone').value = doc.exists? (doc.data().phone||'') : '';
+    $('#pfBatch').value = doc.exists? (doc.data().batch||'') : '';
+    $('#pfPhoto').value = (u.photoURL|| (doc.exists? (doc.data().photoURL||'') : ''));
+
+    badge.textContent = (role==='owner' ? 'Owner 👑' : 'عضو');
+    $('#roleBadge').textContent = (role==='owner' ? 'Owner 👑' : 'Member');
+    show('viewApp');
+  }catch(e){
+    badge.textContent='⚠️ Firestore';
+    console.error(e);
+  }
 });
 
-/* ===============================
-   Firestore helpers
-   =============================== */
-const usernames = () => db.collection("usernames");  // docId = nameLower, data:{uid}
-const usersCol  = () => db.collection("users");      // docId = uid
-<script>
-(function(){
-  // مراجع عناصر نموذج تسجيل الدخول/إنشاء الحساب
-  const emailIn   = document.querySelector('#authEmail, #loginEmail') || document.getElementById('authEmail');
-  const passIn    = document.querySelector('#authPass, #loginPass')   || document.getElementById('authPass');
-  const nameIn    = document.getElementById('authName');   // في إنشاء الحساب فقط
-  const phoneIn   = document.getElementById('authPhone');  // إن وجد
-  const batchIn   = document.getElementById('authBatch');  // إن وجد
-  const pass2In   = document.getElementById('authPass2');  // تأكيد كلمة السر (إن وجد)
-  const btnSignIn = document.getElementById('btnEmailSignIn');
-  const btnSignUp = document.getElementById('btnEmailSignUp');
-  const btnGoogle = document.getElementById('btnGoogle');
-  const forgotA   = document.getElementById('linkForgot');
-  const toSignupA = document.getElementById('linkToSignup');
-  const toLoginA  = document.getElementById('linkToLogin');
-  const langSel   = document.querySelector('#loginLang, #signupLang');
-  const toastBox  = document.getElementById('authHint') || document.getElementById('errBox');
-
-  // زر إظهار/إخفاء كلمة السر
-  const eyeBtn = document.getElementById('togglePass');
-  if (eyeBtn && passIn){
-    eyeBtn.addEventListener('click', ()=>{
-      const t = passIn.type === 'password' ? 'text':'password';
-      passIn.type = t;
-      if (pass2In) pass2In.type = t;
-    });
+/* ========= Ping Firestore (Banner on rules error) ========= */
+(async ()=>{
+  try{
+    await db.collection('ping').doc('hello').set({ t: Date.now() }, {merge:true});
+  }catch(e){
+    const b=document.createElement('div');
+    b.className='err show';
+    b.textContent='Firestore error: تأكد من القواعد (Rules) أو تفعيل المصادقة.';
+    document.querySelector('.wrap').prepend(b);
   }
-
-  const showMsg = (msg)=>{ if (toastBox){ toastBox.textContent = msg; toastBox.classList.add('show'); setTimeout(()=>toastBox.classList.remove('show'), 4000);} else alert(msg); };
-
-  // helper للتحقق من الاسم (لازم اسم + لقب >= 4)
-  const validName = (s)=>{
-    if (!s) return false;
-    const p = s.trim().split(/\s+/);
-    return s.trim().length >= 4 && p.length >= 2;
-  };
-
-  // ===== تسجيل الدخول بالبريد =====
-  if (btnSignIn){
-    btnSignIn.addEventListener('click', async ()=>{
-      try{
-        const email = (emailIn?.value||'').trim();
-        const pass  = passIn?.value||'';
-        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return showMsg('البريد غير صالح');
-        if (pass.length < 6) return showMsg('كلمة السر قصيرة');
-        const cred = await firebase.auth().signInWithEmailAndPassword(email, pass);
-        showMsg('تم تسجيل الدخول ✅');
-      }catch(e){
-        if (e?.code === 'auth/wrong-password') showMsg('كلمة السر غير صحيحة');
-        else if (e?.code === 'auth/user-not-found') showMsg('لا يوجد حساب بهذا البريد');
-        else showMsg('خطأ: ' + (e.message||e));
-      }
-    });
-  }
-
-  // ===== إنشاء حساب بالبريد =====
-  if (btnSignUp){
-    btnSignUp.addEventListener('click', async ()=>{
-      try{
-        const name  = (nameIn?.value||'').trim();
-        const email = (emailIn?.value||'').trim();
-        const phone = (phoneIn?.value||'').trim();
-        const batch = (batchIn?.value||'').trim();
-        const pass  = passIn?.value||'';
-        const pass2 = pass2In?.value||'';
-
-        if (!validName(name)) return showMsg('من فضلك اكتب الاسم الأول واسم العائلة (٤ أحرف فأكثر)');
-        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return showMsg('البريد غير صالح');
-        if (pass.length < 6) return showMsg('كلمة السر لا تقل عن 6 أحرف');
-        if (pass !== pass2) return showMsg('تأكيد كلمة السر غير مطابق');
-
-        // إنشاء الحساب
-        const cred = await firebase.auth().createUserWithEmailAndPassword(email, pass);
-        const user = cred.user;
-        await user.updateProfile({ displayName: name });
-
-        // حفظ بيانات أساسية في Firestore (يتطلب قواعد تسمح للمستخدم بإنشاء وثيقته)
-        const db = firebase.firestore();
-        await db.collection('users').doc(user.uid).set({
-          email, phone, batch, displayName:name, createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        showMsg('تم إنشاء الحساب ✅');
-      }catch(e){
-        if (e?.code === 'auth/email-already-in-use') showMsg('البريد مستخدم من قبل');
-        else showMsg('خطأ: ' + (e.message||e));
-      }
-    });
-  }
-
-  // ===== جوجل =====
-  if (btnGoogle){
-    btnGoogle.addEventListener('click', async ()=>{
-      try{
-        const provider = new firebase.auth.GoogleAuthProvider();
-        await firebase.auth().signInWithPopup(provider);
-        showMsg('تم تسجيل الدخول بجوجل ✅');
-      }catch(e){ showMsg('فشل تسجيل الدخول بجوجل: ' + (e.message||e)); }
-    });
-  }
-
-  // ===== نسيت كلمة السر؟ =====
-  if (forgotA){
-    forgotA.addEventListener('click', async (ev)=>{
-      ev.preventDefault();
-      try{
-        const email = (emailIn?.value||'').trim();
-        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return showMsg('اكتب بريدك أولاً ثم اضغط نسيت كلمة السر');
-        await firebase.auth().sendPasswordResetEmail(email);
-        showMsg('تم إرسال رابط إعادة التعيين إلى بريدك');
-      }catch(e){ showMsg('تعذّر الإرسال: ' + (e.message||e)); }
-    });
-  }
-
-  // ===== تبديل اللغة من داخل النافذة =====
-  if (langSel){
-    langSel.addEventListener('change', ()=>{
-      localStorage.setItem('lang', langSel.value);
-      location.reload(); // أسهل حل لتطبيق النصوص
-    });
-  }
-
-  // ألوان/شريط الروابط أسفل النموذج
-  const linksRow = document.getElementById('authLinks');
-  if (linksRow) linksRow.classList.add('auth-links');
-
 })();
 </script>
-   
-/* ===============================
-   Sign Up
-   =============================== */
-qs("#btnRegister").onclick = async ()=>{
-  // inputs
-  const name = L(qs("#regName").value);
-  const phone= L(qs("#regPhone").value);
-  const batch= L(qs("#regBatch").value);
-  const email= L(qs("#regEmail").value);
-  const pass = qs("#regPass").value;
-  const pass2= qs("#regPass2").value;
-  const lang = qs("#regLang").valu
-</main> 
-</body> 
-</html> 
+</body>
+         </html>
