@@ -332,6 +332,130 @@ const firebaseConfig = {
   }
 })();
 </script>
+<script>
+(function(){
+  const ADMINS = ['dr.emara10@gmail.com']; // عدّل/زود ايميلات الأدمن
 
+  // عناصر الواجهة
+  const badge   = document.getElementById('statusBadge');
+  const openBtn = document.getElementById('btnOpenAuth');
+  const outBtn  = document.getElementById('btnSignOut');
+  const modal   = document.getElementById('authModal');
+  const nameInp = document.getElementById('authName');
+  const email   = document.getElementById('authEmail');
+  const pass    = document.getElementById('authPass');
+  const hint    = document.getElementById('authHint');
+  const btnUp   = document.getElementById('btnEmailSignUp');
+  const btnIn   = document.getElementById('btnEmailSignIn');
+  const btnG    = document.getElementById('btnGoogle');
+  const btnClose= document.getElementById('btnCloseAuth');
+
+  // Firebase
+  const auth = firebase.auth();
+  const db   = firebase.firestore();
+
+  // Helpers
+  const L = s => (s || '').trim();
+  const lower = s => L(s).toLowerCase();
+  const isAdminEmail = (u) => u && ADMINS.includes(lower(u.email||''));
+  const show = el => el && (el.style.display = '');
+  const hide = el => el && (el.style.display = 'none');
+  const toast = msg => { if(hint){ hint.textContent = msg; } };
+
+  function toggleModal(v){ if(!modal) return; modal.style.display = v ? 'block' : 'none'; toast(''); }
+  if(openBtn) openBtn.onclick = ()=> toggleModal(true);
+  if(btnClose) btnClose.onclick = ()=> toggleModal(false);
+
+  // ========= SIGN UP (Email) مع حجز الاسم الفريد =========
+  if(btnUp) btnUp.onclick = async ()=>{
+    try{
+      const name = L(nameInp && nameInp.value);
+      if(!name || name.length < 2) return toast('⚠️ اكتب اسم صحيح (2 حروف فأكثر)');
+      const emailVal = L(email.value);
+      const passVal  = pass.value;
+
+      // 1) أنشئ الحساب (لو الإيميل مستخدم Firebase هيرجع EMAIL_EXISTS تلقائيًا)
+      const cred = await auth.createUserWithEmailAndPassword(emailVal, passVal);
+      const user = cred.user;
+      const nameKey = lower(name); // مفتاح username
+
+      // 2) احجز الاسم + اكتب user في معاملة واحدة (تمنع السباق)
+      await db.runTransaction(async (tx)=>{
+        const unameRef = db.collection('usernames').doc(nameKey);
+        const userRef  = db.collection('users').doc(user.uid);
+
+        const unameSnap = await tx.get(unameRef);
+        if (unameSnap.exists) {
+          throw new Error('الاسم مستخدم بالفعل');
+        }
+        // لو كله تمام: احجز الاسم لنفس الـuid واكتب ملف المستخدم
+        tx.set(unameRef, { uid: user.uid, at: firebase.firestore.FieldValue.serverTimestamp() });
+        tx.set(userRef, {
+          email: user.email,
+          displayName: name,
+          displayNameLower: nameKey,
+          role: ADMINS.includes(lower(user.email||'')) ? 'admin' : 'user',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge:true });
+      });
+
+      toast('✅ تم إنشاء الحساب وتسجيل الدخول');
+      toggleModal(false);
+    }catch(e){
+      // لو حصل خطأ، ومسجل حساب بالفعل، نعمل signOut علشان ما يفضلش معلق
+      if (auth.currentUser && !auth.currentUser.emailVerified) { /* ignore */ }
+      toast('⚠️ ' + (e && e.message ? e.message : e));
+    }
+  };
+
+  // ========= SIGN IN (Email) =========
+  if(btnIn) btnIn.onclick = async ()=>{
+    try{
+      await auth.signInWithEmailAndPassword(L(email.value), pass.value);
+      toast('✅ تم تسجيل الدخول'); toggleModal(false);
+    }catch(e){ toast('⚠️ ' + e.message); }
+  };
+
+  // ========= Google Sign‑in =========
+  if(btnG) btnG.onclick = async ()=>{
+    try{
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const cred = await auth.signInWithPopup(provider);
+      const user = cred.user;
+
+      // لو أول مرة يدخل Google، خزن ملف user بدون اسم (يقدر يكمّل الاسم لاحقًا)
+      const userRef = db.collection('users').doc(user.uid);
+      const snap = await userRef.get();
+      if(!snap.exists){
+        await userRef.set({
+          email: user.email || '',
+          displayName: user.displayName || '',
+          displayNameLower: lower(user.displayName||''),
+          role: ADMINS.includes(lower(user.email||'')) ? 'admin' : 'user',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge:true });
+      }
+      toggleModal(false);
+    }catch(e){ toast('⚠️ ' + e.message); }
+  };
+
+  // ========= Sign‑out =========
+  if(outBtn) outBtn.onclick = ()=> auth.signOut();
+
+  // ========= حالة الدخول =========
+  auth.onAuthStateChanged(async (user)=>{
+    if(user){
+      const admin = isAdminEmail(user);
+      badge.textContent = admin ? `👑 Admin: ${user.email}` : `✓ Logged: ${user.email}`;
+      hide(openBtn); show(outBtn);
+      document.body.classList.toggle('is-admin', admin);
+    }else{
+      badge.textContent = '✓ Firebase مرتبط';
+      show(openBtn); hide(outBtn);
+      document.body.classList.remove('is-admin');
+    }
+  });
+})();
+</script>
 </body>
 </html>
