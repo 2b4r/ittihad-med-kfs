@@ -1,28 +1,22 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>اتحاد طب بشري كفر الشيخ</title>
+<meta charset="utf-8"/>
+<metaname="viewport" content="width=device-width, initial-scale=1"/>
+<title id="t_site">اتحاد طب بشري كفر الشيخ</title>
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Inter:wght@400;600;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#0f1217; --bg2:#0b0d11;
-  --card:rgba(255,255,255,.05);
+  --bg1:#0f1217; --bg2:#0b0d11; --card:rgba(255,255,255,.05);
   --txt:#eef1f4; --mut:#a6acb3; --bor:rgba(255,255,255,.10);
-  --acc:#10b981; --warn:#ef4444;
-  --ring:rgba(16,185,129,.34);
-  --r-xl:18px; --r-lg:14px;
-  --pad:16px; --gap:12px; --blur:10px; --fs:16px;
+  --acc:#10b981; --warn:#ef4444; --ring:rgba(16,185,129,.34);
+  --r-xl:18px; --r-lg:14px; --pad:16px; --gap:12px; --blur:10px; --fs:16px;
   --shadow:0 10px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.05);
 }
-:root.light{
-  --bg1:#f6f7fb; --bg2:#ffffff; --card:#fff; --txt:#171a1f; --mut:#5e646b;
-  --bor:rgba(0,0,0,.08); --ring:rgba(17,94,89,.20); --shadow:0 10px 24px rgba(0,0,0,.08);
-}
+:root.light{ --bg1:#f6f7fb; --bg2:#ffffff; --card:#fff; --txt:#171a1f; --mut:#5e646b; --bor:rgba(0,0,0,.08); --ring:rgba(17,94,89,.20); --shadow:0 10px 24px rgba(0,0,0,.08) }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -36,12 +30,7 @@ body.ff-noto{font-family:"Noto Naskh Arabic",system-ui}
 body.ff-inter{font-family:"Inter",system-ui}
 a{color:#fff;text-decoration:underline 1px rgba(255,255,255,.35)}
 
-.topbar{
-  position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:10px 14px;border-bottom:1px solid var(--bor);
-  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.08));
-  backdrop-filter:blur(var(--blur))
-}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bor);background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.08));backdrop-filter:blur(var(--blur))}
 .brand{display:flex;align-items:center;gap:12px}
 .logo{width:40px;height:40px;object-fit:contain;border-radius:50%;cursor:pointer;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
 .brand h1{font-size:18px;margin:0}
@@ -68,19 +57,22 @@ button:disabled{opacity:.6;cursor:not-allowed}
 .tab{padding:10px 14px;border-radius:12px 12px 0 0;cursor:pointer}
 .tab.active{background:rgba(255,255,255,.06);box-shadow:var(--shadow)}
 .view{display:none}.view.active{display:block}
-
 .alert{display:none;position:sticky;top:10px;z-index:40;margin:0 auto 10px;padding:12px 14px;border-radius:14px;border:1px solid rgba(239,68,68,.3);background:linear-gradient(180deg,rgba(239,68,68,.20),rgba(239,68,68,.10));color:#fee2e2}
 .alert.show{display:block}
-
 .field{position:relative}
 .eye{position:absolute;left:10px;top:50%;transform:translateY(-50%);cursor:pointer;user-select:none;opacity:.75}
 
 /* Drawer */
 .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;z-index:60}
-.drawer{position:fixed;top:0;bottom:0;left:0;width:min(90vw,380px);background:var(--card);border-inline-end:1px solid var(--bor);
-  box-shadow:var(--shadow);transform:translateX(-100%);transition:.2s ease;z-index:70;padding:14px}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:min(90vw,380px);background:var(--card);border-inline-end:1px solid var(--bor);box-shadow:var(--shadow);transform:translateX(-100%);transition:.2s ease;z-index:70;padding:14px}
 .drawer.open{transform:none}
 .drawer-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+
+/* Avatar */
+.avatar-wrap{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.avatar{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid var(--bor);background:#222}
+.avatar-btn{border:1px dashed var(--bor);background:rgba(255,255,255,.06)}
+.linklike{cursor:pointer;color:#fff;text-decoration:underline}
 </style>
 </head>
 
@@ -88,7 +80,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <header class="topbar">
   <div class="brand">
     <img src="logo.png" alt="شعار" class="logo" id="btnOpenSettings" onerror="this.style.display='none'">
-    <h1>اتحاد طب بشري كفر الشيخ</h1>
+    <h1 id="t_header">اتحاد طب بشري كفر الشيخ</h1>
   </div>
   <div class="role-badge" id="roleBadge">غير مسجل</div>
 </header>
@@ -97,21 +89,21 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div id="globalAlert" class="alert"></div>
 
   <div id="tabs" class="tabs" style="display:none">
-    <div class="tab active" data-view="homeView" onclick="switchTab(this)">الرئيسية</div>
-    <div class="tab" data-view="profileView" onclick="switchTab(this)">الملف الشخصي</div>
+    <div class="tab active" data-view="homeView" onclick="switchTab(this)" id="t_tab_home">الرئيسية</div>
+    <div class="tab" data-view="profileView" onclick="switchTab(this)" id="t_tab_profile">الملف الشخصي</div>
   </div>
 
   <!-- Auth -->
   <section id="authView" class="view active">
     <div class="card">
-      <h2 style="margin-top:0">تسجيل الدخول</h2>
+      <h2 style="margin-top:0" id="t_login_title">تسجيل الدخول</h2>
       <div class="grid">
         <div class="field">
-          <label>البريد الإلكتروني</label>
+          <label id="t_email_lbl">البريد الإلكتروني</label>
           <input id="inEmail" type="email" placeholder="you@example.com" autocomplete="email">
         </div>
         <div class="field">
-          <label>كلمة السر</label>
+          <label id="t_pass_lbl">كلمة السر</label>
           <span class="eye" onclick="togglePass('inPass')">👁️</span>
           <input id="inPass" type="password" placeholder="••••••••" autocomplete="current-password">
         </div>
@@ -119,53 +111,53 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
       <div class="grid" style="margin-top:10px">
         <div>
-          <label>اللغة</label>
+          <label id="t_lang_lbl">اللغة</label>
           <select id="langSelAuth" onchange="setLang(this.value)">
             <option value="ar">العربية</option>
             <option value="en">English</option>
           </select>
         </div>
         <div class="row" style="justify-content:flex-end">
-          <button id="btnEmailLogin" type="button" onclick="emailLogin()">دخول بالبريد</button>
+          <button id="btnEmailLogin" type="button" onclick="emailLogin()"><span id="t_btn_email_login">دخول بالبريد</span></button>
         </div>
       </div>
 
       <div class="row" style="margin-top:10px">
-        <button id="btnGoogleLogin" class="google" type="button" onclick="googleLogin()">دخول بحساب Google</button>
+        <button id="btnGoogleLogin" class="google" type="button" onclick="googleLogin()"><span id="t_btn_google_login">دخول بحساب Google</span></button>
       </div>
 
       <div class="row" style="margin-top:8px; gap:20px">
-        <a class="linklike" onclick="showView('signupView')">إنشاء حساب جديد</a>
-        <a class="linklike" onclick="forgot()">نسيت كلمة السر؟</a>
+        <a class="linklike" onclick="showView('signupView')" id="t_to_signup">إنشاء حساب جديد</a>
+        <a class="linklike" onclick="openForgot()" id="t_forgot">نسيت كلمة السر؟</a>
       </div>
 
-      <div class="mut" style="margin-top:6px">* يلزم الموافقة على البريد في بعض الأحيان.</div>
+      <div class="mut" style="margin-top:6px" id="t_mail_note">* يلزم الموافقة على البريد في بعض الأحيان.</div>
     </div>
   </section>
 
   <!-- Signup -->
   <section id="signupView" class="view">
     <div class="card">
-      <h2 style="margin-top:0">إنشاء حساب</h2>
+      <h2 style="margin-top:0" id="t_signup_title">إنشاء حساب</h2>
       <div class="grid">
-        <div class="field"><label>الاسم الأول</label><input id="suFirst" placeholder="مثال: محمود"></div>
-        <div class="field"><label>اسم العائلة</label><input id="suLast" placeholder="مثال: عمارة"></div>
-        <div class="field"><label>البريد الإلكتروني</label><input id="suEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
-        <div class="field"><label>الموبايل</label><input id="suPhone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
-        <div class="field"><label>الدفعة</label><input id="suBatch" inputmode="numeric" placeholder="12"></div>
+        <div class="field"><label id="t_first_lbl">الاسم الأول</label><input id="suFirst" placeholder="مثال: محمود"></div>
+        <div class="field"><label id="t_last_lbl">اسم العائلة</label><input id="suLast" placeholder="مثال: عمارة"></div>
+        <div class="field"><label id="t_email2_lbl">البريد الإلكتروني</label><input id="suEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
+        <div class="field"><label id="t_phone_lbl">الموبايل</label><input id="suPhone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
+        <div class="field"><label id="t_batch_lbl">الدفعة</label><input id="suBatch" inputmode="numeric" placeholder="12"></div>
         <div class="field">
-          <label>اللغة</label>
+          <label id="t_lang2_lbl">اللغة</label>
           <select id="langSelSignup" onchange="setLang(this.value)">
             <option value="ar">العربية</option><option value="en">English</option>
           </select>
         </div>
-        <div class="field"><label>كلمة السر</label><span class="eye" onclick="togglePass('suPass')">👁️</span><input id="suPass" type="password" placeholder="8+ حروف/أرقام" autocomplete="new-password"></div>
-        <div class="field"><label>تأكيد كلمة السر</label><input id="suPass2" type="password" placeholder="إعادة كتابة كلمة السر" autocomplete="new-password"></div>
+        <div class="field"><label id="t_pass2_lbl">كلمة السر</label><span class="eye" onclick="togglePass('suPass')">👁️</span><input id="suPass" type="password" placeholder="8+ حروف/أرقام" autocomplete="new-password"></div>
+        <div class="field"><label id="t_pass3_lbl">تأكيد كلمة السر</label><input id="suPass2" type="password" placeholder="إعادة كتابة كلمة السر" autocomplete="new-password"></div>
       </div>
       <div class="row" style="margin-top:10px">
-        <button id="btnSignup" type="button" onclick="signup()" style="min-width:180px">إنشاء حساب بالبريد</button>
-        <button id="btnGoogleSignup" type="button" class="google" onclick="googleSignup()">إنشاء/إكمال بحساب Google</button>
-        <a class="linklike" onclick="showView('authView')">رجوع لتسجيل الدخول</a>
+        <button id="btnSignup" type="button" onclick="signup()" style="min-width:180px"><span id="t_btn_signup_email">إنشاء حساب بالبريد</span></button>
+        <button id="btnGoogleSignup" type="button" class="google" onclick="googleSignup()" ><span id="t_btn_signup_google">إنشاء/إكمال بحساب Google</span></button>
+        <a class="linklike" onclick="showView('authView')" id="t_back_login">رجوع لتسجيل الدخول</a>
       </div>
     </div>
   </section>
@@ -173,30 +165,42 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <!-- Home -->
   <section id="homeView" class="view">
     <div class="card">
-      <h2 style="margin:0 0 8px">مرحبًا، <span id="helloName">عضو</span></h2>
+      <h2 style="margin:0 0 8px"><span id="t_welcome">مرحبًا،</span> <span id="helloName">عضو</span></h2>
       <div class="row" style="gap:8px">
-        <span class="badge-mini">الحالة: <span id="badAuth">—</span></span>
-        <span class="badge-mini">الدور: <span id="badRole">—</span></span>
+        <span class="badge-mini"><span id="t_status">الحالة:</span> <span id="badAuth">—</span></span>
+        <span class="badge-mini"><span id="t_role">الدور:</span> <span id="badRole">—</span></span>
       </div>
       <div class="sep"></div>
-      <p class="mut">نسخة أولية — بعد تفعيل الصلاحيات هنضيف البوستات، حضور QR… إلخ.</p>
+      <p class="mut" id="t_home_note">نسخة أولية — بعد تفعيل الصلاحيات هنضيف البوستات، حضور QR… إلخ.</p>
     </div>
   </section>
 
   <!-- Profile -->
   <section id="profileView" class="view">
     <div class="card">
-      <h3 style="margin-top:0">الملف الشخصي</h3>
+      <h3 style="margin-top:0" id="t_profile_title">الملف الشخصي</h3>
+
+      <!-- Avatar + pick -->
+      <div class="avatar-wrap">
+        <img id="avatar" class="avatar" src="" alt="avatar" onerror="this.src=''; this.style.background='#222'">
+        <div>
+          <div class="row">
+            <button class="avatar-btn" type="button" onclick="pickAvatar()" id="t_change_photo">تغيير الصورة</button>
+            <input id="fileAvatar" type="file" accept="image/*" style="display:none" />
+          </div>
+          <div class="mut" style="font-size:12px" id="t_photo_hint">يُفضّل صورة مربعة أقل من 1MB.</div>
+        </div>
+      </div>
+
       <div class="grid">
-        <div><label>الاسم الأول</label><input id="pfFirst"></div>
-        <div><label>اسم العائلة</label><input id="pfLast"></div>
-        <div><label>البريد</label><input id="pfEmail" disabled></div>
-        <div><label>الموبايل</label><input id="pfPhone"></div>
-        <div><label>الدفعة</label><input id="pfBatch"></div>
-        <div><label>صورة البروفايل (URL اختياري)</label><input id="pfPhoto" placeholder="https://…"></div>
+        <div><label id="t_pf_first">الاسم الأول</label><input id="pfFirst"></div>
+        <div><label id="t_pf_last">اسم العائلة</label><input id="pfLast"></div>
+        <div><label id="t_pf_email">البريد</label><input id="pfEmail" disabled></div>
+        <div><label id="t_pf_phone">الموبايل</label><input id="pfPhone"></div>
+        <div><label id="t_pf_batch">الدفعة</label><input id="pfBatch"></div>
       </div>
       <div class="row" style="margin-top:12px">
-        <button id="btnSaveProfile" type="button" onclick="saveProfile()">حفظ الملف</button>
+        <button id="btnSaveProfile" type="button" onclick="saveProfile()"><span id="t_save_profile">حفظ الملف</span></button>
       </div>
     </div>
   </section>
@@ -206,29 +210,49 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div id="drawerBackdrop" class="drawer-backdrop" onclick="closeDrawer()"></div>
 <aside id="drawer" class="drawer" aria-hidden="true">
   <div class="drawer-header">
-    <strong>الإعدادات</strong>
-    <button class="warn" type="button" onclick="logout()">تسجيل الخروج</button>
+    <strong id="t_settings">الإعدادات</strong>
+    <button class="warn" type="button" onclick="logout()" id="t_logout">تسجيل الخروج</button>
   </div>
   <div class="sep"></div>
   <div class="row" style="margin-bottom:10px">
     <div style="flex:1">
-      <label>الثيم</label>
-      <button class="google" type="button" style="width:100%" onclick="toggleTheme()">تبديل ليلي/نهاري 🌙/☀️</button>
+      <label id="t_theme">الثيم</label>
+      <button class="google" type="button" style="width:100%" onclick="toggleTheme()" id="t_toggle_theme">تبديل ليلي/نهاري 🌙/☀️</button>
     </div>
   </div>
   <div class="grid">
-    <div><label>اللغة</label><select id="langSelSettings" style="width:100%" onchange="setLang(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
-    <div><label>الخط</label><select id="fontSel" style="width:100%" onchange="setFont(this.value)"><option value="cairo">Cairo (افتراضي)</option><option value="noto">Noto Naskh Arabic</option><option value="inter">Inter</option></select></div>
-    <div><label>حجم الخط</label><select id="fsSel" style="width:100%" onchange="setFs(this.value)"><option value="15">صغير</option><option value="16" selected>عادي</option><option value="18">كبير</option><option value="20">أكبر</option></select></div>
+    <div><label id="t_lang3_lbl">اللغة</label><select id="langSelSettings" style="width:100%" onchange="setLang(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
+    <div><label id="t_font_lbl">الخط</label><select id="fontSel" style="width:100%" onchange="setFont(this.value)"><option value="cairo">Cairo (افتراضي)</option><option value="noto">Noto Naskh Arabic</option><option value="inter">Inter</option></select></div>
+    <div><label id="t_fs_lbl">حجم الخط</label><select id="fsSel" style="width:100%" onchange="setFs(this.value)"><option value="15">صغير</option><option value="16" selected>عادي</option><option value="18">كبير</option><option value="20">أكبر</option></select></div>
   </div>
   <div class="sep"></div>
-  <p class="mut" style="font-size:12px">اضغط على شعار الاتحاد لفتح هذه اللوحة في أي وقت.</p>
+  <p class="mut" style="font-size:12px" id="t_logo_hint">* اضغط على شعار الاتحاد لفتح هذه اللوحة بعد تسجيل الدخول.</p>
+</aside>
+
+<!-- Forgot Modal -->
+<div id="forgotBack" class="drawer-backdrop" style="z-index:80"></div>
+<aside id="forgot" class="drawer" style="z-index:90;width:min(90vw,420px)">
+  <div class="drawer-header">
+    <strong id="t_forgot_title">استعادة الحساب</strong>
+    <button class="warn" type="button" onclick="closeForgot()" id="t_close">إغلاق</button>
+  </div>
+  <div class="sep"></div>
+  <div class="grid">
+    <div class="field"><label id="t_f_email">البريد</label><input id="fgEmail" type="email" placeholder="you@example.com"></div>
+    <div class="field"><label id="t_f_phone">الموبايل</label><input id="fgPhone" inputmode="tel" placeholder="مثال: 01xxxxxxxxx"></div>
+    <div class="field"><label id="t_f_batch">الدفعة</label><input id="fgBatch" inputmode="numeric" placeholder="12"></div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <button type="button" onclick="doRecovery()" id="t_send_reset">تحقق ثم أرسل رابط إعادة التعيين</button>
+  </div>
+  <p class="mut" style="margin-top:10px" id="t_f_note">لن نعرض كلمة السر أبدًا؛ سنرسل رابط إعادة التعيين بعد التحقق من بياناتك.</p>
 </aside>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 
 <script>
 /* ================= Firebase ================= */
@@ -236,18 +260,65 @@ const firebaseConfig = {
   apiKey: "AIzaSyDfiO-4J0DIHSKZo_vdBXeS343eJ0x4pYo",
   authDomain: "ittihad-med-kfs.firebaseapp.com",
   projectId: "ittihad-med-kfs",
-  appId: "1:323302922960:web:3343605d75d2a5147cdcd5"
+  appId: "1:323302922960:web:3343605d75d2a5147cdcd5",
+  storageBucket: "ittihad-med-kfs.appspot.com"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db   = firebase.firestore();
+const st   = firebase.storage();
+
+/* ================= I18N ================= */
+const I18N = {
+  ar:{
+    site:"اتحاد طب بشري كفر الشيخ", header:"اتحاد طب بشري كفر الشيخ",
+    login_title:"تسجيل الدخول", email:"البريد الإلكتروني", pass:"كلمة السر", lang:"اللغة",
+    btn_email_login:"دخول بالبريد", btn_google_login:"دخول بحساب Google",
+    to_signup:"إنشاء حساب جديد", forgot:"نسيت كلمة السر؟", mail_note:"* يلزم الموافقة على البريد في بعض الأحيان.",
+    signup_title:"إنشاء حساب", first:"الاسم الأول", last:"اسم العائلة", phone:"الموبايل", batch:"الدفعة",
+    pass2:"كلمة السر", pass3:"تأكيد كلمة السر", btn_signup_email:"إنشاء حساب بالبريد", btn_signup_google:"إنشاء/إكمال بحساب Google", back_login:"رجوع لتسجيل الدخول",
+    tab_home:"الرئيسية", tab_profile:"الملف الشخصي", welcome:"مرحبًا،", status:"الحالة:", role:"الدور:", home_note:"نسخة أولية — بعد تفعيل الصلاحيات هنضيف البوستات، حضور QR… إلخ.",
+    profile_title:"الملف الشخصي", pf_first:"الاسم الأول", pf_last:"اسم العائلة", pf_email:"البريد", pf_phone:"الموبايل", pf_batch:"الدفعة", save_profile:"حفظ الملف",
+    change_photo:"تغيير الصورة", photo_hint:"يُفضّل صورة مربعة أقل من 1MB.",
+    settings:"الإعدادات", logout:"تسجيل الخروج", theme:"الثيم", toggle_theme:"تبديل ليلي/نهاري 🌙/☀️", logo_hint:"* اضغط على شعار الاتحاد لفتح هذه اللوحة بعد تسجيل الدخول.",
+    forgot_title:"استعادة الحساب", close:"إغلاق", f_email:"البريد", f_phone:"الموبايل", f_batch:"الدفعة", send_reset:"تحقق ثم أرسل رابط إعادة التعيين", f_note:"لن نعرض كلمة السر أبدًا؛ سنرسل رابط إعادة التعيين بعد التحقق من بياناتك."
+  },
+  en:{
+    site:"Kafr El‑Sheikh Med Students Union", header:"Kafr El‑Sheikh Med Students Union",
+    login_title:"Sign in", email:"Email", pass:"Password", lang:"Language",
+    btn_email_login:"Sign in with Email", btn_google_login:"Sign in with Google",
+    to_signup:"Create new account", forgot:"Forgot password?", mail_note:"* Email permission may be required sometimes.",
+    signup_title:"Create account", first:"First name", last:"Last name", phone:"Mobile", batch:"Batch",
+    pass2:"Password", pass3:"Confirm password", btn_signup_email:"Create with Email", btn_signup_google:"Continue with Google", back_login:"Back to Login",
+    tab_home:"Home", tab_profile:"Profile", welcome:"Welcome,", status:"Status:", role:"Role:", home_note:"Early preview — posts, QR attendance, etc. coming soon.",
+    profile_title:"Profile", pf_first:"First name", pf_last:"Last name", pf_email:"Email", pf_phone:"Mobile", pf_batch:"Batch", save_profile:"Save profile",
+    change_photo:"Change Photo", photo_hint:"Square image under 1MB is preferred.",
+    settings:"Settings", logout:"Sign out", theme:"Theme", toggle_theme:"Toggle Dark/Light 🌙/☀️", logo_hint:"* Tap the logo to open this panel after signing in.",
+    forgot_title:"Account recovery", close:"Close", f_email:"Email", f_phone:"Mobile", f_batch:"Batch", send_reset:"Verify & send reset link", f_note:"We never show your password; we send a reset link after verifying your data."
+  }
+};
+function applyI18n(locale){
+  const t=I18N[locale]||I18N.ar;
+  const M = (id, key) => { const el=document.getElementById(id); if(el) el.textContent=t[key]; };
+  document.title = t.site;
+  M('t_site','site'); M('t_header','header');
+  M('t_login_title','login_title'); M('t_email_lbl','email'); M('t_pass_lbl','pass'); M('t_lang_lbl','lang');
+  M('t_btn_email_login','btn_email_login'); M('t_btn_google_login','btn_google_login');
+  M('t_to_signup','to_signup'); M('t_forgot','forgot'); M('t_mail_note','mail_note');
+  M('t_signup_title','signup_title'); M('t_first_lbl','first'); M('t_last_lbl','last'); M('t_email2_lbl','email'); M('t_phone_lbl','phone'); M('t_batch_lbl','batch');
+  M('t_lang2_lbl','lang'); M('t_pass2_lbl','pass2'); M('t_pass3_lbl','pass3'); M('t_btn_signup_email','btn_signup_email'); M('t_btn_signup_google','btn_signup_google'); M('t_back_login','back_login');
+  M('t_tab_home','tab_home'); M('t_tab_profile','tab_profile'); M('t_welcome','welcome'); M('t_status','status'); M('t_role','role'); M('t_home_note','home_note');
+  M('t_profile_title','profile_title'); M('t_pf_first','pf_first'); M('t_pf_last','pf_last'); M('t_pf_email','pf_email'); M('t_pf_phone','pf_phone'); M('t_pf_batch','pf_batch'); M('t_save_profile','save_profile');
+  M('t_change_photo','change_photo'); M('t_photo_hint','photo_hint');
+  M('t_settings','settings'); M('t_logout','logout'); M('t_theme','theme'); M('t_toggle_theme','toggle_theme'); M('t_lang3_lbl','lang'); M('t_font_lbl','lang'); M('t_fs_lbl','lang'); M('t_logo_hint','logo_hint');
+  M('t_forgot_title','forgot_title'); M('t_close','close'); M('t_f_email','f_email'); M('t_f_phone','f_phone'); M('t_f_batch','f_batch'); M('t_send_reset','send_reset'); M('t_f_note','f_note');
+}
 
 /* ================= Utils & Prefs ================= */
 const $  = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const val = el => (el?.value || "").trim();
-const setV = (el,v)=>{ if(el) el.value = (v ?? ''); };
-const OWNER_EMAILS = ["dr.emara10@gmail.com"];
+const setV = (el,v)=>{ if(el) el.value = (v ?? ''); const OWNER_EMAILS = ["dr.emara10@gmail.com"];
 let userListenerUnsubscribe = null;
 
 function toast(msg,err=false){
@@ -263,8 +334,12 @@ function showView(id){ $$('.view').forEach(v=>v.classList.remove('active')); $('
 function switchTab(el){ $$('.tab').forEach(t=>t.classList.toggle('active',t===el)); showView(el.dataset.view); }
 function togglePass(id){ const f=$('#'+id); if(f) f.type = f.type==='password'?'text':'password'; }
 
-function setLang(l){ localStorage.setItem('lang',l); document.documentElement.lang=l; document.documentElement.dir=(l==='ar'?'rtl':'ltr');
-  ['#langSelAuth','#langSelSignup','#langSelSettings'].forEach(s=>{ const e=$(s); if(e) e.value=l; }); }
+function setLang(l){
+  localStorage.setItem('lang',l);
+  document.documentElement.lang=l; document.documentElement.dir=(l==='ar'?'rtl':'ltr');
+  ['#langSelAuth','#langSelSignup','#langSelSettings'].forEach(s=>{ const e=$(s); if(e) e.value=l; });
+  applyI18n(l);
+}
 function setFont(f){ localStorage.setItem('font',f); document.body.classList.remove('ff-noto','ff-inter'); if(f==='noto') document.body.classList.add('ff-noto'); if(f==='inter') document.body.classList.add('ff-inter'); }
 function setFs(sz){ localStorage.setItem('fs',sz); document.documentElement.style.setProperty('--fs',(sz||16)+'px'); }
 function toggleTheme(){ const light=document.documentElement.classList.toggle('light'); localStorage.setItem('theme', light?'light':'dark'); }
@@ -277,9 +352,12 @@ function toggleTheme(){ const light=document.documentElement.classList.toggle('l
   if((localStorage.getItem('theme')||'dark')==='light') document.documentElement.classList.add('light');
 })();
 
-/* ================= Drawer ================= */
+/* ================= Drawer (Logo opens only if signed) ================= */
 const drawer = $('#drawer'), backdrop = $('#drawerBackdrop');
-$('#btnOpenSettings')?.addEventListener('click',()=>{ backdrop.style.display='block'; requestAnimationFrame(()=>drawer.classList.add('open')); });
+$('#btnOpenSettings')?.addEventListener('click',()=>{
+  if(!auth.currentUser){ toast(I18N[localStorage.getItem('lang')||'ar'].to_signup + ' / ' + I18N[localStorage.getItem('lang')||'ar'].login_title, true); return; }
+  backdrop.style.display='block'; requestAnimationFrame(()=>drawer.classList.add('open'));
+});
 function closeDrawer(){ drawer.classList.remove('open'); backdrop.style.display='none'; }
 
 /* ================= Validation ================= */
@@ -287,23 +365,27 @@ const okEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e||'');
 const min = (s,n)=> (s||'').trim().length>=n;
 const mark = (el,ok)=>{ if(!el) return ok; el.classList.toggle('error',!ok); return ok; };
 
-/* ================= Firestore UserDoc/Duties ================= */
+/* ================= Firestore UserDoc & PublicProfile ================= */
 async function writeUserDoc(u,data){
   const role = OWNER_EMAILS.includes((u.email||'').toLowerCase()) ? 'owner' : (data.role || 'member');
+  const first=data.first||'', last=data.last||'';
+  const displayName=`${first} ${last}`.trim() || u.displayName || '';
+
   await db.collection('users').doc(u.uid).set({
-    uid:u.uid,
-    email:u.email||'',
-    emailLower:(u.email||'').toLowerCase(),
-    first:data.first||'',
-    last:data.last||'',
-    displayName:`${data.first||''} ${data.last||''}`.trim(),
-    phone:data.phone||'',
-    batch:data.batch||'',
-    photoURL:data.photoURL||u.photoURL||'',
-    role,
+    uid:u.uid, email:u.email||'', emailLower:(u.email||'').toLowerCase(),
+    first, last, displayName, phone:data.phone||'', batch:data.batch||'',
+    photoURL:data.photoURL||u.photoURL||'', role,
     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   },{merge:true});
+
+  // publicProfiles: فقط آخر رقمين من الموبايل + الدفعة — للترميم
+  const phoneLast2 = (data.phone||'').slice(-2);
+  await db.collection('publicProfiles').doc((u.email||'').toLowerCase()).set({
+    emailLower:(u.email||'').toLowerCase(), batch:data.batch||'', phoneLast2: phoneLast2||'',
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },{merge:true});
+
   return role;
 }
 async function loadUserDoc(uid){ const s=await db.collection('users').doc(uid).get(); return s.exists?s.data():null; }
@@ -317,15 +399,21 @@ async function determineUserRole(user, doc){
 }
 
 /* ================= Auth State ================= */
+let loadingToastTimer=null;
+const showLoading = (v)=>{ clearTimeout(loadingToastTimer); if(v){ loadingToastTimer=setTimeout(()=>toast('... جاري تحميل بياناتك'),200);} else { toast(''); } };
+
 auth.onAuthStateChanged(async user=>{
   try{
-    // نظف أي اشتراك قديم
     if(userListenerUnsubscribe){ userListenerUnsubscribe(); userListenerUnsubscribe=null; }
 
     if(user){
       showLoading(true);
       const doc = await loadUserDoc(user.uid);
       const role = await determineUserRole(user, doc);
+
+      // ping بعد الدخول فقط
+      try{ await db.collection('ping').doc('hello').set({t:Date.now()},{merge:true}); }catch(e){ console.warn('ping fail',e); }
+
       await afterLogin(user, role);
       showLoading(false);
     }else{
@@ -348,7 +436,7 @@ async function afterLogin(user,role){
   setV($('#pfEmail'), user.email || '');
   $('#helloName').textContent = user.displayName || 'عضو';
 
-  // استمع لتحديثات ملف المستخدم
+  // snapshot
   userListenerUnsubscribe = db.collection('users').doc(user.uid).onSnapshot(
     s=>{
       const d=s.data()||{};
@@ -356,13 +444,11 @@ async function afterLogin(user,role){
       setV($('#pfLast'),d.last||'');
       setV($('#pfPhone'),d.phone||'');
       setV($('#pfBatch'),d.batch||'');
-      setV($('#pfPhoto'),d.photoURL||'');
+      const url=d.photoURL||'';
+      $('#avatar').src=url||'';
       $('#helloName').textContent = d.displayName || user.displayName || 'عضو';
     },
-    e=>{
-      console.error('User doc snapshot error:', e);
-      toast('تعذّر مزامنة الملف الشخصي.', true);
-    }
+    e=>{ console.error('User doc snapshot error:', e); toast('تعذّر مزامنة الملف الشخصي.', true); }
   );
   showView('homeView');
 }
@@ -371,6 +457,7 @@ function afterLogout(){
   $('#roleBadge').textContent='غير مسجل';
   showView('authView');
   setV($('#inEmail'),''); setV($('#inPass'),'');
+  $('#avatar').src='';
 }
 
 /* ================= Actions ================= */
@@ -378,18 +465,14 @@ async function emailLogin(){
   const email=val($('#inEmail')), pass=val($('#inPass'));
   if(!okEmail(email)) { mark($('#inEmail'),false); return toast('إيميل غير صالح.',true); }
   $('#btnEmailLogin').disabled=true;
-  try{
-    const cred=await auth.signInWithEmailAndPassword(email,pass);
-    // user will be handled by onAuthStateChanged
-    toast('');
-  }catch(e){
+  try{ await auth.signInWithEmailAndPassword(email,pass); }
+  catch(e){
     const c=e.code||'';
     if(c.includes('invalid-credential')||c.includes('wrong-password')){
       mark($('#inPass'),false); toast('الإيميل أو كلمة السر غير صحيحة.',true);
     }else toast('فشل الدخول: '+(e.message||e),true);
   }finally{ $('#btnEmailLogin').disabled=false; }
 }
-
 const googleProvider=new firebase.auth.GoogleAuthProvider();
 async function googleLogin(){
   $('#btnGoogleLogin').disabled=true;
@@ -398,7 +481,6 @@ async function googleLogin(){
     try { cred=await auth.signInWithPopup(googleProvider); }
     catch(e){ if((e.code||'').includes('popup-blocked')) cred=await auth.signInWithRedirect(googleProvider); else throw e; }
     if(!cred?.user){ toast('أكمل تسجيل الدخول بعد الرجوع من Google.'); return; }
-    toast('');
   }catch(e){ toast('إلغاء/خطأ Google: '+(e.message||e),true); }
   finally{ $('#btnGoogleLogin').disabled=false; }
 }
@@ -417,10 +499,9 @@ async function signup(){
   $('#btnSignup').disabled=true;
   try{
     const cred=await auth.createUserWithEmailAndPassword(email,pass);
-    const role=await writeUserDoc(cred.user,{first,last,phone,batch});
+    await writeUserDoc(cred.user,{first,last,phone,batch});
     setLang($('#langSelSignup').value);
     toast('تم إنشاء الحساب ✅');
-    // onAuthStateChanged يكمل
   }catch(e){ toast('فشل إنشاء الحساب: '+(e.message||e),true); }
   finally{ $('#btnSignup').disabled=false; }
 }
@@ -438,34 +519,24 @@ async function googleSignup(){
       setV($('#suEmail'),cred.user.email||'');
       setV($('#suFirst'),parts[0]||''); setV($('#suLast'),parts.slice(1).join(' ')||'');
       showView('signupView'); toast('أكمل البيانات ثم اضغط "إنشاء حساب بالبريد".');
-    }else{
-      toast('');
     }
   }catch(e){ toast('إلغاء/خطأ Google: '+(e.message||e),true); }
   finally{ $('#btnGoogleSignup').disabled=false; }
 }
 
-async function forgot(){
-  const email=val($('#inEmail'));
-  if(!okEmail(email)) { mark($('#inEmail'),false); return toast('اكتب بريدًا صالحًا أولًا.',true); }
-  try{ await auth.sendPasswordResetEmail(email); toast('تم إرسال رابط إعادة تعيين كلمة السر.'); }
-  catch(e){ toast('تعذّر الإرسال: '+(e.message||e),true); }
-}
-
 async function saveProfile(){
   const u=auth.currentUser; if(!u) return;
   const first=val($('#pfFirst')), last=val($('#pfLast'));
-  const phone=val($('#pfPhone')), batch=val($('#pfBatch')), photo=val($('#pfPhoto'));
+  const phone=val($('#pfPhone')), batch=val($('#pfBatch'));
+  const currentPhoto=$('#avatar').src||'';
   if(!min(first,1)||!min(last,1)) return toast('أكمل الاسم.',true);
   try{
-    const role=await writeUserDoc(u,{first,last,phone,batch,photoURL:photo});
+    const role=await writeUserDoc(u,{first,last,phone,batch,photoURL:currentPhoto});
     $('#roleBadge').textContent = role==='owner'?'Owner 👑':'Member';
     $('#helloName').textContent = `${first} ${last}`.trim() || 'عضو';
     toast('تم حفظ الملف ✅');
   }catch(e){ toast('تعذّر الحفظ: '+(e.message||e),true); }
-}
-
-async function logout(){
+}async function logout(){
   try{
     if(userListenerUnsubscribe){ userListenerUnsubscribe(); userListenerUnsubscribe=null; }
     await auth.signOut();
@@ -474,19 +545,47 @@ async function logout(){
   finally{ closeDrawer(); afterLogout(); }
 }
 
-/* ================= Loading Indicator & Ping ================= */
-function showLoading(v){ // بسيط جدًا
-  if(v) toast('… جاري تحميل بياناتك'); else toast('');
-}
+/* ================= Avatar upload (Storage) ================= */
+function pickAvatar(){ if(!auth.currentUser){ return toast('سجّل دخول أولًا.',true); } $('#fileAvatar').click(); }
+$('#fileAvatar').addEventListener('change', async (ev)=>{
+  const file=ev.target.files?.[0]; if(!file) return;
+  if(file.size>1_000_000) return toast('الملف كبير (>1MB).',true);
+  if(!file.type.startsWith('image/')) return toast('اختر صورة.',true);
+  try{
+    const uid=auth.currentUser.uid;
+    const ref = st.ref().child(`users/${uid}/avatar.jpg`);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+    $('#avatar').src=url;
+    await db.collection('users').doc(uid).set({ photoURL:url, updatedAt:firebase.firestore.FieldValue.serverTimestamp() },{merge:true});
+    toast('تم تحديث الصورة ✅');
+  }catch(e){ toast('تعذّر رفع الصورة: '+(e.message||e),true); }
+});
 
-// Ping rules
-(async()=>{
-  try{ await db.collection('ping').doc('hello').set({t:Date.now()},{merge:true}); }
-  catch(e){
-    if((e.code||'')==='permission-denied') toast('Firestore error: عدّل القواعد (Rules) أو فعّل المصادقة.',true);
-    else toast('تعذّر الاتصال بقاعدة البيانات',true);
-  }
-})();
+/* ================= Forgot: verify (email+phone last2 + batch) then send reset ================= */
+function openForgot(){ $('#forgotBack').style.display='block'; $('#forgot').classList.add('open'); }
+function closeForgot(){ $('#forgot').classList.remove('open'); $('#forgotBack').style.display='none'; }
+
+async function doRecovery(){
+  const email = val($('#fgEmail')).toLowerCase();
+  const phone = val($('#fgPhone'));
+  const batch = val($('#fgBatch'));
+  if(!okEmail(email) || !min(phone,7) || !min(batch,1)) return toast('أدخل بيانات صحيحة.',true);
+
+  try{
+    const snap = await db.collection('publicProfiles').doc(email).get();
+    if(!snap.exists){ return toast('لا يوجد حساب بهذا البريد.', true); }
+    const d = snap.data()||{};
+    const p2=(phone||'').slice(-2);
+    if((d.phoneLast2||'')===p2 && (d.batch||'')===batch){
+      await auth.sendPasswordResetEmail(email);
+      toast('تم إرسال رابط إعادة تعيين كلمة السر.');
+      closeForgot();
+    }else{
+      toast('بيانات التحقق غير مطابقة.', true);
+    }
+  }catch(e){ toast('تعذّر التحقق: '+(e.message||e), true); }
+}
 </script>
 </body>
 </html>
