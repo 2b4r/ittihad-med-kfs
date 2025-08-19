@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>اتحاد طب بشري كفر الشيخ</title>
 
-<!-- خطوط -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Inter:wght@400;600;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -13,8 +12,7 @@
 :root{
   --bg1:#0f1217; --bg2:#0b0d11;
   --card:rgba(255,255,255,.05);
-  --txt:#eef1f4; --mut:#a6acb3;
-  --bor:rgba(255,255,255,.10);
+  --txt:#eef1f4; --mut:#a6acb3; --bor:rgba(255,255,255,.10);
   --acc:#10b981; --warn:#ef4444;
   --ring:rgba(16,185,129,.34);
   --r-xl:18px; --r-lg:14px;
@@ -22,36 +20,30 @@
   --shadow:0 10px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.05);
 }
 :root.light{
-  --bg1:#f6f7fb; --bg2:#ffffff;
-  --card:#fff; --txt:#171a1f; --mut:#5e646b;
-  --bor:rgba(0,0,0,.08); --ring:rgba(17,94,89,.20);
-  --shadow:0 10px 24px rgba(0,0,0,.08);
+  --bg1:#f6f7fb; --bg2:#ffffff; --card:#fff; --txt:#171a1f; --mut:#5e646b;
+  --bor:rgba(0,0,0,.08); --ring:rgba(17,94,89,.20); --shadow:0 10px 24px rgba(0,0,0,.08);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0; font:var(--fs)/1.7 "Cairo",system-ui,-apple-system,Segoe UI,Roboto;
   color:var(--txt);
-  background:
-    radial-gradient(1200px 600px at 10% -10%,rgba(59,130,246,.14),transparent),
-    linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
+  background:radial-gradient(1200px 600px at 10% -10%,rgba(59,130,246,.14),transparent),
+             linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 body.ff-noto{font-family:"Noto Naskh Arabic",system-ui}
 body.ff-inter{font-family:"Inter",system-ui}
 a{color:#fff;text-decoration:underline 1px rgba(255,255,255,.35)}
-a:hover{opacity:.9}
 
 .topbar{
-  position:sticky;top:0;z-index:30;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:10px 14px;border-bottom:1px solid var(--bor);
   background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.08));
-  backdrop-filter:blur(var(--blur));
+  backdrop-filter:blur(var(--blur))
 }
 .brand{display:flex;align-items:center;gap:12px}
-.logo{width:40px;height:40px;object-fit:contain;border-radius:50%;cursor:pointer;
-  box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.logo{width:40px;height:40px;object-fit:contain;border-radius:50%;cursor:pointer;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
 .brand h1{font-size:18px;margin:0}
 .role-badge{font-size:12px;color:var(--mut);border:1px solid var(--bor);padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05)}
 
@@ -62,6 +54,7 @@ a:hover{opacity:.9}
 .row{display:flex;gap:var(--gap);flex-wrap:wrap;align-items:center}
 .sep{height:1px;background:var(--bor);border-radius:999px;margin:10px 0}
 .mut{color:var(--mut)}
+.badge-mini{font-size:12px;padding:4px 8px;background:rgba(255,255,255,.08);border-radius:8px;border:1px solid var(--bor)}
 
 input,select,button{border:1px solid var(--bor);border-radius:14px;background:rgba(255,255,255,.05);color:var(--txt);padding:10px 12px;outline:none;transition:.15s}
 input:focus,select:focus{box-shadow:0 0 0 4px var(--ring)}
@@ -82,7 +75,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 .field{position:relative}
 .eye{position:absolute;left:10px;top:50%;transform:translateY(-50%);cursor:pointer;user-select:none;opacity:.75}
 
-/* لوحة الإعدادات الجانبية */
+/* Drawer */
 .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;z-index:60}
 .drawer{position:fixed;top:0;bottom:0;left:0;width:min(90vw,380px);background:var(--card);border-inline-end:1px solid var(--bor);
   box-shadow:var(--shadow);transform:translateX(-100%);transition:.2s ease;z-index:70;padding:14px}
@@ -101,16 +94,14 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </header>
 
 <main class="container">
-  <!-- تنبيه عام للأخطاء -->
   <div id="globalAlert" class="alert"></div>
 
-  <!-- تبويبات بعد الدخول -->
   <div id="tabs" class="tabs" style="display:none">
     <div class="tab active" data-view="homeView" onclick="switchTab(this)">الرئيسية</div>
     <div class="tab" data-view="profileView" onclick="switchTab(this)">الملف الشخصي</div>
   </div>
 
-  <!-- شاشة الدخول -->
+  <!-- Auth -->
   <section id="authView" class="view active">
     <div class="card">
       <h2 style="margin-top:0">تسجيل الدخول</h2>
@@ -152,7 +143,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
     </div>
   </section>
 
-  <!-- شاشة إنشاء حساب -->
+  <!-- Signup -->
   <section id="signupView" class="view">
     <div class="card">
       <h2 style="margin-top:0">إنشاء حساب</h2>
@@ -171,7 +162,6 @@ button:disabled{opacity:.6;cursor:not-allowed}
         <div class="field"><label>كلمة السر</label><span class="eye" onclick="togglePass('suPass')">👁️</span><input id="suPass" type="password" placeholder="8+ حروف/أرقام" autocomplete="new-password"></div>
         <div class="field"><label>تأكيد كلمة السر</label><input id="suPass2" type="password" placeholder="إعادة كتابة كلمة السر" autocomplete="new-password"></div>
       </div>
-
       <div class="row" style="margin-top:10px">
         <button id="btnSignup" type="button" onclick="signup()" style="min-width:180px">إنشاء حساب بالبريد</button>
         <button id="btnGoogleSignup" type="button" class="google" onclick="googleSignup()">إنشاء/إكمال بحساب Google</button>
@@ -180,7 +170,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
     </div>
   </section>
 
-  <!-- الرئيسية -->
+  <!-- Home -->
   <section id="homeView" class="view">
     <div class="card">
       <h2 style="margin:0 0 8px">مرحبًا، <span id="helloName">عضو</span></h2>
@@ -193,7 +183,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
     </div>
   </section>
 
-  <!-- الملف الشخصي -->
+  <!-- Profile -->
   <section id="profileView" class="view">
     <div class="card">
       <h3 style="margin-top:0">الملف الشخصي</h3>
@@ -212,7 +202,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   </section>
 </main>
 
-<!-- الإعدادات (Drawer) -->
+<!-- Drawer -->
 <div id="drawerBackdrop" class="drawer-backdrop" onclick="closeDrawer()"></div>
 <aside id="drawer" class="drawer" aria-hidden="true">
   <div class="drawer-header">
@@ -235,7 +225,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <p class="mut" style="font-size:12px">اضغط على شعار الاتحاد لفتح هذه اللوحة في أي وقت.</p>
 </aside>
 
-<!-- Firebase SDKs -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -258,6 +248,7 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 const val = el => (el?.value || "").trim();
 const setV = (el,v)=>{ if(el) el.value = (v ?? ''); };
 const OWNER_EMAILS = ["dr.emara10@gmail.com"];
+let userListenerUnsubscribe = null;
 
 function toast(msg,err=false){
   const a=$('#globalAlert'); if(!a) return;
@@ -278,7 +269,7 @@ function setFont(f){ localStorage.setItem('font',f); document.body.classList.rem
 function setFs(sz){ localStorage.setItem('fs',sz); document.documentElement.style.setProperty('--fs',(sz||16)+'px'); }
 function toggleTheme(){ const light=document.documentElement.classList.toggle('light'); localStorage.setItem('theme', light?'light':'dark'); }
 
-// تهيئة تفضيلات مخزنة
+// boot prefs
 (function(){
   setLang(localStorage.getItem('lang')||'ar');
   setFont(localStorage.getItem('font')||'cairo');
@@ -296,9 +287,9 @@ const okEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e||'');
 const min = (s,n)=> (s||'').trim().length>=n;
 const mark = (el,ok)=>{ if(!el) return ok; el.classList.toggle('error',!ok); return ok; };
 
-/* ================= Firestore UserDoc ================= */
+/* ================= Firestore UserDoc/Duties ================= */
 async function writeUserDoc(u,data){
-  const role = OWNER_EMAILS.includes((u.email||'').toLowerCase()) ? 'owner' : 'member';
+  const role = OWNER_EMAILS.includes((u.email||'').toLowerCase()) ? 'owner' : (data.role || 'member');
   await db.collection('users').doc(u.uid).set({
     uid:u.uid,
     email:u.email||'',
@@ -316,22 +307,86 @@ async function writeUserDoc(u,data){
   return role;
 }
 async function loadUserDoc(uid){ const s=await db.collection('users').doc(uid).get(); return s.exists?s.data():null; }
+async function determineUserRole(user, doc){
+  if(doc?.role) return doc.role;
+  if(OWNER_EMAILS.includes((user.email||'').toLowerCase())){
+    await db.collection('users').doc(user.uid).set({ role:'owner' },{merge:true});
+    return 'owner';
+  }
+  return 'member';
+}
 
-/* ================= Auth (onclick handlers) ================= */
+/* ================= Auth State ================= */
+auth.onAuthStateChanged(async user=>{
+  try{
+    // نظف أي اشتراك قديم
+    if(userListenerUnsubscribe){ userListenerUnsubscribe(); userListenerUnsubscribe=null; }
+
+    if(user){
+      showLoading(true);
+      const doc = await loadUserDoc(user.uid);
+      const role = await determineUserRole(user, doc);
+      await afterLogin(user, role);
+      showLoading(false);
+    }else{
+      afterLogout();
+    }
+  }catch(err){
+    console.error('Auth state error:', err);
+    showLoading(false);
+    toast('حدث خطأ أثناء المصادقة. حاول مرة أخرى.', true);
+    afterLogout();
+  }
+});
+
+/* ================= Post-Login / Logout ================= */
+async function afterLogin(user,role){
+  $('#tabs').style.display='';
+  $('#roleBadge').textContent = role==='owner'?'Owner 👑':'Member';
+  $('#badAuth').textContent = user.email || user.uid;
+  $('#badRole').textContent = role==='owner'?'Owner 👑':'Member';
+  setV($('#pfEmail'), user.email || '');
+  $('#helloName').textContent = user.displayName || 'عضو';
+
+  // استمع لتحديثات ملف المستخدم
+  userListenerUnsubscribe = db.collection('users').doc(user.uid).onSnapshot(
+    s=>{
+      const d=s.data()||{};
+      setV($('#pfFirst'),d.first||'');
+      setV($('#pfLast'),d.last||'');
+      setV($('#pfPhone'),d.phone||'');
+      setV($('#pfBatch'),d.batch||'');
+      setV($('#pfPhoto'),d.photoURL||'');
+      $('#helloName').textContent = d.displayName || user.displayName || 'عضو';
+    },
+    e=>{
+      console.error('User doc snapshot error:', e);
+      toast('تعذّر مزامنة الملف الشخصي.', true);
+    }
+  );
+  showView('homeView');
+}
+function afterLogout(){
+  $('#tabs').style.display='none';
+  $('#roleBadge').textContent='غير مسجل';
+  showView('authView');
+  setV($('#inEmail'),''); setV($('#inPass'),'');
+}
+
+/* ================= Actions ================= */
 async function emailLogin(){
   const email=val($('#inEmail')), pass=val($('#inPass'));
   if(!okEmail(email)) { mark($('#inEmail'),false); return toast('إيميل غير صالح.',true); }
   $('#btnEmailLogin').disabled=true;
   try{
     const cred=await auth.signInWithEmailAndPassword(email,pass);
-    const doc=await loadUserDoc(cred.user.uid);
-    const role=doc?.role || (OWNER_EMAILS.includes(email.toLowerCase())?'owner':'member');
-    if(!doc) await writeUserDoc(cred.user,{});
-    toast(''); afterLogin(cred.user,role);
+    // user will be handled by onAuthStateChanged
+    toast('');
   }catch(e){
     const c=e.code||'';
-    if(c.includes('invalid-credential')||c.includes('wrong-password')){ mark($('#inPass'),false); toast('الإيميل أو كلمة السر غير صحيحة.',true); }
-    else toast('فشل الدخول: '+(e.message||e),true);
+    if(c.includes('invalid-credential')||c.includes('wrong-password')){
+      mark($('#inPass'),false); toast('الإيميل أو كلمة السر غير صحيحة.',true);
+    }else toast('فشل الدخول: '+(e.message||e),true);
   }finally{ $('#btnEmailLogin').disabled=false; }
 }
 
@@ -342,13 +397,8 @@ async function googleLogin(){
     let cred;
     try { cred=await auth.signInWithPopup(googleProvider); }
     catch(e){ if((e.code||'').includes('popup-blocked')) cred=await auth.signInWithRedirect(googleProvider); else throw e; }
-    if(!cred?.user){ // في حالة redirect سيتم استكمالها لاحقًا
-      toast('أكمل تسجيل الدخول بعد الرجوع من Google.'); return;
-    }
-    const doc=await loadUserDoc(cred.user.uid);
-    const role=doc?.role || (OWNER_EMAILS.includes((cred.user.email||'').toLowerCase())?'owner':'member');
-    if(!doc) await writeUserDoc(cred.user,{ first:(cred.user.displayName||'').split(' ')[0]||'' });
-    toast(''); afterLogin(cred.user,role);
+    if(!cred?.user){ toast('أكمل تسجيل الدخول بعد الرجوع من Google.'); return; }
+    toast('');
   }catch(e){ toast('إلغاء/خطأ Google: '+(e.message||e),true); }
   finally{ $('#btnGoogleLogin').disabled=false; }
 }
@@ -369,7 +419,8 @@ async function signup(){
     const cred=await auth.createUserWithEmailAndPassword(email,pass);
     const role=await writeUserDoc(cred.user,{first,last,phone,batch});
     setLang($('#langSelSignup').value);
-    toast('تم إنشاء الحساب ✅'); afterLogin(cred.user,role);
+    toast('تم إنشاء الحساب ✅');
+    // onAuthStateChanged يكمل
   }catch(e){ toast('فشل إنشاء الحساب: '+(e.message||e),true); }
   finally{ $('#btnSignup').disabled=false; }
 }
@@ -387,7 +438,9 @@ async function googleSignup(){
       setV($('#suEmail'),cred.user.email||'');
       setV($('#suFirst'),parts[0]||''); setV($('#suLast'),parts.slice(1).join(' ')||'');
       showView('signupView'); toast('أكمل البيانات ثم اضغط "إنشاء حساب بالبريد".');
-    }else{ afterLogin(cred.user,doc.role||'member'); }
+    }else{
+      toast('');
+    }
   }catch(e){ toast('إلغاء/خطأ Google: '+(e.message||e),true); }
   finally{ $('#btnGoogleSignup').disabled=false; }
 }
@@ -407,12 +460,33 @@ async function saveProfile(){
   try{
     const role=await writeUserDoc(u,{first,last,phone,batch,photoURL:photo});
     $('#roleBadge').textContent = role==='owner'?'Owner 👑':'Member';
+    $('#helloName').textContent = `${first} ${last}`.trim() || 'عضو';
     toast('تم حفظ الملف ✅');
   }catch(e){ toast('تعذّر الحفظ: '+(e.message||e),true); }
 }
 
-async function logout(){ await auth.signOut(); closeDrawer(); $('#
+async function logout(){
+  try{
+    if(userListenerUnsubscribe){ userListenerUnsubscribe(); userListenerUnsubscribe=null; }
+    await auth.signOut();
+    toast('تم تسجيل الخروج');
+  }catch(e){ toast('تعذّر تسجيل الخروج: '+(e.message||e),true); }
+  finally{ closeDrawer(); afterLogout(); }
+}
 
- <skirpt>
-                                                                <body>
-                                                                <Html>
+/* ================= Loading Indicator & Ping ================= */
+function showLoading(v){ // بسيط جدًا
+  if(v) toast('… جاري تحميل بياناتك'); else toast('');
+}
+
+// Ping rules
+(async()=>{
+  try{ await db.collection('ping').doc('hello').set({t:Date.now()},{merge:true}); }
+  catch(e){
+    if((e.code||'')==='permission-denied') toast('Firestore error: عدّل القواعد (Rules) أو فعّل المصادقة.',true);
+    else toast('تعذّر الاتصال بقاعدة البيانات',true);
+  }
+})();
+</script>
+</body>
+</html>
